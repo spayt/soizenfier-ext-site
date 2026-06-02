@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import ContactForm from "@/components/ContactForm";
 import {
   defaultLocale,
   getDictionary,
@@ -35,23 +35,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
         </header>
 
         <section className="space-y-6">
-          <div className="rounded-2xl bg-white p-6 shadow">
-            <h2 className="text-lg font-semibold">
-              {translate(dictionary, "contactPage.contactForm")}
-            </h2>
-            <p className="mt-2 text-sm text-slate-600">
-              {translate(dictionary, "contactPage.formNote")}
-            </p>
-            <div className="mt-4">
-              <Button asChild>
-                <a
-                  href={`mailto:${dictionary.mail.contact}?subject=Consultation%20booking`}
-                >
-                  {translate(dictionary, "contactPage.emailUs")}
-                </a>
-              </Button>
-            </div>
-          </div>
+          <ContactForm dictionary={dictionary} />
 
           <div className="rounded-2xl bg-white p-6 shadow">
             <h2 className="text-lg font-semibold">

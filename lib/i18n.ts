@@ -10,12 +10,44 @@ export type TranslationDictionary = {
     contact: string;
   };
   nav: {
-    ourWork: string;
+    home: string;
+    // ourWork: string;
+    about: string;
     services: string;
     hosting: string;
+    pricing: string;
     contactUs: string;
+    kimuntu: string;
     privacy: string;
     terms: string;
+  };
+  home: {
+    servicesHeading: string;
+    serviceCards: {
+      website: { title: string; desc: string };
+      adminDashboards: { title: string; desc: string };
+      hosting: { title: string; desc: string };
+      maintenance: { title: string; desc: string };
+      content: { title: string; desc: string };
+      seo: { title: string; desc: string };
+    };
+    whyHeading: string;
+    whyCards: { title: string; desc: string }[];
+    processHeading: string;
+    processSteps: { title: string; desc: string }[];
+    testimonialsHeading: string;
+    featuredProjectsHeading: string;
+    featuredProjectsCta: string;
+    pricingPreviewHeading: string;
+    pricingPreviewDescription: string;
+    pricingPreviewSubtitle: string;
+    pricingPreviewWebsiteLabel: string;
+    pricingPreviewMaintenanceLabel: string;
+    pricingPreviewButton: string;
+    ctaHeading: string;
+    ctaDescription: string;
+    ctaButton: string;
+    ctaSecondary: string;
   };
   hosting: {
     heading: string;
@@ -112,6 +144,15 @@ export type TranslationDictionary = {
     content: string;
     seo: string;
     contactService: string;
+    points: Record<
+      | "design"
+      | "dashboards"
+      | "hostedService"
+      | "maintenance"
+      | "content"
+      | "seo",
+      string[]
+    >;
   };
   pricingPage: {
     heading: string;
@@ -120,6 +161,22 @@ export type TranslationDictionary = {
     plans: string;
     requestQuote: string;
     getStarted: string;
+    websitePackages: Record<
+      string,
+      {
+        title: string;
+        priceRange: string;
+        bullets: string[];
+      }
+    >;
+    monthlyPlans: Record<
+      string,
+      {
+        title: string;
+        price: string;
+        bullets: string[];
+      }
+    >;
   };
   aboutPage: {
     title: string;
@@ -138,6 +195,13 @@ export type TranslationDictionary = {
     intro: string;
     contactForm: string;
     formNote: string;
+    nameLabel: string;
+    emailLabel: string;
+    subjectLabel: string;
+    messageLabel: string;
+    submitButton: string;
+    successMessage: string;
+    errorMessage: string;
     emailUs: string;
     otherWays: string;
     phone: string;
@@ -164,12 +228,110 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       contact: compagnyEmail,
     },
     nav: {
-      ourWork: "Our Work",
+      home: "Home",
+      // ourWork: "Our Work",
+      about: "About",
       services: "Services",
       hosting: "Hosting",
+      pricing: "Pricing",
       contactUs: "Contact Us",
+      kimuntu: "Kimuntu Gallery",
       privacy: "Privacy",
       terms: "Terms",
+    },
+    home: {
+      servicesHeading: "What we build",
+      serviceCards: {
+        website: {
+          title: "Website Design & Development",
+          desc: "Fast, SEO-friendly marketing sites and e-commerce.",
+        },
+        adminDashboards: {
+          title: "Admin Dashboards",
+          desc: "Membership management, reporting, and internal tools.",
+        },
+        hosting: {
+          title: "Managed Hosting",
+          desc: "Reliable website hosting with daily backups and security.",
+        },
+        maintenance: {
+          title: "Website Maintenance",
+          desc: "Ongoing updates, fixes, and publishing support.",
+        },
+        content: {
+          title: "Content Updates",
+          desc: "Fresh content, images, and page changes without the hassle.",
+        },
+        seo: {
+          title: "SEO Monitoring",
+          desc: "Search performance tracking and optimization support.",
+        },
+      },
+      whyHeading: "Why Choose Us",
+      whyCards: [
+        {
+          title: "Fast Loading Websites",
+          desc: "Optimized performance and quick page speeds.",
+        },
+        {
+          title: "Mobile-First Design",
+          desc: "Responsive layouts that work on all devices.",
+        },
+        {
+          title: "Secure Hosting",
+          desc: "SSL, backups, and security monitoring included.",
+        },
+        {
+          title: "Ongoing Support",
+          desc: "Regular maintenance and updates for peace of mind.",
+        },
+        {
+          title: "Transparent Pricing",
+          desc: "Clear pricing packages with no hidden fees.",
+        },
+        {
+          title: "Direct Communication",
+          desc: "Work directly with the founder, no middlemen.",
+        },
+      ],
+      processHeading: "Our Process",
+      processSteps: [
+        {
+          title: "Discovery",
+          desc: "Understanding your goals and requirements.",
+        },
+        {
+          title: "Design",
+          desc: "Creating beautiful, user-focused layouts.",
+        },
+        {
+          title: "Development",
+          desc: "Building with modern, maintainable code.",
+        },
+        {
+          title: "Launch",
+          desc: "Deploying your site with care and support.",
+        },
+        {
+          title: "Support & Growth",
+          desc: "Ongoing updates and scaling assistance.",
+        },
+      ],
+      testimonialsHeading: "Client Testimonials",
+      featuredProjectsHeading: "Featured Projects",
+      featuredProjectsCta: "View case study →",
+      pricingPreviewHeading: "Simple, Transparent Pricing",
+      pricingPreviewDescription:
+        "Website projects that fit your goals and budget.",
+      pricingPreviewSubtitle: "Website Projects",
+      pricingPreviewWebsiteLabel: "Website Projects",
+      pricingPreviewMaintenanceLabel: "Maintenance Plans",
+      pricingPreviewButton: "View All Plans",
+      ctaHeading: "Ready to launch your project?",
+      ctaDescription:
+        "Let's work together to create a site that drives growth and engages your audience.",
+      ctaButton: "Get a Quote",
+      ctaSecondary: "Schedule Consultation",
     },
     hosting: {
       heading: "Hosting for your website",
@@ -309,6 +471,46 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       content: "Content Updates",
       seo: "SEO Monitoring",
       contactService: "Contact about this service",
+      points: {
+        design: [
+          "Custom websites",
+          "Responsive design",
+          "Contact forms",
+          "CMS integration",
+          "Analytics",
+        ],
+        dashboards: [
+          "Membership management",
+          "Booking systems",
+          "Internal tools",
+          "Reporting dashboards",
+        ],
+        hostedService: [
+          "SSL certificates",
+          "Daily backups",
+          "Monitoring",
+          "CDN",
+          "Security updates",
+        ],
+        maintenance: [
+          "Bug fixes",
+          "Framework updates",
+          "Security patches",
+          "Monthly reports",
+        ],
+        content: [
+          "New pages",
+          "Blog posts",
+          "Event updates",
+          "Image replacements",
+        ],
+        seo: [
+          "Search Console setup",
+          "Keyword tracking",
+          "Performance reports",
+          "Technical SEO checks",
+        ],
+      },
     },
     pricingPage: {
       heading: "Website Packages & Monthly Plans",
@@ -318,6 +520,69 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       plans: "Monthly Plans",
       requestQuote: "Request Quote",
       getStarted: "Get Started",
+      websitePackages: {
+        starter: {
+          title: "Starter Website",
+          priceRange: "$2,500 – $4,000 CAD",
+          bullets: [
+            "Up to 5 pages",
+            "Responsive design",
+            "Contact form",
+            "Basic SEO",
+          ],
+        },
+        business: {
+          title: "Business Website",
+          priceRange: "$4,000 – $8,000 CAD",
+          bullets: ["10–20 pages", "CMS", "Blog", "Advanced SEO setup"],
+        },
+        custom: {
+          title: "Custom Platform",
+          priceRange: "$8,000 – $25,000+ CAD",
+          bullets: [
+            "Custom dashboard",
+            "Stripe integration",
+            "User accounts",
+            "Automation",
+          ],
+        },
+      },
+      monthlyPlans: {
+        essential: {
+          title: "Essential Care",
+          price: "$99 CAD/month",
+          bullets: ["Hosting", "SSL", "Backups", "Monitoring"],
+        },
+        growth: {
+          title: "Growth Plan",
+          price: "$249 CAD/month",
+          bullets: [
+            "Everything in Essential",
+            "1 hour updates/month",
+            "Monthly maintenance",
+          ],
+        },
+        premium: {
+          title: "Premium Plan",
+          price: "$499 CAD/month",
+          bullets: [
+            "Everything in Growth",
+            "Up to 4 hours updates/month",
+            "SEO monitoring",
+            "Priority support",
+          ],
+        },
+        "managed-content": {
+          title: "Managed Content Plan",
+          price: "$799–$1,500 CAD/month",
+          bullets: [
+            "Content updates",
+            "Landing pages",
+            "Blog publishing",
+            "SEO recommendations",
+          ],
+        },
+      },
     },
     aboutPage: {
       title: "About",
@@ -340,8 +605,14 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       intro:
         "Ready to launch your next website? Reach out and we'll schedule a consultation.",
       contactForm: "Contact form",
-      formNote:
-        "(Replace with a real form integration — currently links to email.)",
+      formNote: "Fill out the form below and we'll reply as soon as possible.",
+      nameLabel: "Your name",
+      emailLabel: "Email address",
+      subjectLabel: "Subject",
+      messageLabel: "Message",
+      submitButton: "Send message",
+      successMessage: "Thank you! Your message has been sent.",
+      errorMessage: "Something went wrong. Please try again later.",
       emailUs: "Email us",
       otherWays: "Other ways to reach us",
       phone: compagnyPhone,
@@ -354,12 +625,110 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       contact: compagnyEmail,
     },
     nav: {
-      ourWork: "Notre travail",
+      home: "Accueil",
+      // ourWork: "Notre travail",
+      about: "À propos",
       services: "Services",
       hosting: "Hébergement",
+      pricing: "Tarifs",
       contactUs: "Contactez-nous",
+      kimuntu: "Galerie Kimuntu",
       privacy: "Confidentialité",
       terms: "Conditions",
+    },
+    home: {
+      servicesHeading: "Ce que nous construisons",
+      serviceCards: {
+        website: {
+          title: "Conception & développement de sites web",
+          desc: "Sites marketing rapides, optimisés SEO et e-commerce.",
+        },
+        adminDashboards: {
+          title: "Tableaux de bord d'administration",
+          desc: "Gestion des membres, rapports et outils internes.",
+        },
+        hosting: {
+          title: "Hébergement géré",
+          desc: "Hébergement fiable avec sauvegardes quotidiennes et sécurité.",
+        },
+        maintenance: {
+          title: "Maintenance de site web",
+          desc: "Mises à jour continues, corrections et support de publication.",
+        },
+        content: {
+          title: "Mises à jour de contenu",
+          desc: "Contenu frais, images et modifications de pages sans effort.",
+        },
+        seo: {
+          title: "Suivi SEO",
+          desc: "Suivi des performances de recherche et optimisation.",
+        },
+      },
+      whyHeading: "Pourquoi nous choisir",
+      whyCards: [
+        {
+          title: "Sites rapides",
+          desc: "Performances optimisées et vitesse de chargement élevée.",
+        },
+        {
+          title: "Design mobile-first",
+          desc: "Des mises en page réactives qui fonctionnent sur tous les appareils.",
+        },
+        {
+          title: "Hébergement sécurisé",
+          desc: "SSL, sauvegardes et surveillance de la sécurité inclus.",
+        },
+        {
+          title: "Support continu",
+          desc: "Maintenance régulière et mises à jour pour plus de sérénité.",
+        },
+        {
+          title: "Tarification transparente",
+          desc: "Des forfaits clairs sans frais cachés.",
+        },
+        {
+          title: "Communication directe",
+          desc: "Travaillez directement avec le fondateur, sans intermédiaire.",
+        },
+      ],
+      processHeading: "Notre processus",
+      processSteps: [
+        {
+          title: "Découverte",
+          desc: "Comprendre vos objectifs et vos besoins.",
+        },
+        {
+          title: "Conception",
+          desc: "Créer des parcours utilisateurs clairs et attractifs.",
+        },
+        {
+          title: "Développement",
+          desc: "Construire avec du code moderne et maintenable.",
+        },
+        {
+          title: "Lancement",
+          desc: "Déployer votre site avec soin et support.",
+        },
+        {
+          title: "Support & Croissance",
+          desc: "Mises à jour continues et assistance pour évoluer.",
+        },
+      ],
+      testimonialsHeading: "Témoignages clients",
+      featuredProjectsHeading: "Projets en vedette",
+      featuredProjectsCta: "Voir l'étude de cas →",
+      pricingPreviewHeading: "Tarification simple et transparente",
+      pricingPreviewDescription:
+        "Des projets web adaptés à vos objectifs et votre budget.",
+      pricingPreviewSubtitle: "Projets Web",
+      pricingPreviewWebsiteLabel: "Projets Web",
+      pricingPreviewMaintenanceLabel: "Forfaits de maintenance",
+      pricingPreviewButton: "Voir tous les forfaits",
+      ctaHeading: "Prêt à lancer votre projet ?",
+      ctaDescription:
+        "Collaborons pour créer un site qui stimule la croissance et engage votre audience.",
+      ctaButton: "Demandez un devis",
+      ctaSecondary: "Planifier une consultation",
     },
     hosting: {
       heading: "Hébergement pour votre site",
@@ -501,6 +870,46 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       content: "Mises à jour de contenu",
       seo: "Suivi SEO",
       contactService: "Contacter pour ce service",
+      points: {
+        design: [
+          "Sites web sur mesure",
+          "Design responsive",
+          "Formulaires de contact",
+          "Intégration CMS",
+          "Analytique",
+        ],
+        dashboards: [
+          "Gestion des membres",
+          "Systèmes de réservation",
+          "Outils internes",
+          "Tableaux de bord de reporting",
+        ],
+        hostedService: [
+          "Certificats SSL",
+          "Sauvegardes quotidiennes",
+          "Surveillance",
+          "CDN",
+          "Mises à jour de sécurité",
+        ],
+        maintenance: [
+          "Corrections de bugs",
+          "Mises à jour du framework",
+          "Patches de sécurité",
+          "Rapports mensuels",
+        ],
+        content: [
+          "Nouvelles pages",
+          "Articles de blog",
+          "Mises à jour d'événements",
+          "Remplacements d'images",
+        ],
+        seo: [
+          "Configuration Search Console",
+          "Suivi des mots-clés",
+          "Rapports de performance",
+          "Contrôles SEO techniques",
+        ],
+      },
     },
     pricingPage: {
       heading: "Forfaits Web et plans mensuels",
@@ -510,6 +919,74 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       plans: "Plans mensuels",
       requestQuote: "Demander un devis",
       getStarted: "Commencer",
+      websitePackages: {
+        starter: {
+          title: "Forfait de démarrage",
+          priceRange: "2 500 $ – 4 000 $ CAD",
+          bullets: [
+            "Jusqu'à 5 pages",
+            "Design responsive",
+            "Formulaire de contact",
+            "SEO de base",
+          ],
+        },
+        business: {
+          title: "Forfait Affaires",
+          priceRange: "4 000 $ – 8 000 $ CAD",
+          bullets: [
+            "10 à 20 pages",
+            "CMS",
+            "Blog",
+            "Configuration SEO avancée",
+          ],
+        },
+        custom: {
+          title: "Plateforme sur mesure",
+          priceRange: "8 000 $ – 25 000+ $ CAD",
+          bullets: [
+            "Tableau de bord personnalisé",
+            "Intégration Stripe",
+            "Comptes utilisateur",
+            "Automatisation",
+          ],
+        },
+      },
+      monthlyPlans: {
+        essential: {
+          title: "Assistance essentielle",
+          price: "99 $ CAD/mois",
+          bullets: ["Hébergement", "SSL", "Sauvegardes", "Surveillance"],
+        },
+        growth: {
+          title: "Plan Croissance",
+          price: "249 $ CAD/mois",
+          bullets: [
+            "Tout ce qui est dans Essentiel",
+            "1 heure de mises à jour/mois",
+            "Maintenance mensuelle",
+          ],
+        },
+        premium: {
+          title: "Plan Premium",
+          price: "499 $ CAD/mois",
+          bullets: [
+            "Tout ce qui est dans Croissance",
+            "Jusqu'à 4 heures de mises à jour/mois",
+            "Suivi SEO",
+            "Support prioritaire",
+          ],
+        },
+        "managed-content": {
+          title: "Forfait Contenu géré",
+          price: "799–1 500 $ CAD/mois",
+          bullets: [
+            "Mises à jour de contenu",
+            "Pages d'atterrissage",
+            "Publication de blog",
+            "Recommandations SEO",
+          ],
+        },
+      },
     },
     aboutPage: {
       title: "À propos",
@@ -533,7 +1010,14 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         "Prêt à lancer votre prochain site web ? Contactez-nous et nous planifierons une consultation.",
       contactForm: "Formulaire de contact",
       formNote:
-        "(À remplacer par une vraie intégration de formulaire — actuellement lié au courrier électronique.)",
+        "Remplissez le formulaire ci-dessous et nous répondrons dès que possible.",
+      nameLabel: "Votre nom",
+      emailLabel: "Adresse email",
+      subjectLabel: "Sujet",
+      messageLabel: "Message",
+      submitButton: "Envoyer le message",
+      successMessage: "Merci ! Votre message a été envoyé.",
+      errorMessage: "Une erreur est survenue. Veuillez réessayer plus tard.",
       emailUs: "Nous envoyer un email",
       otherWays: "Autres façons de nous contacter",
       phone: compagnyPhone,

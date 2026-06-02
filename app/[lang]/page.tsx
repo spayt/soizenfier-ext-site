@@ -9,7 +9,6 @@ import {
   localePath,
   locales,
   translate,
-  type Locale,
 } from "@/lib/i18n";
 
 export const generateStaticParams = () => locales.map((lang) => ({ lang }));
@@ -25,6 +24,18 @@ export default async function Home({ params }: HomePageProps) {
   const lang = isLocale(langParam) ? langParam : defaultLocale;
   const dictionary = getDictionary(lang);
   const projects = getProjectList(dictionary);
+
+  const serviceCards = [
+    dictionary.home.serviceCards.website,
+    dictionary.home.serviceCards.adminDashboards,
+    dictionary.home.serviceCards.hosting,
+    dictionary.home.serviceCards.maintenance,
+    dictionary.home.serviceCards.content,
+    dictionary.home.serviceCards.seo,
+  ];
+
+  const whyItems = dictionary.home.whyCards;
+  const processSteps = dictionary.home.processSteps;
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -70,55 +81,28 @@ export default async function Home({ params }: HomePageProps) {
             {translate(dictionary, "services.heading")}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              "Website Design & Development",
-              "Admin Dashboards",
-              "Managed Hosting",
-              "Website Maintenance",
-              "Content Updates",
-              "SEO Monitoring",
-            ].map((s) => (
-              <div key={s} className="card">
+            {serviceCards.map((card) => (
+              <div key={card.title} className="card">
                 <div className="w-10 h-10 bg-slate-100 rounded-md flex items-center justify-center text-slate-700 font-semibold">
-                  {s.split(" ").slice(0, 1)[0][0]}
+                  {card.title.slice(0, 1)}
                 </div>
-                <h3 className="mt-3 font-semibold">{s}</h3>
-                <p className="mt-2 text-sm text-slate-600">{s}</p>
+                <h3 className="mt-3 font-semibold">{card.title}</h3>
+                <p className="mt-2 text-sm text-slate-600">{card.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
         <section id="why-choose-us" className="rounded-3xl bg-slate-100 p-10">
-          <h2 className="text-3xl font-bold mb-8">Why Choose Us</h2>
+          <h2 className="text-3xl font-bold mb-8">
+            {translate(dictionary, "home.whyHeading")}
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Fast Loading Websites",
-                desc: "Optimized performance and quick page speeds.",
-              },
-              {
-                title: "Mobile-First Design",
-                desc: "Responsive layouts that work on all devices.",
-              },
-              {
-                title: "Secure Hosting",
-                desc: "SSL, backups, and security monitoring included.",
-              },
-              {
-                title: "Ongoing Support",
-                desc: "Regular maintenance and updates for peace of mind.",
-              },
-              {
-                title: "Transparent Pricing",
-                desc: "Clear pricing packages with no hidden fees.",
-              },
-              {
-                title: "Direct Communication",
-                desc: "Work directly with the founder, no middlemen.",
-              },
-            ].map((item) => (
-              <div key={item.title} className="bg-white rounded-2xl p-6">
+            {whyItems.map((item) => (
+              <div
+                key={item.title}
+                className="bg-white rounded-2xl p-6 transition duration-300 ease-out hover:-translate-y-1 hover:bg-yellow-50 hover:shadow-xl"
+              >
                 <h3 className="font-semibold text-slate-900">{item.title}</h3>
                 <p className="mt-2 text-sm text-slate-600">{item.desc}</p>
               </div>
@@ -127,38 +111,14 @@ export default async function Home({ params }: HomePageProps) {
         </section>
 
         <section id="process" className="space-y-8">
-          <h2 className="text-3xl font-bold">Our Process</h2>
+          <h2 className="text-3xl font-bold">
+            {translate(dictionary, "home.processHeading")}
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            {[
-              {
-                num: "1",
-                title: "Discovery",
-                desc: "Understanding your goals and requirements.",
-              },
-              {
-                num: "2",
-                title: "Design",
-                desc: "Creating beautiful, user-focused layouts.",
-              },
-              {
-                num: "3",
-                title: "Development",
-                desc: "Building with modern, maintainable code.",
-              },
-              {
-                num: "4",
-                title: "Launch",
-                desc: "Deploying your site with care and support.",
-              },
-              {
-                num: "5",
-                title: "Support & Growth",
-                desc: "Ongoing updates and scaling assistance.",
-              },
-            ].map((step) => (
-              <div key={step.num} className="text-center">
+            {processSteps.map((step, index) => (
+              <div key={step.title} className="text-center">
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-yellow-400 text-slate-900 font-bold text-lg">
-                  {step.num}
+                  {index + 1}
                 </div>
                 <h3 className="mt-3 font-semibold">{step.title}</h3>
                 <p className="mt-2 text-sm text-slate-600">{step.desc}</p>
@@ -167,82 +127,10 @@ export default async function Home({ params }: HomePageProps) {
           </div>
         </section>
 
-        <section
-          id="hosting"
-          className="grid grid-cols-1 xl:grid-cols-[0.9fr_1.1fr] gap-8"
-        >
-          <div className="rounded-3xl bg-white p-10 shadow-lg shadow-slate-200/50">
-            <p className="text-sky-600 font-semibold uppercase tracking-[0.24em] mb-3">
-              {translate(dictionary, "hosting.heading")}
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight">
-              {translate(dictionary, "hosting.title")}
-            </h2>
-            <p className="mt-6 text-slate-600 leading-8">
-              {translate(dictionary, "hosting.description")}
-            </p>
-            <div className="mt-8 grid gap-4">
-              <div className="rounded-3xl bg-slate-50 p-6">
-                <h3 className="font-semibold">
-                  {translate(dictionary, "hosting.infoTitle")}
-                </h3>
-                <p className="mt-2 text-sm text-slate-600">
-                  {translate(dictionary, "hosting.infoDescription")}
-                </p>
-              </div>
-              <div className="grid gap-3 text-sm text-slate-600">
-                <div className="rounded-3xl bg-slate-50 p-5">
-                  <p>{translate(dictionary, "hosting.infoFeature1")}</p>
-                </div>
-                <div className="rounded-3xl bg-slate-50 p-5">
-                  <p>{translate(dictionary, "hosting.infoFeature2")}</p>
-                </div>
-                <div className="rounded-3xl bg-slate-50 p-5">
-                  <p>{translate(dictionary, "hosting.infoFeature3")}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-3xl bg-slate-50 p-8 shadow-lg shadow-slate-200/40">
-            <div className="rounded-3xl bg-white p-8 shadow-sm shadow-slate-200/50">
-              <span className="text-sm uppercase tracking-[0.24em] text-sky-600">
-                {translate(dictionary, "hosting.planLabel")}
-              </span>
-              <div className="mt-4 flex items-end justify-between gap-4">
-                <div>
-                  <h3 className="text-3xl font-bold text-slate-900">
-                    {translate(dictionary, "hosting.planPrice")}
-                  </h3>
-                  <p className="mt-2 text-sm text-slate-500">
-                    {translate(dictionary, "hosting.planCycle")}
-                  </p>
-                </div>
-                <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
-                  {translate(dictionary, "hosting.paymentCta")}
-                </div>
-              </div>
-              <p className="mt-6 text-slate-600 leading-7">
-                {translate(dictionary, "hosting.planDescription")}
-              </p>
-              <ul className="mt-6 space-y-3 text-sm text-slate-600">
-                <li>• {translate(dictionary, "hosting.planFeature1")}</li>
-                <li>• {translate(dictionary, "hosting.planFeature2")}</li>
-                <li>• {translate(dictionary, "hosting.planFeature3")}</li>
-              </ul>
-              <Button asChild className="mt-8 inline-flex">
-                <a
-                  href={`mailto:${dictionary.mail.contact}?subject=Hosting%20Plan`}
-                >
-                  {translate(dictionary, "hosting.button")}
-                </a>
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        <section id="testimonials" className="space-y-8">
-          <h2 className="text-3xl font-bold">Client Testimonials</h2>
+        {/* <section id="testimonials" className="space-y-8">
+          <h2 className="text-3xl font-bold">
+            {translate(dictionary, "home.testimonialsHeading")}
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
@@ -268,7 +156,7 @@ export default async function Home({ params }: HomePageProps) {
                 key={testimonial.name}
                 className="rounded-2xl bg-white p-6 shadow"
               >
-                <p className="text-slate-600 italic">"{testimonial.quote}"</p>
+                <p className="text-slate-600 italic">“{testimonial.quote}”</p>
                 <div className="mt-4 font-semibold text-slate-900">
                   {testimonial.name}
                 </div>
@@ -278,10 +166,12 @@ export default async function Home({ params }: HomePageProps) {
               </div>
             ))}
           </div>
-        </section>
+        </section>*/}
 
-        <section id="work">
-          <h2 className="text-3xl font-bold mb-8">Featured Projects</h2>
+        {/*<section id="work">
+          <h2 className="text-3xl font-bold mb-8">
+            {translate(dictionary, "home.featuredProjectsHeading")}
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project) => (
               <Link
@@ -295,34 +185,43 @@ export default async function Home({ params }: HomePageProps) {
                 <h4 className="mt-4 text-lg font-semibold">{project.title}</h4>
                 <p className="mt-2 text-slate-600">{project.summary}</p>
                 <div className="mt-4 text-sm text-sky-600 group-hover:underline">
-                  View case study →
+                  {translate(dictionary, "home.featuredProjectsCta")}
                 </div>
               </Link>
             ))}
           </div>
-        </section>
+        </section>*/}
 
         <section
           id="pricing-preview"
           className="rounded-3xl bg-yellow-50 p-10 text-center"
         >
           <h2 className="text-3xl font-bold mb-6">
-            Simple, Transparent Pricing
+            {translate(dictionary, "home.pricingPreviewHeading")}
           </h2>
+          <p className="text-slate-600 mb-8">
+            {translate(dictionary, "home.pricingPreviewDescription")}
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <p className="text-slate-600">Website Projects</p>
+              <p className="text-slate-600">
+                {dictionary.home.pricingPreviewWebsiteLabel}
+              </p>
               <p className="text-5xl font-bold text-slate-900">$2,500+</p>
             </div>
             <div>
-              <p className="text-slate-600">Maintenance Plans</p>
+              <p className="text-slate-600">
+                {dictionary.home.pricingPreviewMaintenanceLabel}
+              </p>
               <p className="text-5xl font-bold text-slate-900">
                 $99+<span className="text-lg">/mo</span>
               </p>
             </div>
           </div>
           <Button asChild className="mt-8">
-            <Link href={localePath(lang, "/pricing")}>View All Plans</Link>
+            <Link href={localePath(lang, "/pricing")}>
+              {dictionary.home.pricingPreviewButton}
+            </Link>
           </Button>
         </section>
 
@@ -331,11 +230,10 @@ export default async function Home({ params }: HomePageProps) {
           className="rounded-3xl bg-slate-900 text-white p-10 text-center"
         >
           <h2 className="text-3xl font-bold mb-4">
-            Ready to Launch Your Next Website?
+            {translate(dictionary, "home.ctaHeading")}
           </h2>
           <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
-            Let's work together to create a site that drives growth and engages
-            your audience.
+            {dictionary.home.ctaDescription}
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Button
@@ -345,16 +243,16 @@ export default async function Home({ params }: HomePageProps) {
               <a
                 href={`mailto:${dictionary.mail.contact}?subject=Get%20a%20Quote`}
               >
-                Get a Quote
+                {dictionary.home.ctaButton}
               </a>
             </Button>
             <Button
               asChild
               variant="outline"
-              className="border-white text-white hover:bg-slate-800"
+              className="border-white text-black hover:bg-green-100"
             >
               <Link href={localePath(lang, "/contact")}>
-                Schedule Consultation
+                {dictionary.home.ctaSecondary}
               </Link>
             </Button>
           </div>

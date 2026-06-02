@@ -39,28 +39,37 @@ export default async function PricingPage({ params }: PricingPageProps) {
         </header>
 
         <section className="grid gap-8 md:grid-cols-3">
-          {websitePackages.map((pkg) => (
-            <div key={pkg.id} className="rounded-3xl bg-white p-8 shadow">
-              <h3 className="text-xl font-semibold">{pkg.title}</h3>
-              <p className="mt-2 text-slate-600 font-medium">
-                {pkg.priceRange}
-              </p>
-              <ul className="mt-4 space-y-2 text-slate-600">
-                {pkg.bullets.map((b) => (
-                  <li key={b}>• {b}</li>
-                ))}
-              </ul>
-              <div className="mt-6">
-                <Button asChild>
-                  <a
-                    href={`mailto:${dictionary.mail.contact}?subject=${encodeURIComponent(pkg.title + " quote")}`}
-                  >
-                    {translate(dictionary, "pricingPage.requestQuote")}
-                  </a>
-                </Button>
+          {websitePackages.map((pkg) => {
+            const pkgTranslation =
+              dictionary.pricingPage.websitePackages[pkg.id];
+            return (
+              <div
+                key={pkg.id}
+                className="rounded-3xl bg-white p-8 shadow transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
+              >
+                <h3 className="text-xl font-semibold">
+                  {pkgTranslation?.title ?? pkg.title}
+                </h3>
+                <p className="mt-2 text-slate-600 font-medium">
+                  {pkgTranslation?.priceRange ?? pkg.priceRange}
+                </p>
+                <ul className="mt-4 space-y-2 text-slate-600">
+                  {(pkgTranslation?.bullets ?? pkg.bullets).map((b) => (
+                    <li key={b}>• {b}</li>
+                  ))}
+                </ul>
+                <div className="mt-6">
+                  <Button asChild>
+                    <a
+                      href={`mailto:${dictionary.mail.contact}?subject=${encodeURIComponent((pkgTranslation?.title ?? pkg.title) + " quote")}`}
+                    >
+                      {translate(dictionary, "pricingPage.requestQuote")}
+                    </a>
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </section>
 
         <section className="mt-12">
@@ -68,26 +77,37 @@ export default async function PricingPage({ params }: PricingPageProps) {
             {translate(dictionary, "pricingPage.plans")}
           </h2>
           <div className="grid gap-6 md:grid-cols-4">
-            {monthlyPlans.map((plan) => (
-              <div key={plan.id} className="rounded-3xl bg-white p-6 shadow">
-                <h4 className="text-lg font-semibold">{plan.title}</h4>
-                <p className="mt-2 text-slate-700 font-medium">{plan.price}</p>
-                <ul className="mt-4 space-y-2 text-slate-600">
-                  {plan.bullets.map((b) => (
-                    <li key={b}>• {b}</li>
-                  ))}
-                </ul>
-                <div className="mt-6">
-                  <Button asChild>
-                    <a
-                      href={`mailto:${dictionary.mail.contact}?subject=${encodeURIComponent(plan.title + " plan")}`}
-                    >
-                      {translate(dictionary, "pricingPage.getStarted")}
-                    </a>
-                  </Button>
+            {monthlyPlans.map((plan) => {
+              const planTranslation =
+                dictionary.pricingPage.monthlyPlans[plan.id];
+              return (
+                <div
+                  key={plan.id}
+                  className="rounded-3xl bg-white p-6 shadow transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
+                >
+                  <h4 className="text-lg font-semibold">
+                    {planTranslation?.title ?? plan.title}
+                  </h4>
+                  <p className="mt-2 text-slate-700 font-medium">
+                    {planTranslation?.price ?? plan.price}
+                  </p>
+                  <ul className="mt-4 space-y-2 text-slate-600">
+                    {(planTranslation?.bullets ?? plan.bullets).map((b) => (
+                      <li key={b}>• {b}</li>
+                    ))}
+                  </ul>
+                  <div className="mt-6">
+                    <Button asChild>
+                      <a
+                        href={`mailto:${dictionary.mail.contact}?subject=${encodeURIComponent((planTranslation?.title ?? plan.title) + " plan")}`}
+                      >
+                        {translate(dictionary, "pricingPage.getStarted")}
+                      </a>
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       </main>

@@ -44,7 +44,7 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
       ],
     },
     {
-      id: "hosting",
+      id: "hostedService",
       titleKey: "servicesPage.hostedService",
       points: [
         "SSL certificates",
@@ -104,27 +104,36 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
         </header>
 
         <section className="grid gap-8 md:grid-cols-2">
-          {services.map((s) => (
-            <div key={s.id} className="rounded-3xl bg-white p-8 shadow-lg">
-              <h3 className="text-2xl font-semibold">
-                {translate(dictionary, s.titleKey)}
-              </h3>
-              <ul className="mt-4 space-y-2 text-slate-600">
-                {s.points.map((p) => (
-                  <li key={p}>• {p}</li>
-                ))}
-              </ul>
-              <div className="mt-6">
-                <Button asChild>
-                  <a
-                    href={`mailto:${dictionary.mail.contact}?subject=${encodeURIComponent(translate(dictionary, s.titleKey))}`}
-                  >
-                    {translate(dictionary, "servicesPage.contactService")}
-                  </a>
-                </Button>
+          {services.map((s) => {
+            const points =
+              dictionary.servicesPage.points[
+                s.id as keyof typeof dictionary.servicesPage.points
+              ] || [];
+            return (
+              <div
+                key={s.id}
+                className="rounded-3xl bg-white p-8 shadow-lg transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
+              >
+                <h3 className="text-2xl font-semibold">
+                  {translate(dictionary, s.titleKey)}
+                </h3>
+                <ul className="mt-4 space-y-2 text-slate-600">
+                  {points.map((p) => (
+                    <li key={p}>• {p}</li>
+                  ))}
+                </ul>
+                <div className="mt-6">
+                  <Button asChild>
+                    <a
+                      href={`mailto:${dictionary.mail.contact}?subject=${encodeURIComponent(translate(dictionary, s.titleKey))}`}
+                    >
+                      {translate(dictionary, "servicesPage.contactService")}
+                    </a>
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </section>
       </main>
     </div>
