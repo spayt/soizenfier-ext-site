@@ -93,16 +93,18 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <Link
             href={langPath("/")}
-            className="flex items-center gap-2 font-semibold text-lg"
+            className="flex items-center gap-2 text-sm sm:text-base font-semibold"
           >
             <Image
               src="/soiZenFier_logo.png"
-              alt="SoiZenFier"
+              alt="SoiZenFier Technologies Inc"
               width={32}
               height={32}
               className="w-8 h-8"
             />
-            <span className="hidden sm:inline">SoiZenFier</span>
+            <span className="hidden sm:inline text-sm sm:text-base">
+              SoiZenFier Technologies Inc
+            </span>
           </Link>
 
           <div className="flex items-center gap-2">
