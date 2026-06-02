@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import {
   defaultLocale,
@@ -29,63 +28,6 @@ export default async function Home({ params }: HomePageProps) {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Image
-            src="/soiZenFier_logo.png"
-            alt={dictionary.company}
-            width={72}
-            height={72}
-            className="logo"
-            priority
-          />
-          <div>
-            <h3 className="text-lg font-semibold">{dictionary.company}</h3>
-            <div className="text-sm text-slate-500">
-              {translate(dictionary, "hero.subtitle")}
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <LanguageSwitcher
-            currentLocale={lang}
-            currentPath=""
-            dictionary={dictionary}
-          />
-          <nav className="hidden md:flex gap-6 items-center text-sm">
-            <Link href={localePath(lang, "/")} className="hover:underline">
-              Home
-            </Link>
-            <Link
-              href={localePath(lang, "/services")}
-              className="hover:underline"
-            >
-              {translate(dictionary, "nav.services")}
-            </Link>
-            <Link
-              href={localePath(lang, "/projects")}
-              className="hover:underline"
-            >
-              {translate(dictionary, "nav.ourWork")}
-            </Link>
-            <Link
-              href={localePath(lang, "/pricing")}
-              className="hover:underline"
-            >
-              Pricing
-            </Link>
-            <Link href={localePath(lang, "/about")} className="hover:underline">
-              About
-            </Link>
-            <Button asChild size="sm">
-              <a href={`mailto:${dictionary.mail.contact}`}>
-                {translate(dictionary, "nav.contactUs")}
-              </a>
-            </Button>
-          </nav>
-        </div>
-      </header>
-
       <main className="max-w-6xl mx-auto px-6 py-12 flex flex-col gap-12 md:gap-20">
         <section className="hero grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>

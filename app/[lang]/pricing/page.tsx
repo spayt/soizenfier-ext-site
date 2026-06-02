@@ -1,15 +1,12 @@
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import {
   defaultLocale,
   getDictionary,
   isLocale,
-  localePath,
   locales,
   translate,
 } from "@/lib/i18n";
 import { websitePackages, monthlyPlans } from "@/lib/pricing";
-import Link from "next/link";
 
 type PricingPageProps = {
   params: {
@@ -27,7 +24,7 @@ export default async function PricingPage({ params }: PricingPageProps) {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <main className="max-w-6xl mx-auto px-6 py-12">
-        <header className="mb-12 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+        <header className="mb-12">
           <div>
             <p className="text-sky-600 font-semibold uppercase tracking-[0.24em] mb-3">
               Pricing
@@ -38,19 +35,6 @@ export default async function PricingPage({ params }: PricingPageProps) {
             <p className="mt-5 text-lg text-slate-600 max-w-2xl">
               {translate(dictionary, "pricingPage.description")}
             </p>
-          </div>
-          <div className="flex items-center gap-4">
-            <LanguageSwitcher
-              currentLocale={lang}
-              currentPath="/pricing"
-              dictionary={dictionary}
-            />
-            <Link
-              href={localePath(lang, "/projects")}
-              className="inline-flex items-center whitespace-nowrap rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
-            >
-              {translate(dictionary, "projects.backToHome")}
-            </Link>
           </div>
         </header>
 

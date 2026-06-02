@@ -1,12 +1,8 @@
-import Link from "next/link";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { Button } from "@/components/ui/button";
 import HostingPortal from "@/components/HostingPortal";
 import {
   defaultLocale,
   getDictionary,
   isLocale,
-  localePath,
   locales,
   translate,
   type Locale,
@@ -28,7 +24,7 @@ export default async function HostingPage({ params }: HostingPageProps) {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <main className="max-w-6xl mx-auto px-6 py-12">
-        <header className="mb-12 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+        <header className="mb-12">
           <div>
             <p className="text-sky-600 font-semibold uppercase tracking-[0.24em] mb-3">
               {translate(dictionary, "hosting.pageLabel")}
@@ -39,18 +35,6 @@ export default async function HostingPage({ params }: HostingPageProps) {
             <p className="mt-5 text-lg text-slate-600 max-w-2xl leading-8">
               {translate(dictionary, "hosting.pageDescription")}
             </p>
-          </div>
-          <div className="flex items-center gap-4">
-            <LanguageSwitcher
-              currentLocale={lang}
-              currentPath="/hosting"
-              dictionary={dictionary}
-            />
-            <Button asChild variant="ghost" size="sm">
-              <Link href={localePath(lang, "/projects")}>
-                {translate(dictionary, "nav.ourWork")}
-              </Link>
-            </Button>
           </div>
         </header>
 

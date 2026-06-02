@@ -1,4 +1,3 @@
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import {
   defaultLocale,
@@ -24,7 +23,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <main className="max-w-3xl mx-auto px-6 py-12">
-        <header className="mb-8 flex items-center justify-between">
+        <header className="mb-8">
           <div>
             <h1 className="text-4xl font-extrabold">
               {translate(dictionary, "contactPage.title")}
@@ -33,11 +32,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
               {translate(dictionary, "contactPage.intro")}
             </p>
           </div>
-          <LanguageSwitcher
-            currentLocale={lang}
-            currentPath="/contact"
-            dictionary={dictionary}
-          />
         </header>
 
         <section className="space-y-6">

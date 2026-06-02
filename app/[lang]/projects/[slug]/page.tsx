@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import {
   defaultLocale,
   getDictionary,
@@ -46,27 +45,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <main className="max-w-5xl mx-auto px-6 py-12">
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-sky-600">
-              {translate(dictionary, "projects.detailsHeading")}
-            </p>
-            <h1 className="mt-3 text-4xl font-extrabold">{project.title}</h1>
-            <p className="mt-4 text-lg text-slate-600">{project.description}</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-4">
-            <LanguageSwitcher
-              currentLocale={lang}
-              currentPath={`/projects/${slug}`}
-              dictionary={dictionary}
-            />
-            <Link
-              href={localePath(lang, "/projects")}
-              className="inline-flex items-center whitespace-nowrap rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
-            >
-              {translate(dictionary, "projects.backToProjects")}
-            </Link>
-          </div>
+        <div>
+          <p className="text-sm uppercase tracking-[0.3em] text-sky-600">
+            {translate(dictionary, "projects.detailsHeading")}
+          </p>
+          <h1 className="mt-3 text-4xl font-extrabold">{project.title}</h1>
+          <p className="mt-4 text-lg text-slate-600">{project.description}</p>
         </div>
 
         <section className="mt-10 rounded-3xl bg-white p-8 shadow-lg">

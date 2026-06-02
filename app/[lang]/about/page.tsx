@@ -1,10 +1,8 @@
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import {
   defaultLocale,
   getDictionary,
   isLocale,
-  localePath,
   locales,
   translate,
 } from "@/lib/i18n";
@@ -23,7 +21,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <main className="max-w-4xl mx-auto px-6 py-12">
-        <header className="mb-8 flex items-center justify-between">
+        <header className="mb-8">
           <div>
             <h1 className="text-4xl font-extrabold">
               {translate(dictionary, "aboutPage.title")}
@@ -32,11 +30,6 @@ export default async function AboutPage({ params }: AboutPageProps) {
               {translate(dictionary, "aboutPage.intro")}
             </p>
           </div>
-          <LanguageSwitcher
-            currentLocale={lang}
-            currentPath="/about"
-            dictionary={dictionary}
-          />
         </header>
 
         <section className="space-y-8">
