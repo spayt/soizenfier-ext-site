@@ -1,7 +1,7 @@
 import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { getStorage, connectStorageEmulator } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -32,3 +32,32 @@ export const firebaseApp = app;
 export const firebaseAuth = getAuth(app);
 export const firebaseFirestore = getFirestore(app);
 export const firebaseStorage = getStorage(app);
+
+const useEmulators = process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATORS === "true";
+
+if (useEmulators && typeof window !== "undefined") {
+  const authEmulatorUrl =
+    process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_URL ||
+    "http://localhost:9099";
+  connectAuthEmulator(firebaseAuth, authEmulatorUrl, {
+    disableWarnings: true,
+  });
+
+  const firestoreHost =
+    process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMULATOR_HOST?.split(":")[0] ||
+    "localhost";
+  const firestorePort = Number(
+    process.env.NEXT_PUBLIC_FIREBASE_FIRESTORE_EMULATOR_HOST?.split(":")[1] ||
+      "8080",
+  );
+  connectFirestoreEmulator(firebaseFirestore, firestoreHost, firestorePort);
+
+  const storageHost =
+    process.env.NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR_HOST?.split(":")[0] ||
+    "localhost";
+  const storagePort = Number(
+    process.env.NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR_HOST?.split(":")[1] ||
+      "9199",
+  );
+  connectStorageEmulator(firebaseStorage, storageHost, storagePort);
+}

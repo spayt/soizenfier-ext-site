@@ -57,6 +57,12 @@ export default async function ContactPage({ params }: ContactPageProps) {
                   {translate(dictionary, "contactPage.phone")}
                 </a>
               </li>
+              <li>
+                Address:{" "}
+                <span className="text-slate-600">
+                  {translate(dictionary, "contactPage.address")}
+                </span>
+              </li>
             </ul>
           </div>
 

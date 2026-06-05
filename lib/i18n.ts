@@ -16,6 +16,7 @@ export type TranslationDictionary = {
     services: string;
     hosting: string;
     pricing: string;
+    checkout: string;
     contactUs: string;
     kimuntu: string;
     privacy: string;
@@ -205,7 +206,21 @@ export type TranslationDictionary = {
     emailUs: string;
     otherWays: string;
     phone: string;
+    address: string;
     seePricing: string;
+  };
+  checkoutPage: {
+    heading: string;
+    description: string;
+    oneTimeTitle: string;
+    oneTimeDescription: string;
+    recurringTitle: string;
+    recurringDescription: string;
+    ctaButton: string;
+    successTitle: string;
+    successMessage: string;
+    errorMessage: string;
+    backToPricing: string;
   };
 };
 
@@ -234,6 +249,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       services: "Services",
       hosting: "Hosting",
       pricing: "Pricing",
+      checkout: "Checkout",
       contactUs: "Contact Us",
       kimuntu: "Kimuntu Gallery",
       privacy: "Privacy",
@@ -616,7 +632,26 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       emailUs: "Email us",
       otherWays: "Other ways to reach us",
       phone: compagnyPhone,
+      address: "419 rue Lessard, Drummondville, J2A2C8, Canada",
       seePricing: "See pricing packages",
+    },
+    checkoutPage: {
+      heading: "Secure Stripe Checkout",
+      description:
+        "Choose the payment option that fits your project and complete it with Stripe.",
+      oneTimeTitle: "One-time payment",
+      oneTimeDescription:
+        "A single secure payment for design, development, or project setup.",
+      recurringTitle: "Monthly subscription",
+      recurringDescription:
+        "Ongoing support, hosting, and maintenance billed each month.",
+      ctaButton: "Continue to Stripe",
+      successTitle: "Payment completed",
+      successMessage:
+        "Thank you! Your checkout is complete. We will follow up shortly.",
+      errorMessage:
+        "There was an issue creating the checkout session. Please try again.",
+      backToPricing: "Back to pricing",
     },
   },
   fr: {
@@ -631,6 +666,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       services: "Services",
       hosting: "Hébergement",
       pricing: "Tarifs",
+      checkout: "Paiement",
       contactUs: "Contactez-nous",
       kimuntu: "Galerie Kimuntu",
       privacy: "Confidentialité",
@@ -1021,7 +1057,26 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       emailUs: "Nous envoyer un email",
       otherWays: "Autres façons de nous contacter",
       phone: compagnyPhone,
+      address: "419 rue Lessard, Drummondville, J2A2C8, Canada",
       seePricing: "Voir les forfaits tarifaires",
+    },
+    checkoutPage: {
+      heading: "Paiement sécurisé Stripe",
+      description:
+        "Choisissez l'option de paiement adaptée à votre projet et finalisez-la avec Stripe.",
+      oneTimeTitle: "Paiement unique",
+      oneTimeDescription:
+        "Un paiement sécurisé unique pour la conception, le développement ou la mise en place du projet.",
+      recurringTitle: "Abonnement mensuel",
+      recurringDescription:
+        "Support continu, hébergement et maintenance facturés chaque mois.",
+      ctaButton: "Continuer vers Stripe",
+      successTitle: "Paiement terminé",
+      successMessage:
+        "Merci ! Votre paiement est terminé. Nous vous contacterons prochainement.",
+      errorMessage:
+        "Une erreur est survenue lors de la création de la session de paiement. Veuillez réessayer.",
+      backToPricing: "Retour aux tarifs",
     },
   },
 };
