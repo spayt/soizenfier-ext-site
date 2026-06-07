@@ -910,7 +910,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       description:
         "Nous créons de beaux sites web, des applications web puissantes et des expériences mobiles agréables qui aident les entreprises à se développer et les clients à s'engager.",
       talkButton: "Contactez-nous",
-      seeWorkButton: "Voir nos réalisations",
+      seeWorkButton: "Réserver une consultation",
     },
     services: {
       heading: "Ce que nous construisons",
