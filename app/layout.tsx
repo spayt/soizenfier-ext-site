@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navigation from "@/components/Navigation";
+import { COMPANY_NAME } from "@/lib/config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SoiZenFier Technologies Inc.",
+  title: COMPANY_NAME,
   description:
     "SoiZenFier builds websites, web apps, and mobile applications for modern businesses.",
 };

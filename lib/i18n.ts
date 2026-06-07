@@ -1,8 +1,12 @@
+import {
+  COMPANY_NAME,
+  COMPANY_EMAIL,
+  COMPANY_PHONE,
+  COMPANY_ADDRESS,
+} from "./config";
 export const locales = ["en", "fr"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "en";
-const compagnyEmail = "admin@soizenfier.com";
-const compagnyPhone = "(438) 985-1221";
 
 export type TranslationDictionary = {
   company: string;
@@ -162,6 +166,9 @@ export type TranslationDictionary = {
     plans: string;
     requestQuote: string;
     getStarted: string;
+    mostPopular: string;
+    customQuote: string;
+    customQuoteDesc: string;
     websitePackages: Record<
       string,
       {
@@ -221,6 +228,44 @@ export type TranslationDictionary = {
     successMessage: string;
     errorMessage: string;
     backToPricing: string;
+    signInToContinue: string;
+  };
+  profilePage: {
+    title: string;
+    signInRequired: string;
+    signIn: string;
+    accountInfo: string;
+    name: string;
+    email: string;
+    role: string;
+    memberSince: string;
+    currentPlan: string;
+    noPlan: string;
+    planStatus: string;
+    planRenews: string;
+    planCancels: string;
+    manageSubscription: string;
+    changePlan: string;
+    signOut: string;
+    hostingInfo: string;
+    hostingActive: string;
+    hostingDescription: string;
+    loadingPortal: string;
+    loading: string;
+  };
+  adminPage: {
+    title: string;
+    accessDenied: string;
+    accessDeniedMessage: string;
+    subscribers: string;
+    noSubscribers: string;
+    userId: string;
+    email: string;
+    plan: string;
+    status: string;
+    renewsOn: string;
+    canceledOn: string;
+    loading: string;
   };
 };
 
@@ -238,9 +283,9 @@ export const projectEntries = [
 
 const dictionaries: Record<Locale, TranslationDictionary> = {
   en: {
-    company: "SoiZenFier Technologies Inc.",
+    company: COMPANY_NAME,
     mail: {
-      contact: compagnyEmail,
+      contact: COMPANY_EMAIL,
     },
     nav: {
       home: "Home",
@@ -474,7 +519,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       },
     },
     footer: {
-      company: "SoiZenFier Technologies Inc.",
+      company: COMPANY_NAME,
     },
     servicesPage: {
       heading: "Website Services",
@@ -536,10 +581,13 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       plans: "Monthly Plans",
       requestQuote: "Request Quote",
       getStarted: "Get Started",
+      mostPopular: "Most Popular",
+      customQuote: "Need something different?",
+      customQuoteDesc: "Every project is unique. Let's talk about yours.",
       websitePackages: {
         starter: {
           title: "Starter Website",
-          priceRange: "$2,500 – $4,000 CAD",
+          priceRange: "$500 – $4,000 CAD",
           bullets: [
             "Up to 5 pages",
             "Responsive design",
@@ -631,8 +679,8 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       errorMessage: "Something went wrong. Please try again later.",
       emailUs: "Email us",
       otherWays: "Other ways to reach us",
-      phone: compagnyPhone,
-      address: "419 rue Lessard, Drummondville, J2A2C8, Canada",
+      phone: COMPANY_PHONE,
+      address: COMPANY_ADDRESS,
       seePricing: "See pricing packages",
     },
     checkoutPage: {
@@ -652,12 +700,51 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       errorMessage:
         "There was an issue creating the checkout session. Please try again.",
       backToPricing: "Back to pricing",
+      signInToContinue: "Sign in to continue",
+    },
+    profilePage: {
+      title: "My Profile",
+      signInRequired: "Please sign in to access your profile.",
+      signIn: "Sign in",
+      accountInfo: "Account Information",
+      name: "Name",
+      email: "Email",
+      role: "Role",
+      memberSince: "Member since",
+      currentPlan: "Current Plan",
+      noPlan: "No active subscription",
+      planStatus: "Status",
+      planRenews: "Renews on",
+      planCancels: "Cancels on",
+      manageSubscription: "Manage Subscription & Payment",
+      changePlan: "Change Plan",
+      signOut: "Sign Out",
+      hostingInfo: "Hosting Information",
+      hostingActive: "Your hosting plan is active",
+      hostingDescription:
+        "Manage your hosting settings, billing details, and service updates through the hosting portal.",
+      loadingPortal: "Opening portal…",
+      loading: "Loading profile…",
+    },
+    adminPage: {
+      title: "Administrator Dashboard",
+      accessDenied: "Access Denied",
+      accessDeniedMessage: "You do not have administrator access to this page.",
+      subscribers: "Subscribers",
+      noSubscribers: "No subscribers found.",
+      userId: "User ID",
+      email: "Email",
+      plan: "Plan",
+      status: "Status",
+      renewsOn: "Renews On",
+      canceledOn: "Canceled On",
+      loading: "Loading subscribers…",
     },
   },
   fr: {
-    company: "SoiZenFier Technologies Inc.",
+    company: COMPANY_NAME,
     mail: {
-      contact: compagnyEmail,
+      contact: COMPANY_EMAIL,
     },
     nav: {
       home: "Accueil",
@@ -893,7 +980,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       },
     },
     footer: {
-      company: "SoiZenFier Technologies Inc.",
+      company: COMPANY_NAME,
     },
     servicesPage: {
       heading: "Services Web",
@@ -955,6 +1042,9 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       plans: "Plans mensuels",
       requestQuote: "Demander un devis",
       getStarted: "Commencer",
+      mostPopular: "Le plus populaire",
+      customQuote: "Besoin d'autre chose ?",
+      customQuoteDesc: "Chaque projet est unique. Parlons du vôtre.",
       websitePackages: {
         starter: {
           title: "Forfait de démarrage",
@@ -1033,7 +1123,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         "Une agence de boutique dirigée par un fondateur solo concentré sur la communication claire et les résultats mesurables.",
       technologies: "Technologies",
       technologiesDesc:
-        "Next.js, React, TypeScript, Tailwind CSS, CMS sans tête et intégrations serverless.",
+        "Next.js, React, TypeScript, Tailwind CSS, CMS headless et intégrations serverless.",
       process: "Processus",
       mission: "Mission",
       missionDesc:
@@ -1056,8 +1146,8 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       errorMessage: "Une erreur est survenue. Veuillez réessayer plus tard.",
       emailUs: "Nous envoyer un email",
       otherWays: "Autres façons de nous contacter",
-      phone: compagnyPhone,
-      address: "419 rue Lessard, Drummondville, J2A2C8, Canada",
+      phone: COMPANY_PHONE,
+      address: COMPANY_ADDRESS,
       seePricing: "Voir les forfaits tarifaires",
     },
     checkoutPage: {
@@ -1077,6 +1167,46 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       errorMessage:
         "Une erreur est survenue lors de la création de la session de paiement. Veuillez réessayer.",
       backToPricing: "Retour aux tarifs",
+      signInToContinue: "Se connecter pour continuer",
+    },
+    profilePage: {
+      title: "Mon profil",
+      signInRequired: "Veuillez vous connecter pour accéder à votre profil.",
+      signIn: "Se connecter",
+      accountInfo: "Informations du compte",
+      name: "Nom",
+      email: "Courriel",
+      role: "Rôle",
+      memberSince: "Membre depuis",
+      currentPlan: "Plan actuel",
+      noPlan: "Aucun abonnement actif",
+      planStatus: "Statut",
+      planRenews: "Renouvellement le",
+      planCancels: "Annulation le",
+      manageSubscription: "Gérer l'abonnement et le paiement",
+      changePlan: "Changer de plan",
+      signOut: "Se déconnecter",
+      hostingInfo: "Informations d'hébergement",
+      hostingActive: "Votre plan d'hébergement est actif",
+      hostingDescription:
+        "Gérez vos paramètres d'hébergement, les détails de facturation et les mises à jour de service via le portail d'hébergement.",
+      loadingPortal: "Ouverture du portail…",
+      loading: "Chargement du profil…",
+    },
+    adminPage: {
+      title: "Tableau de bord administrateur",
+      accessDenied: "Accès refusé",
+      accessDeniedMessage:
+        "Vous n'avez pas les droits d'administrateur pour accéder à cette page.",
+      subscribers: "Abonnés",
+      noSubscribers: "Aucun abonné trouvé.",
+      userId: "Identifiant utilisateur",
+      email: "Courriel",
+      plan: "Plan",
+      status: "Statut",
+      renewsOn: "Renouvellement le",
+      canceledOn: "Annulé le",
+      loading: "Chargement des abonnés…",
     },
   },
 };

@@ -1,19 +1,5 @@
 import { NextResponse } from "next/server";
 
-// Set STRIPE_FUNCTION_URL to your Firebase functions base URL, for example:
-// https://us-central1-YOUR_PROJECT.cloudfunctions.net
-// or http://localhost:5001/YOUR_PROJECT/us-central1 when using the emulator.
-type CheckoutRequestBody = {
-  mode: "payment" | "subscription";
-  title: string;
-  amount: number;
-  currency: string;
-  interval?: "month" | "year";
-  locale?: string;
-  successUrl: string;
-  cancelUrl: string;
-};
-
 export async function POST(req: Request) {
   const stripeFunctionUrl =
     process.env.NEXT_STRIPE_LIVE_FUNCTION_URL ||
@@ -26,11 +12,11 @@ export async function POST(req: Request) {
     );
   }
 
-  const body = (await req.json()) as CheckoutRequestBody;
+  const body = await req.json();
   const authorization = req.headers.get("Authorization") ?? "";
 
   const response = await fetch(
-    `${stripeFunctionUrl.replace(/\/+$/, "")}/createCheckoutSession`,
+    `${stripeFunctionUrl.replace(/\/+$/, "")}/createCustomerPortalSession`,
     {
       method: "POST",
       headers: {
@@ -45,10 +31,8 @@ export async function POST(req: Request) {
 
   if (!response.ok) {
     return NextResponse.json(
-      { error: data?.error ?? "Stripe function error." },
-      {
-        status: response.status,
-      },
+      { error: data?.error ?? "Portal session error." },
+      { status: response.status },
     );
   }
 

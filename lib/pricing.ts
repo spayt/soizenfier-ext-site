@@ -16,7 +16,7 @@ export const websitePackages: WebsitePackage[] = [
   {
     id: "starter",
     title: "Starter Website",
-    priceRange: "$2,500 – $4,000 CAD",
+    priceRange: "$500 – $4,000 CAD",
     bullets: [
       "Up to 5 pages",
       "Responsive design",
@@ -86,7 +86,7 @@ export const monthlyPlans: MonthlyPlan[] = [
 
 export const pricingIntro = {
   startingFrom: {
-    website: "$2,500",
+    website: "$500",
     maintenance: "$99/month",
   },
 };

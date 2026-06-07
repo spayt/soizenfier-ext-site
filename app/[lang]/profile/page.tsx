@@ -1,0 +1,18 @@
+import { defaultLocale, getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
+import ProfilePageClient from "@/components/ProfilePageClient";
+
+type ProfilePageProps = {
+  params: {
+    lang: string;
+  };
+};
+
+export const generateStaticParams = () => locales.map((lang) => ({ lang }));
+
+export default async function ProfilePage({ params }: ProfilePageProps) {
+  const { lang: langParam } = await params;
+  const lang = isLocale(langParam) ? langParam : defaultLocale;
+  const dictionary = getDictionary(lang);
+
+  return <ProfilePageClient dictionary={dictionary} locale={lang as Locale} />;
+}

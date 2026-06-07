@@ -9,6 +9,7 @@ import {
   type User,
 } from "firebase/auth";
 import { firebaseAuth } from "@/lib/firebase";
+import { ensureUserDocument } from "@/lib/user";
 import { translate, type TranslationDictionary } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 
@@ -22,10 +23,21 @@ export default function HostingPortal({ dictionary }: HostingPortalProps) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
+    const unsubscribe = onAuthStateChanged(
+      firebaseAuth,
+      async (currentUser) => {
+        setUser(currentUser);
+        setLoading(false);
+
+        if (currentUser) {
+          try {
+            await ensureUserDocument(currentUser);
+          } catch (err) {
+            console.error("Unable to write user record", err);
+          }
+        }
+      },
+    );
 
     return () => unsubscribe();
   }, []);

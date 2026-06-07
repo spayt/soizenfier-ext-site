@@ -3,10 +3,12 @@ import {
   defaultLocale,
   getDictionary,
   isLocale,
+  localePath,
   locales,
   translate,
   type Locale,
 } from "@/lib/i18n";
+import Link from "next/link";
 
 type ServicesPageProps = {
   params: {
@@ -16,125 +18,109 @@ type ServicesPageProps = {
 
 export const generateStaticParams = () => locales.map((lang) => ({ lang }));
 
+const SERVICE_CONFIG = [
+  { id: "design",        icon: "🌐" },
+  { id: "dashboards",    icon: "📊" },
+  { id: "hostedService", icon: "☁️" },
+  { id: "maintenance",   icon: "🔧" },
+  { id: "content",       icon: "✍️" },
+  { id: "seo",           icon: "🔍" },
+];
+
 export default async function ServicesPage({ params }: ServicesPageProps) {
   const { lang: langParam } = await params;
   const lang = isLocale(langParam) ? langParam : defaultLocale;
   const dictionary = getDictionary(lang);
 
-  const services = [
-    {
-      id: "design",
-      titleKey: "servicesPage.design",
-      points: [
-        "Custom websites",
-        "Responsive design",
-        "Contact forms",
-        "CMS integration",
-        "Analytics",
-      ],
-    },
-    {
-      id: "dashboards",
-      titleKey: "servicesPage.dashboards",
-      points: [
-        "Membership management",
-        "Booking systems",
-        "Internal tools",
-        "Reporting dashboards",
-      ],
-    },
-    {
-      id: "hostedService",
-      titleKey: "servicesPage.hostedService",
-      points: [
-        "SSL certificates",
-        "Daily backups",
-        "Monitoring",
-        "CDN",
-        "Security updates",
-      ],
-    },
-    {
-      id: "maintenance",
-      titleKey: "servicesPage.maintenance",
-      points: [
-        "Bug fixes",
-        "Framework updates",
-        "Security patches",
-        "Monthly reports",
-      ],
-    },
-    {
-      id: "content",
-      titleKey: "servicesPage.content",
-      points: [
-        "New pages",
-        "Blog posts",
-        "Event updates",
-        "Image replacements",
-      ],
-    },
-    {
-      id: "seo",
-      titleKey: "servicesPage.seo",
-      points: [
-        "Search Console setup",
-        "Keyword tracking",
-        "Performance reports",
-        "Technical SEO checks",
-      ],
-    },
-  ];
-
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <main className="max-w-6xl mx-auto px-6 py-12">
-        <header className="mb-12">
-          <div>
-            <p className="text-sky-600 font-semibold uppercase tracking-[0.24em] mb-3">
-              {translate(dictionary, "nav.services")}
-            </p>
-            <h1 className="text-4xl font-extrabold">
+    <div className="min-h-screen bg-white text-slate-900">
+      <main className="max-w-6xl mx-auto px-6 py-10 flex flex-col gap-16">
+
+        {/* ── HERO ── */}
+        <section className="relative rounded-[2.5rem] overflow-hidden bg-slate-950 text-white px-8 md:px-14 py-16 md:py-20">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_80%_-10%,rgba(250,204,21,0.14)_0%,transparent_70%)]" />
+          <div className="relative max-w-2xl">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="w-8 h-1 rounded-full bg-yellow-400" />
+              <span className="text-xs font-bold tracking-[0.22em] uppercase text-yellow-400">
+                {translate(dictionary, "nav.services")}
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white">
               {translate(dictionary, "servicesPage.heading")}
             </h1>
-            <p className="mt-5 text-lg text-slate-600 max-w-2xl">
+            <p className="mt-5 text-base md:text-lg text-slate-400 leading-relaxed">
               {translate(dictionary, "servicesPage.description")}
             </p>
           </div>
-        </header>
+        </section>
 
-        <section className="grid gap-8 md:grid-cols-2">
-          {services.map((s) => {
+        {/* ── SERVICE CARDS ── */}
+        <section className="grid gap-6 md:grid-cols-2">
+          {SERVICE_CONFIG.map((config) => {
             const points =
               dictionary.servicesPage.points[
-                s.id as keyof typeof dictionary.servicesPage.points
+                config.id as keyof typeof dictionary.servicesPage.points
               ] || [];
             return (
               <div
-                key={s.id}
-                className="rounded-3xl bg-white p-8 shadow-lg transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
+                key={config.id}
+                className="group relative flex flex-col rounded-3xl bg-white border border-slate-100 p-8 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
               >
-                <h3 className="text-2xl font-semibold">
-                  {translate(dictionary, s.titleKey)}
-                </h3>
-                <ul className="mt-4 space-y-2 text-slate-600">
+                <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-yellow-300 to-yellow-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-3xl shrink-0 group-hover:scale-110 transition-transform duration-200">
+                    {config.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 pt-2 leading-snug">
+                    {translate(dictionary, `servicesPage.${config.id}` as Parameters<typeof translate>[1])}
+                  </h3>
+                </div>
+
+                <ul className="flex-1 space-y-2.5 mb-8">
                   {points.map((p) => (
-                    <li key={p}>• {p}</li>
+                    <li key={p} className="flex items-start gap-3 text-sm text-slate-600">
+                      <span className="mt-1.5 w-2 h-2 rounded-full bg-yellow-400 shrink-0" />
+                      {p}
+                    </li>
                   ))}
                 </ul>
-                <div className="mt-6">
-                  <Button asChild>
-                    <a
-                      href={`mailto:${dictionary.mail.contact}?subject=${encodeURIComponent(translate(dictionary, s.titleKey))}`}
-                    >
-                      {translate(dictionary, "servicesPage.contactService")}
-                    </a>
-                  </Button>
-                </div>
+
+                <Button asChild className="w-fit">
+                  <a href={`mailto:${dictionary.mail.contact}?subject=${encodeURIComponent(translate(dictionary, `servicesPage.${config.id}` as Parameters<typeof translate>[1]))}`}>
+                    {translate(dictionary, "servicesPage.contactService")}
+                  </a>
+                </Button>
               </div>
             );
           })}
         </section>
+
+        {/* ── BOTTOM CTA ── */}
+        <section className="rounded-[2.5rem] bg-yellow-400 px-8 md:px-14 py-12 md:py-14 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 leading-snug">
+              {translate(dictionary, "home.ctaHeading")}
+            </h2>
+            <p className="mt-2 text-slate-700 text-sm md:text-base">
+              {translate(dictionary, "home.ctaDescription")}
+            </p>
+          </div>
+          <div className="flex gap-3 shrink-0 flex-wrap">
+            <Button asChild className="bg-slate-900 text-white hover:bg-slate-700 font-bold !px-7 rounded-2xl transition-all hover:scale-[1.03]">
+              <a href={`mailto:${dictionary.mail.contact}?subject=Get%20a%20Quote`}>
+                {translate(dictionary, "home.ctaButton")}
+              </a>
+            </Button>
+            <Button asChild variant="outline" className="!bg-transparent border-slate-900/25 text-slate-900 hover:!bg-yellow-300 font-semibold !px-7 rounded-2xl">
+              <Link href={localePath(lang as Locale, "/contact")}>
+                {translate(dictionary, "home.ctaSecondary")}
+              </Link>
+            </Button>
+          </div>
+        </section>
+
       </main>
     </div>
   );
