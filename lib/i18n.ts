@@ -1048,7 +1048,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       websitePackages: {
         starter: {
           title: "Forfait de démarrage",
-          priceRange: "2 500 $ – 4 000 $ CAD",
+          priceRange: "500 $ – 4 000 $ CAD",
           bullets: [
             "Jusqu'à 5 pages",
             "Design responsive",
