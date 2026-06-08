@@ -17,7 +17,7 @@ type CheckoutRequestBody = {
 export async function POST(req: Request) {
   const stripeFunctionUrl =
     process.env.NEXT_STRIPE_LIVE_FUNCTION_URL ||
-    process.env.NEXT_STRIPE_EMULATOR_FUNCTION_URL;
+    process.env.NEXT_FIREBASE_EMULATOR_FUNCTION_URL;
 
   if (!stripeFunctionUrl) {
     return NextResponse.json(

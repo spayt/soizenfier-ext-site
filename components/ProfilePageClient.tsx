@@ -6,7 +6,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { firebaseAuth, firebaseFirestore } from "@/lib/firebase";
 import { ensureUserDocument } from "@/lib/user";
 import { type TranslationDictionary, type Locale } from "@/lib/i18n";
-import { Button } from "@/components/ui/button";
+import { websitePackages } from "@/lib/pricing";
 import SignInDialog from "@/components/SignInDialog";
 import Link from "next/link";
 
@@ -21,6 +21,8 @@ type SubscriptionData = {
   current_period_end: { seconds: number } | null;
   cancel_at: { seconds: number } | null;
   canceled_at: { seconds: number } | null;
+  websitePackage: string | null;
+  domain: string | null;
 };
 
 type UserDocument = {
@@ -31,7 +33,7 @@ type UserDocument = {
   role: string;
   createdAt: { seconds: number } | null;
   stripeCustomerId: string | null;
-  subscription: SubscriptionData | null;
+  subscriptions: Record<string, SubscriptionData> | null;
 };
 
 type ProfilePageClientProps = {
@@ -83,21 +85,38 @@ export default function ProfilePageClient({ dictionary, locale }: ProfilePageCli
   const [userDoc, setUserDoc] = useState<UserDocument | null>(null);
   const [loading, setLoading] = useState(true);
   const [portalLoading, setPortalLoading] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+  const [syncDone, setSyncDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [signInOpen, setSignInOpen] = useState(false);
-  const [fromCheckout, setFromCheckout] = useState(false);
+  // Initialized from the URL param so no setState is needed inside the effect
+  const [fromCheckout, setFromCheckout] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return new URLSearchParams(window.location.search).get("checkout") === "success";
+  });
 
   useEffect(() => {
+    // Clean the checkout param from URL now that state is already initialized above
     const params = new URLSearchParams(window.location.search);
-    if (params.get("checkout") === "success") {
-      setFromCheckout(true);
-      window.history.replaceState({}, "", window.location.pathname);
+    if (params.has("checkout")) {
+      params.delete("checkout");
+      const qs = params.toString();
+      window.history.replaceState({}, "", window.location.pathname + (qs ? `?${qs}` : ""));
     }
+    // When the browser restores this page from bfcache (user pressed Back from
+    // the Stripe portal), reset the portal loading state so the button works again.
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) setPortalLoading(false);
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    return () => window.removeEventListener("pageshow", handlePageShow);
   }, []);
 
   useEffect(() => {
     let unsubUserDoc: (() => void) | null = null;
     const unsubAuth = onAuthStateChanged(firebaseAuth, (currentUser) => {
+      // Clear the checkout banner whenever the signed-in user changes
+      setFromCheckout(false);
       setUser(currentUser);
       unsubUserDoc?.();
       unsubUserDoc = null;
@@ -143,6 +162,29 @@ export default function ProfilePageClient({ dictionary, locale }: ProfilePageCli
     }
   };
 
+  const handleSync = async () => {
+    setSyncing(true);
+    setSyncDone(false);
+    setError(null);
+    try {
+      const currentUser = firebaseAuth.currentUser;
+      if (!currentUser) throw new Error("Not authenticated");
+      const token = await currentUser.getIdToken();
+      const response = await fetch("/api/stripe/sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data?.error || "Sync failed.");
+      setSyncDone(true);
+      setTimeout(() => setSyncDone(false), 3000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Sync failed.");
+    } finally {
+      setSyncing(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
@@ -179,8 +221,15 @@ export default function ProfilePageClient({ dictionary, locale }: ProfilePageCli
     );
   }
 
-  const subscription = userDoc?.subscription ?? null;
-  const hasSubscription = subscription && subscription.status !== "canceled";
+  const allSubscriptions = Object.values(userDoc?.subscriptions ?? {}).sort(
+    (a, b) => {
+      if (a.status === "active" && b.status !== "active") return -1;
+      if (b.status === "active" && a.status !== "active") return 1;
+      return (b.current_period_end?.seconds ?? 0) - (a.current_period_end?.seconds ?? 0);
+    }
+  );
+  const activeSubscriptions = allSubscriptions.filter((s) => s.status !== "canceled");
+  const hasSubscription = activeSubscriptions.length > 0;
   const awaitingSubscription = fromCheckout && !hasSubscription;
   const isAdministrator = userDoc?.role === "Administrator";
   const initials = getInitials(user.displayName, user.email);
@@ -290,66 +339,98 @@ export default function ProfilePageClient({ dictionary, locale }: ProfilePageCli
                 <span className="w-8 h-0.5 rounded-full bg-yellow-400" />
                 <h2 className="text-sm font-bold text-slate-300 uppercase tracking-widest">{t.hostingInfo}</h2>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
-                <span className="text-sm font-semibold text-emerald-400">{t.hostingActive}</span>
-              </div>
-              <p className="text-xs text-slate-500 leading-relaxed">{t.hostingDescription}</p>
+              {hasSubscription ? (
+                <>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
+                    <span className="text-sm font-semibold text-emerald-400">{t.hostingActive}</span>
+                  </div>
+                  {activeSubscriptions.map((s) => s.domain).filter(Boolean).map((d) => (
+                    <a
+                      key={d}
+                      href={`https://${d}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs text-yellow-400/70 hover:text-yellow-400 transition-colors w-fit"
+                    >
+                      ↗ {d}
+                    </a>
+                  ))}
+                  <p className="text-xs text-slate-500 leading-relaxed">{t.hostingDescription}</p>
+                </>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-slate-600" />
+                  <span className="text-sm font-medium text-slate-500">No active hosting</span>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* ── RIGHT COLUMN: Plan ── */}
-          <div className="md:col-span-3">
+          {/* ── RIGHT COLUMN: Plans ── */}
+          <div className="md:col-span-3 flex flex-col gap-4">
             {hasSubscription ? (
-              <div className="relative rounded-3xl bg-slate-900 border border-white/8 p-8 flex flex-col gap-6 overflow-hidden h-full">
-                <div className="pointer-events-none absolute -top-16 -right-16 w-56 h-56 rounded-full bg-yellow-400/8 blur-3xl" />
+              <>
+                {activeSubscriptions.map((sub, idx) => (
+                  <div key={sub.id} className="relative rounded-3xl bg-slate-900 border border-white/8 p-8 flex flex-col gap-5 overflow-hidden">
+                    <div className="pointer-events-none absolute -top-16 -right-16 w-56 h-56 rounded-full bg-yellow-400/8 blur-3xl" />
 
-                <div className="relative flex items-start justify-between gap-4 flex-wrap">
-                  <div>
-                    <div className="flex items-center gap-3 mb-1">
-                      <span className="w-8 h-0.5 rounded-full bg-yellow-400" />
-                      <h2 className="text-sm font-bold text-slate-300 uppercase tracking-widest">{t.currentPlan}</h2>
+                    <div className="relative flex items-start justify-between gap-4 flex-wrap">
+                      <div>
+                        <div className="flex items-center gap-3 mb-1">
+                          <span className="w-8 h-0.5 rounded-full bg-yellow-400" />
+                          <h2 className="text-sm font-bold text-slate-300 uppercase tracking-widest">
+                            {activeSubscriptions.length > 1 ? `${t.currentPlan} ${idx + 1}` : t.currentPlan}
+                          </h2>
+                        </div>
+                        <p className="text-2xl font-black text-yellow-400 mt-3">{sub.planName || "—"}</p>
+                        {sub.interval && (
+                          <p className="text-xs text-slate-500 mt-1 capitalize">Billed {sub.interval}ly</p>
+                        )}
+                        {sub.websitePackage && (() => {
+                          const pkg = websitePackages.find((p) => p.id === sub.websitePackage);
+                          return pkg ? (
+                            <span className="inline-flex items-center gap-1.5 mt-2 rounded-full bg-yellow-400/10 border border-yellow-400/20 px-3 py-1 text-xs font-semibold text-yellow-400">
+                              {pkg.title}
+                            </span>
+                          ) : null;
+                        })()}
+                      </div>
+                      <StatusPill status={sub.status} />
                     </div>
-                    <p className="text-3xl font-black text-yellow-400 mt-4">
-                      {subscription.planName || "—"}
-                    </p>
-                    {subscription.interval && (
-                      <p className="text-xs text-slate-500 mt-1 capitalize">Billed {subscription.interval}ly</p>
+
+                    {sub.amount != null && (
+                      <div className="relative rounded-2xl bg-white/4 border border-white/8 px-5 py-3.5 flex items-center justify-between">
+                        <span className="text-xs text-slate-400 font-medium">Price</span>
+                        <span className="text-lg font-black text-white">
+                          {new Intl.NumberFormat(undefined, {
+                            style: "currency",
+                            currency: sub.currency?.toUpperCase() ?? "USD",
+                          }).format(sub.amount / 100)}
+                          {sub.interval && (
+                            <span className="text-xs font-normal text-slate-500"> / {sub.interval}</span>
+                          )}
+                        </span>
+                      </div>
                     )}
-                  </div>
-                  <StatusPill status={subscription.status} />
-                </div>
 
-                {subscription.amount != null && (
-                  <div className="relative rounded-2xl bg-white/4 border border-white/8 px-5 py-4 flex items-center justify-between">
-                    <span className="text-xs text-slate-400 font-medium">Price</span>
-                    <span className="text-lg font-black text-white">
-                      {new Intl.NumberFormat(undefined, {
-                        style: "currency",
-                        currency: subscription.currency?.toUpperCase() ?? "USD",
-                      }).format(subscription.amount / 100)}
-                      {subscription.interval && (
-                        <span className="text-xs font-normal text-slate-500"> / {subscription.interval}</span>
-                      )}
-                    </span>
-                  </div>
-                )}
-
-                <div className="relative space-y-3">
-                  {(subscription.cancel_at
-                    ? [{ label: t.planCancels, value: formatDate(subscription.cancel_at) }]
-                    : subscription.current_period_end
-                    ? [{ label: t.planRenews, value: formatDate(subscription.current_period_end) }]
-                    : []
-                  ).map(({ label, value }) => (
-                    <div key={label} className="flex items-center justify-between text-sm border-t border-white/6 pt-3">
-                      <span className="text-slate-500">{label}</span>
-                      <span className="text-white font-medium">{value}</span>
+                    <div className="relative space-y-3">
+                      {(sub.cancel_at
+                        ? [{ label: t.planCancels, value: formatDate(sub.cancel_at) }]
+                        : sub.current_period_end
+                        ? [{ label: t.planRenews, value: formatDate(sub.current_period_end) }]
+                        : []
+                      ).map(({ label, value }) => (
+                        <div key={label} className="flex items-center justify-between text-sm border-t border-white/6 pt-3">
+                          <span className="text-slate-500">{label}</span>
+                          <span className="text-white font-medium">{value}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
 
-                <div className="relative flex flex-wrap gap-3 mt-auto pt-2">
+                <div className="flex flex-wrap gap-3">
                   {userDoc?.stripeCustomerId && (
                     <button
                       type="button"
@@ -366,13 +447,22 @@ export default function ProfilePageClient({ dictionary, locale }: ProfilePageCli
                   >
                     {t.changePlan}
                   </Link>
+                  {userDoc?.stripeCustomerId && (
+                    <button
+                      type="button"
+                      onClick={handleSync}
+                      disabled={syncing}
+                      title="Pull latest subscription data from Stripe"
+                      className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-slate-400 hover:bg-white/10 hover:text-white transition-all duration-200 disabled:opacity-60"
+                    >
+                      <svg className={`w-4 h-4 shrink-0 ${syncing ? "animate-spin" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      {syncDone ? "Synced ✓" : syncing ? "Syncing…" : "Sync"}
+                    </button>
+                  )}
                 </div>
-              </div>
-            ) : awaitingSubscription ? (
-              <div className="rounded-3xl bg-slate-900 border border-yellow-400/20 p-8 flex flex-col items-center justify-center gap-5 min-h-48 text-center">
-                <div className="w-10 h-10 rounded-full border-2 border-yellow-400 border-t-transparent animate-spin" />
-                <p className="text-sm text-slate-400">Setting up your subscription…</p>
-              </div>
+              </>
             ) : (
               <div className="relative rounded-3xl bg-slate-900 border border-white/8 p-8 flex flex-col items-center justify-center gap-6 min-h-64 text-center overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(250,204,21,0.07)_0%,transparent_70%)]" />
@@ -381,14 +471,23 @@ export default function ProfilePageClient({ dictionary, locale }: ProfilePageCli
                 </div>
                 <div className="relative">
                   <h3 className="text-lg font-bold text-white">{t.noPlan}</h3>
-                  <p className="text-xs text-slate-500 mt-1">Choose a plan to unlock all features.</p>
+                  {awaitingSubscription ? (
+                    <p className="text-xs text-yellow-400/70 mt-1 flex items-center justify-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse shrink-0" />
+                      Activating your subscription…
+                    </p>
+                  ) : (
+                    <p className="text-xs text-slate-500 mt-1">Choose a plan to unlock all features.</p>
+                  )}
                 </div>
-                <Link
-                  href={`/${locale}/pricing`}
-                  className="relative inline-flex items-center gap-2 rounded-2xl bg-yellow-400 px-8 py-3 text-sm font-bold text-slate-900 hover:bg-yellow-300 transition-all duration-200 hover:scale-[1.03]"
-                >
-                  {t.changePlan} →
-                </Link>
+                {!awaitingSubscription && (
+                  <Link
+                    href={`/${locale}/pricing`}
+                    className="relative inline-flex items-center gap-2 rounded-2xl bg-yellow-400 px-8 py-3 text-sm font-bold text-slate-900 hover:bg-yellow-300 transition-all duration-200 hover:scale-[1.03]"
+                  >
+                    {t.changePlan} →
+                  </Link>
+                )}
               </div>
             )}
           </div>

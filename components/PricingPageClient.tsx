@@ -10,12 +10,6 @@ type PricingPageClientProps = {
   dictionary: TranslationDictionary;
 };
 
-const PLAN_AMOUNTS: Record<string, number> = {
-  essential: 9900,
-  growth: 24900,
-  premium: 49900,
-  "managed-content": 79900,
-};
 
 const FEATURED_PACKAGE = "business";
 const FEATURED_PLAN    = "premium";
@@ -167,9 +161,10 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
 
                   <PlanCheckoutButton
                     locale={locale}
+                    planId={plan.id}
                     title={t?.title ?? plan.title}
                     mode="subscription"
-                    amount={PLAN_AMOUNTS[plan.id] ?? 9900}
+                    amount={plan.amountCents}
                     interval="month"
                     dictionary={dictionary}
                     label={translate(dictionary, "pricingPage.getStarted")}

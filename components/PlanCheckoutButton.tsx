@@ -10,6 +10,7 @@ import SignInDialog from "@/components/SignInDialog";
 
 type PlanCheckoutButtonProps = {
   locale: string;
+  planId?: string;
   title: string;
   mode: "payment" | "subscription";
   amount: number;
@@ -21,6 +22,7 @@ type PlanCheckoutButtonProps = {
 
 export default function PlanCheckoutButton({
   locale,
+  planId,
   title,
   mode,
   amount,
@@ -64,6 +66,7 @@ export default function PlanCheckoutButton({
         },
         body: JSON.stringify({
           mode,
+          planId,
           title,
           amount,
           currency: "cad",

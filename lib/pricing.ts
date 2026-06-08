@@ -9,7 +9,9 @@ export type MonthlyPlan = {
   id: string;
   title: string;
   price: string;
+  amountCents: number;
   bullets: string[];
+  syncToStripe?: boolean;
 };
 
 export const websitePackages: WebsitePackage[] = [
@@ -44,16 +46,26 @@ export const websitePackages: WebsitePackage[] = [
 ];
 
 export const monthlyPlans: MonthlyPlan[] = [
+  // {
+  //   id: "familly",
+  //   title: "Familly Plan",
+  //   price: "$20 CAD/month",
+  //   amountCents: 2000,
+  //   bullets: ["Hosting", "SSL", "Backups"],
+  //   syncToStripe: false,
+  // },
   {
     id: "essential",
     title: "Essential Care",
     price: "$99 CAD/month",
+    amountCents: 9900,
     bullets: ["Hosting", "SSL", "Backups", "Monitoring"],
   },
   {
     id: "growth",
     title: "Growth Plan",
     price: "$249 CAD/month",
+    amountCents: 24900,
     bullets: [
       "Everything in Essential",
       "1 hour updates/month",
@@ -64,6 +76,7 @@ export const monthlyPlans: MonthlyPlan[] = [
     id: "premium",
     title: "Premium Plan",
     price: "$499 CAD/month",
+    amountCents: 49900,
     bullets: [
       "Everything in Growth",
       "Up to 4 hours updates/month",
@@ -75,6 +88,7 @@ export const monthlyPlans: MonthlyPlan[] = [
     id: "managed-content",
     title: "Managed Content Plan",
     price: "$799–$1,500 CAD/month",
+    amountCents: 79900,
     bullets: [
       "Content updates",
       "Landing pages",

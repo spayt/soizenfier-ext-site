@@ -8,31 +8,37 @@ export async function POST(req: Request) {
 
   if (!stripeFunctionUrl) {
     return NextResponse.json(
-      { error: "Missing STRIPE_FUNCTION_URL environment variable." },
+      { error: "Missing function URL environment variable." },
       { status: 500 },
     );
   }
 
-  const body = await req.json();
   const authorization = req.headers.get("Authorization") ?? "";
 
-  const response = await fetch(
-    `${stripeFunctionUrl.replace(/\/+$/, "")}/createCustomerPortalSession`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(authorization ? { Authorization: authorization } : {}),
+  let response: Response;
+  try {
+    response = await fetch(
+      `${stripeFunctionUrl.replace(/\/+$/, "")}/syncPlansToStripe`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(authorization ? { Authorization: authorization } : {}),
+        },
+        body: "{}",
       },
-      body: JSON.stringify(body),
-    },
-  );
+    );
+  } catch {
+    return NextResponse.json(
+      { error: "Could not reach sync service. Please try again." },
+      { status: 502 },
+    );
+  }
 
   const data = await response.json();
-
   if (!response.ok) {
     return NextResponse.json(
-      { error: data?.error ?? "Portal session error." },
+      { error: data?.error ?? "Sync failed." },
       { status: response.status },
     );
   }
