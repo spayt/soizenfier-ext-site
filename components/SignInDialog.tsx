@@ -246,7 +246,11 @@ export default function SignInDialog({ open, onOpenChange }: SignInDialogProps) 
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-sm">
+      <DialogContent
+        className="sm:max-w-sm"
+        onPointerDownOutside={(e) => e.preventDefault()}
+        onInteractOutside={(e) => e.preventDefault()}
+      >
 
         {/* ── Sign in ── */}
         {step === "signin" && (
