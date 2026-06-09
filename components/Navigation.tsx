@@ -97,13 +97,13 @@ export default function Navigation() {
                   className="w-8 h-8 object-cover"
                 />
               </div>
-              <span className="hidden sm:block text-xs font-bold text-slate-900 group-hover:text-yellow-600 transition-colors duration-200 leading-tight">
+              <span className="hidden md:block text-xs font-bold text-slate-900 group-hover:text-yellow-600 transition-colors duration-200 leading-tight">
                 {dictionary.company}
               </span>
             </Link>
 
             {/* ── Desktop nav ── */}
-            <div className="hidden sm:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-3">
               {/* Pill container */}
               <div className="flex items-center bg-slate-100/80 rounded-full p-1 gap-0.5">
                 {navLinks.map((link) => {
@@ -158,7 +158,7 @@ export default function Navigation() {
             {/* ── Mobile hamburger ── */}
             <button
               type="button"
-              className="sm:hidden inline-flex items-center justify-center w-9 h-9 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors font-bold text-base"
+              className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors font-bold text-base"
               onClick={() => setMenuOpen((o) => !o)}
               aria-label="Toggle menu"
             >
@@ -169,7 +169,7 @@ export default function Navigation() {
 
         {/* ── Mobile drawer ── */}
         {menuOpen && (
-          <div className="sm:hidden border-t border-slate-100 bg-white/95 backdrop-blur-md pb-5 px-4">
+          <div className="md:hidden border-t border-slate-100 bg-white/95 backdrop-blur-md pb-5 px-4">
             <div className="pt-3 space-y-0.5">
               {navLinks.map((link) => {
                 const active = isActive(link);

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 import {
   defaultLocale,
@@ -15,6 +16,41 @@ type ContactPageProps = {
 };
 
 export const generateStaticParams = () => locales.map((lang) => ({ lang }));
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang: langParam } = await params;
+  const isFr = isLocale(langParam) && langParam === "fr";
+
+  return isFr
+    ? {
+        title: "Contactez-nous",
+        description:
+          "Prêt à démarrer votre projet web? Contactez SoiZenFier Technologies pour une consultation gratuite sur la conception de site web, les applications ou les plans de maintenance.",
+        openGraph: {
+          title: "Contact — SoiZenFier Technologies",
+          description:
+            "Discutons de votre projet web. Devis gratuit pour site web, application ou plan de maintenance.",
+          type: "website",
+          locale: "fr_CA",
+        },
+      }
+    : {
+        title: "Contact Us — Get a Free Web Design Quote",
+        description:
+          "Ready to start your web project? Contact SoiZenFier Technologies for a free consultation on website design, web apps, or monthly maintenance plans.",
+        openGraph: {
+          title: "Contact SoiZenFier Technologies",
+          description:
+            "Get a free quote for your website, web app, or maintenance plan. We respond within 24 hours.",
+          type: "website",
+          locale: "en_CA",
+        },
+      };
+}
 
 export default async function ContactPage({ params }: ContactPageProps) {
   const { lang: langParam } = await params;

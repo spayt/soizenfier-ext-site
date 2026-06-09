@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import {
   defaultLocale,
@@ -17,6 +18,41 @@ type ServicesPageProps = {
 };
 
 export const generateStaticParams = () => locales.map((lang) => ({ lang }));
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang: langParam } = await params;
+  const isFr = isLocale(langParam) && langParam === "fr";
+
+  return isFr
+    ? {
+        title: "Services de Développement Web",
+        description:
+          "Conception web professionnelle, développement d'applications web et mobiles, hébergement géré, maintenance de sites web et suivi SEO. Forfaits adaptés aux PME.",
+        openGraph: {
+          title: "Services Web — SoiZenFier Technologies",
+          description:
+            "Conception web, hébergement géré, maintenance et optimisation SEO pour les entreprises au Canada.",
+          type: "website",
+          locale: "fr_CA",
+        },
+      }
+    : {
+        title: "Web Design & Development Services",
+        description:
+          "Professional web design, web app development, managed hosting, website maintenance, content updates, and SEO monitoring. Tailored service packages for small businesses.",
+        openGraph: {
+          title: "Web Development Services — SoiZenFier Technologies",
+          description:
+            "Custom web design, managed hosting, website maintenance, and SEO monitoring for businesses across Canada.",
+          type: "website",
+          locale: "en_CA",
+        },
+      };
+}
 
 const SERVICE_CONFIG = [
   { id: "design",        icon: "🌐" },

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import {
   defaultLocale,
@@ -12,6 +13,41 @@ import {
 } from "@/lib/i18n";
 
 export const generateStaticParams = () => locales.map((lang) => ({ lang }));
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang: langParam } = await params;
+  const isFr = isLocale(langParam) && langParam === "fr";
+
+  return isFr
+    ? {
+        title: "Conception et Développement Web pour PME — SoiZenFier Technologies",
+        description:
+          "Sites web sur mesure, applications web et mobiles pour les entreprises au Canada. Rapides, optimisés SEO et maintenus professionnellement. À partir de 500 $ CAD.",
+        openGraph: {
+          title: "SoiZenFier Technologies — Agence Web Canadienne",
+          description:
+            "Sites web, applications web et mobiles sur mesure pour les PME. Maintenance, hébergement et suivi SEO inclus.",
+          type: "website",
+          locale: "fr_CA",
+        },
+      }
+    : {
+        title: "Web Design & Development for Small Businesses — SoiZenFier Technologies",
+        description:
+          "Custom websites, web apps, and mobile apps for small businesses in Canada. Fast, SEO-optimized, and professionally maintained. Free quote — starting at $500 CAD.",
+        openGraph: {
+          title: "SoiZenFier Technologies — Canadian Web Development Agency",
+          description:
+            "Custom websites, web apps, and mobile apps. Managed hosting, maintenance, and SEO monitoring for businesses across Canada.",
+          type: "website",
+          locale: "en_CA",
+        },
+      };
+}
 
 type HomePageProps = {
   params: {

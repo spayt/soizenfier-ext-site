@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import {
   defaultLocale,
@@ -12,6 +13,41 @@ type AboutPageProps = {
 };
 
 export const generateStaticParams = () => locales.map((lang) => ({ lang }));
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang: langParam } = await params;
+  const isFr = isLocale(langParam) && langParam === "fr";
+
+  return isFr
+    ? {
+        title: "À Propos — Agence de Développement Web",
+        description:
+          "SoiZenFier Technologies est une agence web canadienne spécialisée dans la création de sites web, d'applications web et d'outils numériques sur mesure pour les entreprises.",
+        openGraph: {
+          title: "À Propos — SoiZenFier Technologies",
+          description:
+            "Agence web canadienne : sites web, applications web et mobiles sur mesure avec des technologies modernes.",
+          type: "website",
+          locale: "fr_CA",
+        },
+      }
+    : {
+        title: "About Us — Web Development Agency",
+        description:
+          "SoiZenFier Technologies is a Canadian web development agency specializing in custom websites, web apps, and digital tools built with modern technologies.",
+        openGraph: {
+          title: "About SoiZenFier Technologies",
+          description:
+            "Canadian web development agency building custom websites, web apps, and mobile applications for modern businesses.",
+          type: "website",
+          locale: "en_CA",
+        },
+      };
+}
 
 const TECH_STACK = [
   "Next.js", "React", "TypeScript", "Tailwind CSS",
