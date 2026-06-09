@@ -88,13 +88,13 @@ export default function Navigation() {
 
             {/* ── Logo ── */}
             <Link href={langPath("/")} className="flex items-center gap-2.5 group shrink-0">
-              <div className="w-8 h-8 rounded-xl overflow-hidden shadow-sm ring-1 ring-slate-200">
+              <div className="w-12 h-12 rounded-xl overflow-hidden shadow-sm ring-1 ring-slate-200 shrink-0">
                 <Image
                   src="/soiZenFier_logo.png"
                   alt={dictionary.company}
-                  width={32}
-                  height={32}
-                  className="w-8 h-8 object-cover"
+                  width={48}
+                  height={48}
+                  className="w-12 h-12 object-cover"
                 />
               </div>
               <span className="hidden md:block text-xs font-bold text-slate-900 group-hover:text-yellow-600 transition-colors duration-200 leading-tight">

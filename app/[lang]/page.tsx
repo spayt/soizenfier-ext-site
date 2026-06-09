@@ -120,13 +120,13 @@ export default async function Home({ params }: HomePageProps) {
             <div className="flex items-center justify-center">
               <div className="relative">
                 <div className="absolute -inset-8 rounded-[2.5rem] bg-yellow-400/8 blur-3xl" />
-                <div className="relative p-8 bg-slate-900 rounded-3xl border border-slate-800 shadow-[0_40px_80px_rgba(0,0,0,0.6)]">
+                <div className="relative p-4 bg-slate-900 rounded-3xl border border-slate-800 shadow-[0_40px_80px_rgba(0,0,0,0.6)]">
                   <Image
-                    src="/soiZenFier_logo.png"
+                    src="/soizenfier_bamana_logo.svg"
                     alt={dictionary.company}
-                    width={260}
-                    height={260}
-                    className="logo"
+                    width={420}
+                    height={420}
+                    className="logo w-full max-w-[420px]"
                   />
                 </div>
               </div>
