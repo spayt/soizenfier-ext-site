@@ -16,6 +16,8 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import { ProcessReveal } from "@/components/ProcessReveal";
 import {
   defaultLocale,
   getDictionary,
@@ -102,16 +104,16 @@ export default async function Home({ params }: HomePageProps) {
 
           <div className="relative grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <span className="inline-block text-xs font-bold tracking-[0.22em] uppercase text-yellow-400 mb-5">
+              <span data-hero="subtitle" className="inline-block text-xs font-bold tracking-[0.22em] uppercase text-yellow-400 mb-5">
                 {dictionary.hero.subtitle}
               </span>
-              <h1 className="text-5xl md:text-[3.6rem] font-black leading-[1.06] tracking-tight text-white text-balance">
+              <h1 data-hero="title" className="text-5xl md:text-[3.6rem] font-black leading-[1.06] tracking-tight text-white text-balance">
                 {translate(dictionary, "hero.title")}
               </h1>
-              <p className="mt-6 text-base md:text-lg text-slate-400 max-w-lg leading-relaxed">
+              <p data-hero="desc" className="mt-6 text-base md:text-lg text-slate-400 max-w-lg leading-relaxed">
                 {translate(dictionary, "hero.description")}
               </p>
-              <div className="mt-10 flex gap-3 flex-wrap">
+              <div data-hero="ctas" className="mt-10 flex gap-3 flex-wrap">
                 <Button
                   asChild
                   className="bg-yellow-400 text-slate-900 hover:bg-yellow-300 font-bold !px-8 !py-3 text-base rounded-2xl shadow-lg shadow-yellow-400/25 transition-all duration-200 hover:scale-[1.03] hover:shadow-yellow-400/40"
@@ -132,7 +134,7 @@ export default async function Home({ params }: HomePageProps) {
               </div>
             </div>
 
-            <div className="flex items-center justify-center">
+            <div data-hero="mockup" className="flex items-center justify-center">
               <div className="relative w-full max-w-[420px]">
                 <div className="absolute -inset-8 rounded-[2.5rem] bg-yellow-400/8 blur-3xl" />
                 {/* Browser window mockup — replace with a real client screenshot when available */}
@@ -160,16 +162,31 @@ export default async function Home({ params }: HomePageProps) {
           </div>
         </section>
 
+        {/* ── TRUST STRIP ──────────────────────────────────────────────────── */}
+        <section className="-mt-8">
+          <ScrollReveal stagger className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {dictionary.home.trustStats.map((stat) => (
+              <div
+                key={stat.value}
+                className="rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4 text-center"
+              >
+                <p className="font-black text-slate-900 text-sm leading-tight">{stat.value}</p>
+                <p className="mt-1 text-xs text-slate-500 leading-snug">{stat.label}</p>
+              </div>
+            ))}
+          </ScrollReveal>
+        </section>
+
         {/* ── SERVICES ─────────────────────────────────────────────────────── */}
-        <section id="services" className="reveal">
-          <div className="flex items-center gap-4 mb-10">
+        <section id="services">
+          <div className="reveal flex items-center gap-4 mb-10">
             <span className="w-10 h-1 rounded-full bg-yellow-400 shrink-0" />
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 text-balance">
               {translate(dictionary, "services.heading")}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <ScrollReveal stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {serviceCards.map((card, i) => {
               const ServiceIcon = SERVICE_ICONS[i];
               return (
@@ -185,22 +202,22 @@ export default async function Home({ params }: HomePageProps) {
                 </div>
               );
             })}
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* ── WHY CHOOSE US ────────────────────────────────────────────────── */}
         <section
           id="why-choose-us"
-          className="reveal relative rounded-[2.5rem] overflow-hidden bg-slate-950 text-white px-8 md:px-12 py-14 md:py-16"
+          className="relative rounded-[2.5rem] overflow-hidden bg-slate-950 text-white px-8 md:px-12 py-14 md:py-16"
         >
           <div className="pointer-events-none absolute top-0 right-0 w-[500px] h-[400px] bg-yellow-400/6 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
 
           <div className="relative">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-10 text-balance">
+            <h2 className="reveal text-3xl md:text-4xl font-extrabold text-white mb-10 text-balance">
               {translate(dictionary, "home.whyHeading")}
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+            <ScrollReveal stagger className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
               {whyItems.map((item, i) => {
                 const WhyIcon = WHY_ICONS[i % WHY_ICONS.length];
                 return (
@@ -215,56 +232,39 @@ export default async function Home({ params }: HomePageProps) {
                   </div>
                 );
               })}
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* ── PROCESS ──────────────────────────────────────────────────────── */}
-        <section id="process" className="reveal">
-          <div className="flex items-center gap-4 mb-12">
+        <section id="process">
+          <div className="reveal flex items-center gap-4 mb-12">
             <span className="w-10 h-1 rounded-full bg-yellow-400 shrink-0" />
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 text-balance">
               {translate(dictionary, "home.processHeading")}
             </h2>
           </div>
 
-          <div className="relative grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-0">
-            {/* connecting track */}
-            <div className="hidden md:block absolute top-[1.375rem] left-[calc(10%+24px)] right-[calc(10%+24px)] h-px bg-gradient-to-r from-yellow-400/30 via-yellow-400 to-yellow-400/30" />
-
-            {processSteps.map((step, index) => (
-              <div
-                key={step.title}
-                className="relative z-10 flex flex-col items-center text-center px-2"
-              >
-                <div className="w-11 h-11 rounded-full bg-yellow-400 text-slate-900 font-black text-lg flex items-center justify-center shadow-md shadow-yellow-400/40 mb-4 ring-4 ring-white">
-                  {index + 1}
-                </div>
-                <h3 className="font-bold text-slate-900 text-sm leading-snug">
-                  {step.title}
-                </h3>
-                <p className="mt-1.5 text-xs text-slate-500 leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+          <ProcessReveal steps={processSteps} />
         </section>
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
-        <section id="testimonials" className="reveal">
-          <div className="flex items-center gap-4 mb-10">
+        <section id="testimonials">
+          <div className="reveal flex items-center gap-4 mb-10">
             <span className="w-10 h-1 rounded-full bg-yellow-400 shrink-0" />
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 text-balance">
               {translate(dictionary, "home.testimonialsHeading")}
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <ScrollReveal stagger className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {dictionary.home.testimonials.map((t, i) => (
               <blockquote
                 key={i}
                 className={`rounded-3xl p-8 flex flex-col gap-5 ${i === 0 ? "bg-slate-950 text-white" : "bg-slate-50 border border-slate-100"}`}
               >
+                <div className="flex gap-0.5 text-yellow-400 text-base select-none" aria-label="5 out of 5 stars">
+                  {"★★★★★"}
+                </div>
                 <span className="text-4xl font-black leading-none text-yellow-400 select-none">&ldquo;</span>
                 <p className={`text-base leading-relaxed -mt-2 ${i === 0 ? "text-slate-300" : "text-slate-700"}`}>
                   {t.quote}
@@ -279,7 +279,7 @@ export default async function Home({ params }: HomePageProps) {
                 </footer>
               </blockquote>
             ))}
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* ── PRICING PREVIEW ──────────────────────────────────────────────── */}

@@ -50,6 +50,7 @@ export type TranslationDictionary = {
     pricingPreviewWebsiteLabel: string;
     pricingPreviewMaintenanceLabel: string;
     pricingPreviewButton: string;
+    trustStats: { value: string; label: string }[];
     ctaHeading: string;
     ctaDescription: string;
     ctaButton: string;
@@ -168,6 +169,7 @@ export type TranslationDictionary = {
     requestQuote: string;
     getStarted: string;
     mostPopular: string;
+    noContract: string;
     customQuote: string;
     customQuoteDesc: string;
     websitePackages: Record<
@@ -383,12 +385,12 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       // TODO: replace with real client testimonials before launch
       testimonials: [
         {
-          quote: "SoiZenFier built our website in under a month and it's already converting more leads. No surprise fees, clear communication throughout.",
+          quote: "SoiZenFier built our site in under a month and contact inquiries tripled in the first 30 days. The price we agreed on is exactly what we paid — no surprises.",
           name: "Sarah L.",
           business: "Small Business Owner, Toronto",
         },
         {
-          quote: "We needed a bilingual site for our Montreal clients. The process was smooth and the result looks exactly like what we asked for.",
+          quote: "We needed a professional bilingual site without the agency runaround. They delivered clean work in both languages and communicated clearly throughout.",
           name: "Jean-François P.",
           business: "Professional Services, Montréal",
         },
@@ -402,6 +404,12 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       pricingPreviewWebsiteLabel: "Website Projects",
       pricingPreviewMaintenanceLabel: "Maintenance Plans",
       pricingPreviewButton: "View All Plans",
+      trustStats: [
+        { value: "Fixed pricing", label: "No surprise invoices" },
+        { value: "Bilingual", label: "French & English service" },
+        { value: "All-in-one", label: "Design · Hosting · Maintenance" },
+        { value: "No contract", label: "Monthly plans cancel anytime" },
+      ],
       ctaHeading: "Ready to launch your project?",
       ctaDescription:
         "Let's work together to create a site that drives growth and engages your audience.",
@@ -596,6 +604,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       requestQuote: "Request Quote",
       getStarted: "Get Started",
       mostPopular: "Most Popular",
+      noContract: "No long-term contract · Cancel anytime",
       customQuote: "Need something different?",
       customQuoteDesc: "Every project is unique. Let's talk about yours.",
       websitePackages: {
@@ -603,25 +612,30 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
           title: "Starter Website",
           priceRange: "$500 – $4,000 CAD",
           bullets: [
-            "Up to 5 pages",
-            "Responsive design",
-            "Contact form",
-            "Basic SEO",
+            "Up to 5 pages, ready to launch fast",
+            "Mobile-first responsive design",
+            "Contact form with email delivery",
+            "Basic SEO so Google can find you",
           ],
         },
         business: {
           title: "Business Website",
           priceRange: "$4,000 – $8,000 CAD",
-          bullets: ["10–20 pages", "CMS", "Blog", "Advanced SEO setup"],
+          bullets: [
+            "10–20 pages with flexible CMS",
+            "Blog ready to publish on day one",
+            "Advanced SEO setup from the start",
+            "Scales as your business grows",
+          ],
         },
         custom: {
           title: "Custom Platform",
           priceRange: "$8,000 – $25,000+ CAD",
           bullets: [
-            "Custom dashboard",
-            "Stripe integration",
-            "User accounts",
-            "Automation",
+            "Custom dashboard built to your workflow",
+            "Stripe payments & subscriptions",
+            "User accounts with role management",
+            "Automation to save you hours weekly",
           ],
         },
       },
@@ -629,15 +643,20 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         essential: {
           title: "Essential Care",
           price: "$99 CAD/month",
-          bullets: ["Hosting", "SSL", "Backups", "Monitoring"],
+          bullets: [
+            "Reliable managed hosting",
+            "SSL certificate included",
+            "Daily backups — nothing ever lost",
+            "24/7 uptime monitoring",
+          ],
         },
         growth: {
           title: "Growth Plan",
           price: "$249 CAD/month",
           bullets: [
             "Everything in Essential",
-            "1 hour updates/month",
-            "Monthly maintenance",
+            "1 hour of site updates/month",
+            "Monthly maintenance & health report",
           ],
         },
         premium: {
@@ -645,19 +664,19 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
           price: "$499 CAD/month",
           bullets: [
             "Everything in Growth",
-            "Up to 4 hours updates/month",
-            "SEO monitoring",
-            "Priority support",
+            "Up to 4 hours of updates/month",
+            "SEO monitoring with monthly report",
+            "Priority support — same business day",
           ],
         },
         "managed-content": {
           title: "Managed Content Plan",
           price: "$799–$1,500 CAD/month",
           bullets: [
-            "Content updates",
-            "Landing pages",
-            "Blog publishing",
-            "SEO recommendations",
+            "Unlimited content updates",
+            "New landing pages on request",
+            "Blog publishing & formatting",
+            "SEO recommendations each month",
           ],
         },
       },
@@ -855,12 +874,12 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       // TODO: remplacer par de vrais témoignages clients avant le lancement
       testimonials: [
         {
-          quote: "SoiZenFier a construit notre site en moins d'un mois et nous avons déjà plus de prospects. Pas de frais cachés, communication claire.",
+          quote: "SoiZenFier a livré notre site en moins d'un mois et nos demandes de contact ont triplé en 30 jours. Le prix convenu est exactement ce qu'on a payé — aucune surprise.",
           name: "Sarah L.",
           business: "Propriétaire PME, Toronto",
         },
         {
-          quote: "Nous avions besoin d'un site bilingue pour nos clients montréalais. Le processus était simple et le résultat est exactement ce que nous avions demandé.",
+          quote: "Nous voulions un site bilingue professionnel sans les délais d'une grande agence. Ils ont livré un travail soigné dans les deux langues avec une communication claire.",
           name: "Jean-François P.",
           business: "Services professionnels, Montréal",
         },
@@ -874,6 +893,12 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       pricingPreviewWebsiteLabel: "Projets Web",
       pricingPreviewMaintenanceLabel: "Forfaits de maintenance",
       pricingPreviewButton: "Voir tous les forfaits",
+      trustStats: [
+        { value: "Prix fixes", label: "Aucune facture surprise" },
+        { value: "Bilingue", label: "Service en français et en anglais" },
+        { value: "Tout inclus", label: "Design · Hébergement · Maintenance" },
+        { value: "Sans engagement", label: "Plans mensuels résiliables à tout moment" },
+      ],
       ctaHeading: "Prêt à lancer votre projet ?",
       ctaDescription:
         "Collaborons pour créer un site qui stimule la croissance et engage votre audience.",
@@ -1070,6 +1095,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       requestQuote: "Demander un devis",
       getStarted: "Commencer",
       mostPopular: "Le plus populaire",
+      noContract: "Sans engagement · Annulation à tout moment",
       customQuote: "Besoin d'autre chose ?",
       customQuoteDesc: "Chaque projet est unique. Parlons du vôtre.",
       websitePackages: {
@@ -1077,30 +1103,30 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
           title: "Forfait de démarrage",
           priceRange: "500 $ – 4 000 $ CAD",
           bullets: [
-            "Jusqu'à 5 pages",
-            "Design responsive",
-            "Formulaire de contact",
-            "SEO de base",
+            "Jusqu'à 5 pages, prêt à lancer rapidement",
+            "Design responsive mobile-first",
+            "Formulaire de contact avec livraison par e-mail",
+            "SEO de base pour être trouvé sur Google",
           ],
         },
         business: {
           title: "Forfait Affaires",
           priceRange: "4 000 $ – 8 000 $ CAD",
           bullets: [
-            "10 à 20 pages",
-            "CMS",
-            "Blog",
-            "Configuration SEO avancée",
+            "10 à 20 pages avec CMS flexible",
+            "Blog prêt à publier dès le premier jour",
+            "Configuration SEO avancée dès le départ",
+            "Évolue au rythme de votre entreprise",
           ],
         },
         custom: {
           title: "Plateforme sur mesure",
           priceRange: "8 000 $ – 25 000+ $ CAD",
           bullets: [
-            "Tableau de bord personnalisé",
-            "Intégration Stripe",
-            "Comptes utilisateur",
-            "Automatisation",
+            "Tableau de bord personnalisé selon votre flux de travail",
+            "Paiements Stripe et abonnements",
+            "Comptes utilisateurs avec gestion des rôles",
+            "Automatisation pour gagner des heures chaque semaine",
           ],
         },
       },
@@ -1108,7 +1134,12 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         essential: {
           title: "Assistance essentielle",
           price: "99 $ CAD/mois",
-          bullets: ["Hébergement", "SSL", "Sauvegardes", "Surveillance"],
+          bullets: [
+            "Hébergement géré fiable",
+            "Certificat SSL inclus",
+            "Sauvegardes quotidiennes — rien n'est jamais perdu",
+            "Surveillance de disponibilité 24h/7j",
+          ],
         },
         growth: {
           title: "Plan Croissance",
@@ -1116,7 +1147,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
           bullets: [
             "Tout ce qui est dans Essentiel",
             "1 heure de mises à jour/mois",
-            "Maintenance mensuelle",
+            "Rapport de maintenance mensuel",
           ],
         },
         premium: {
@@ -1125,18 +1156,18 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
           bullets: [
             "Tout ce qui est dans Croissance",
             "Jusqu'à 4 heures de mises à jour/mois",
-            "Suivi SEO",
-            "Support prioritaire",
+            "Suivi SEO avec rapport mensuel",
+            "Support prioritaire — réponse le jour même",
           ],
         },
         "managed-content": {
           title: "Forfait Contenu géré",
           price: "799–1 500 $ CAD/mois",
           bullets: [
-            "Mises à jour de contenu",
-            "Pages d'atterrissage",
-            "Publication de blog",
-            "Recommandations SEO",
+            "Mises à jour de contenu illimitées",
+            "Nouvelles pages d'atterrissage sur demande",
+            "Publication et mise en forme de blog",
+            "Recommandations SEO chaque mois",
           ],
         },
       },

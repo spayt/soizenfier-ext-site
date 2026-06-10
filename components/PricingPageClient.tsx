@@ -169,6 +169,9 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
                         : "bg-slate-900 !text-white hover:bg-slate-700 font-bold"
                     }
                   />
+                  <p className={`text-center text-xs mt-2.5 ${featured ? "text-slate-500" : "text-slate-400"}`}>
+                    {dictionary.pricingPage.noContract}
+                  </p>
                 </div>
               );
             })}
