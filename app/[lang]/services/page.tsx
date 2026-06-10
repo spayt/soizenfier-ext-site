@@ -1,4 +1,12 @@
 import type { Metadata } from "next";
+import {
+  Globe,
+  LayoutDashboard,
+  Server,
+  Wrench,
+  FileText,
+  Search,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   defaultLocale,
@@ -55,13 +63,13 @@ export async function generateMetadata({
 }
 
 const SERVICE_CONFIG = [
-  { id: "design",        icon: "🌐" },
-  { id: "dashboards",    icon: "📊" },
-  { id: "hostedService", icon: "☁️" },
-  { id: "maintenance",   icon: "🔧" },
-  { id: "content",       icon: "✍️" },
-  { id: "seo",           icon: "🔍" },
-];
+  { id: "design",        Icon: Globe },
+  { id: "dashboards",    Icon: LayoutDashboard },
+  { id: "hostedService", Icon: Server },
+  { id: "maintenance",   Icon: Wrench },
+  { id: "content",       Icon: FileText },
+  { id: "seo",           Icon: Search },
+] as const;
 
 export default async function ServicesPage({ params }: ServicesPageProps) {
   const { lang: langParam } = await params;
@@ -76,13 +84,8 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
         <section className="relative rounded-[2.5rem] overflow-hidden bg-slate-950 text-white px-8 md:px-14 py-16 md:py-20">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_80%_-10%,rgba(250,204,21,0.14)_0%,transparent_70%)]" />
           <div className="relative max-w-2xl">
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-8 h-1 rounded-full bg-yellow-400" />
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-yellow-400">
-                {translate(dictionary, "nav.services")}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white">
+            <span className="w-8 h-1 rounded-full bg-yellow-400 block mb-5" />
+            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white text-balance">
               {translate(dictionary, "servicesPage.heading")}
             </h1>
             <p className="mt-5 text-base md:text-lg text-slate-400 leading-relaxed">
@@ -92,8 +95,9 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
         </section>
 
         {/* ── SERVICE CARDS ── */}
-        <section className="grid gap-6 md:grid-cols-2">
+        <section className="reveal grid gap-6 md:grid-cols-2">
           {SERVICE_CONFIG.map((config) => {
+            const { Icon } = config;
             const points =
               dictionary.servicesPage.points[
                 config.id as keyof typeof dictionary.servicesPage.points
@@ -101,15 +105,11 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
             return (
               <div
                 key={config.id}
-                className="group relative flex flex-col rounded-3xl bg-white border border-slate-100 p-8 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+                className="group flex flex-col rounded-3xl bg-white border border-slate-100 p-8 shadow-sm hover:shadow-lg hover:border-yellow-200 hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-yellow-300 to-yellow-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-3xl shrink-0 group-hover:scale-110 transition-transform duration-200">
-                    {config.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 pt-2 leading-snug">
+                <div className="flex items-center gap-3 mb-5">
+                  <Icon className="w-5 h-5 text-yellow-500 shrink-0 group-hover:text-yellow-600 transition-colors duration-200" />
+                  <h3 className="text-xl font-bold text-slate-900 leading-snug text-balance">
                     {translate(dictionary, `servicesPage.${config.id}` as Parameters<typeof translate>[1])}
                   </h3>
                 </div>
@@ -134,9 +134,9 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
         </section>
 
         {/* ── BOTTOM CTA ── */}
-        <section className="rounded-[2.5rem] bg-yellow-400 px-8 md:px-14 py-12 md:py-14 flex flex-col md:flex-row items-center justify-between gap-6">
+        <section className="reveal rounded-[2.5rem] bg-yellow-400 px-8 md:px-14 py-12 md:py-14 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <h2 className="text-2xl md:text-3xl font-black text-slate-900 leading-snug">
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 leading-snug text-balance">
               {translate(dictionary, "home.ctaHeading")}
             </h2>
             <p className="mt-2 text-slate-700 text-sm md:text-base">
@@ -156,6 +156,24 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
             </Button>
           </div>
         </section>
+
+        {/* ── FOOTER ── */}
+        <footer className="pb-8 pt-10 border-t border-slate-100 text-sm text-slate-500">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+            <div>
+              <span className="font-semibold text-slate-700 block">
+                © {new Date().getFullYear()} {dictionary.company}
+              </span>
+              <span className="text-xs mt-1 block">Made in Canada 🇨🇦</span>
+            </div>
+            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium">
+              <Link href={localePath(lang as Locale, "/services")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.services}</Link>
+              <Link href={localePath(lang as Locale, "/pricing")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.pricing}</Link>
+              <Link href={localePath(lang as Locale, "/about")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.about}</Link>
+              <Link href={localePath(lang as Locale, "/contact")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.contactUs}</Link>
+            </nav>
+          </div>
+        </footer>
 
       </main>
     </div>

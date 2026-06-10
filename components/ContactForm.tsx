@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { type TranslationDictionary } from "@/lib/i18n";
@@ -32,7 +32,7 @@ export default function ContactForm({ dictionary }: ContactFormProps) {
     setForm((current) => ({ ...current, [field]: value }));
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStatus("submitting");
     setError(null);
@@ -79,9 +79,9 @@ export default function ContactForm({ dictionary }: ContactFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-5 rounded-2xl bg-white p-6 shadow"
+      className="space-y-5 rounded-3xl bg-white border border-slate-100 p-8 shadow-sm"
     >
-      <h2 className="text-lg font-semibold">
+      <h2 className="text-xl font-bold text-slate-900 text-balance">
         {dictionary.contactPage.contactForm}
       </h2>
       <p className="mt-2 text-sm text-slate-600">

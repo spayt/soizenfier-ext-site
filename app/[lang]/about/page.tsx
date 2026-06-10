@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { Building2, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   defaultLocale,
   getDictionary,
   isLocale,
+  localePath,
   locales,
   translate,
+  type Locale,
 } from "@/lib/i18n";
 
 type AboutPageProps = {
@@ -68,13 +72,8 @@ export default async function AboutPage({ params }: AboutPageProps) {
         <section className="relative rounded-[2.5rem] overflow-hidden bg-slate-950 text-white px-8 md:px-14 py-16 md:py-20">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_80%_0%,rgba(250,204,21,0.13)_0%,transparent_65%)]" />
           <div className="relative max-w-2xl">
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-8 h-1 rounded-full bg-yellow-400" />
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-yellow-400">
-                {translate(dictionary, "nav.about")}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white">
+            <span className="w-8 h-1 rounded-full bg-yellow-400 block mb-5" />
+            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white text-balance">
               {translate(dictionary, "aboutPage.title")}
             </h1>
             <p className="mt-5 text-base md:text-lg text-slate-400 leading-relaxed">
@@ -83,16 +82,16 @@ export default async function AboutPage({ params }: AboutPageProps) {
           </div>
         </section>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="reveal grid gap-6 md:grid-cols-2">
 
           {/* ── WHO WE ARE ── */}
           <div className="rounded-3xl bg-white border border-slate-100 p-8 shadow-sm hover:shadow-md transition-shadow">
-            <div className="w-10 h-10 rounded-xl bg-yellow-50 border border-yellow-100 flex items-center justify-center text-xl mb-5">
-              🏢
+            <div className="flex items-center gap-3 mb-4">
+              <Building2 className="w-5 h-5 text-yellow-500 shrink-0" />
+              <h2 className="text-xl font-bold text-slate-900 text-balance">
+                {translate(dictionary, "aboutPage.whoWeAre")}
+              </h2>
             </div>
-            <h2 className="text-xl font-bold text-slate-900 mb-3">
-              {translate(dictionary, "aboutPage.whoWeAre")}
-            </h2>
             <p className="text-sm text-slate-600 leading-relaxed">
               {translate(dictionary, "aboutPage.whoWeAreDesc")}
             </p>
@@ -100,12 +99,12 @@ export default async function AboutPage({ params }: AboutPageProps) {
 
           {/* ── MISSION ── */}
           <div className="rounded-3xl bg-slate-950 text-white p-8 shadow-sm">
-            <div className="w-10 h-10 rounded-xl bg-yellow-400/10 flex items-center justify-center text-xl mb-5">
-              🎯
+            <div className="flex items-center gap-3 mb-4">
+              <Target className="w-5 h-5 text-yellow-400 shrink-0" />
+              <h2 className="text-xl font-bold text-white text-balance">
+                {translate(dictionary, "aboutPage.mission")}
+              </h2>
             </div>
-            <h2 className="text-xl font-bold text-white mb-3">
-              {translate(dictionary, "aboutPage.mission")}
-            </h2>
             <p className="text-sm text-slate-400 leading-relaxed">
               {translate(dictionary, "aboutPage.missionDesc")}
             </p>
@@ -114,10 +113,10 @@ export default async function AboutPage({ params }: AboutPageProps) {
         </div>
 
         {/* ── TECHNOLOGIES ── */}
-        <section className="rounded-3xl bg-slate-50 border border-slate-100 p-8 md:p-10">
+        <section className="reveal rounded-3xl bg-slate-50 border border-slate-100 p-8 md:p-10">
           <div className="flex items-center gap-3 mb-6">
             <span className="w-8 h-1 rounded-full bg-yellow-400" />
-            <h2 className="text-xl font-bold text-slate-900">
+            <h2 className="text-xl font-bold text-slate-900 text-balance">
               {translate(dictionary, "aboutPage.technologies")}
             </h2>
           </div>
@@ -138,10 +137,10 @@ export default async function AboutPage({ params }: AboutPageProps) {
         </section>
 
         {/* ── PROCESS ── */}
-        <section>
+        <section className="reveal">
           <div className="flex items-center gap-3 mb-10">
             <span className="w-8 h-1 rounded-full bg-yellow-400" />
-            <h2 className="text-xl font-bold text-slate-900">
+            <h2 className="text-xl font-bold text-slate-900 text-balance">
               {translate(dictionary, "aboutPage.process")}
             </h2>
           </div>
@@ -153,17 +152,17 @@ export default async function AboutPage({ params }: AboutPageProps) {
                 <div className="w-11 h-11 rounded-full bg-yellow-400 text-slate-900 font-black text-lg flex items-center justify-center shadow-md shadow-yellow-400/40 mb-4 ring-4 ring-white">
                   {index + 1}
                 </div>
-                <h3 className="font-bold text-slate-900 text-sm leading-snug">{step.title}</h3>
-                <p className="mt-1.5 text-xs text-slate-500 leading-relaxed">{step.desc}</p>
+                <h3 className="font-bold text-slate-900 text-sm leading-snug text-balance">{step.title}</h3>
+                <p className="mt-1.5 text-sm text-slate-500 leading-relaxed">{step.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* ── CTA ── */}
-        <section className="rounded-3xl bg-yellow-400 px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-5">
-          <p className="text-lg md:text-xl font-black text-slate-900 text-center sm:text-left">
-            {translate(dictionary, "aboutPage.getInTouch")} →
+        <section className="reveal rounded-[2.5rem] bg-yellow-400 px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-5">
+          <p className="text-lg md:text-xl font-black text-slate-900 text-center sm:text-left text-balance">
+            {translate(dictionary, "home.ctaHeading")}
           </p>
           <Button asChild className="bg-slate-900 text-white hover:bg-slate-700 font-bold !px-8 rounded-2xl shrink-0 transition-all hover:scale-[1.03]">
             <a href={`mailto:${dictionary.mail.contact}?subject=Let's%20work%20together`}>
@@ -171,6 +170,24 @@ export default async function AboutPage({ params }: AboutPageProps) {
             </a>
           </Button>
         </section>
+
+        {/* ── FOOTER ── */}
+        <footer className="pb-8 pt-10 border-t border-slate-100 text-sm text-slate-500">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+            <div>
+              <span className="font-semibold text-slate-700 block">
+                © {new Date().getFullYear()} {dictionary.company}
+              </span>
+              <span className="text-xs mt-1 block">Made in Canada 🇨🇦</span>
+            </div>
+            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium">
+              <Link href={localePath(lang as Locale, "/services")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.services}</Link>
+              <Link href={localePath(lang as Locale, "/pricing")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.pricing}</Link>
+              <Link href={localePath(lang as Locale, "/about")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.about}</Link>
+              <Link href={localePath(lang as Locale, "/contact")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.contactUs}</Link>
+            </nav>
+          </div>
+        </footer>
 
       </main>
     </div>

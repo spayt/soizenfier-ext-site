@@ -27,14 +27,9 @@ export default function KimuntuPage() {
         <div className="pointer-events-none absolute bottom-0 left-0 w-64 h-64 rounded-full bg-violet-800/10 blur-3xl" />
 
         <div className="relative max-w-5xl mx-auto">
-          <div className="flex items-center gap-3 mb-8">
-            <span className="w-8 h-0.5 rounded-full bg-violet-400" />
-            <span className="text-xs font-bold tracking-[0.22em] uppercase text-violet-400">
-              Mobile App
-            </span>
-          </div>
+          <span className="w-8 h-0.5 rounded-full bg-violet-400 block mb-8" />
 
-          <h1 className="text-[clamp(4rem,14vw,9rem)] font-black tracking-tighter text-white leading-none select-none">
+          <h1 className="text-[clamp(3.5rem,10vw,6rem)] font-black tracking-[-0.04em] text-white leading-none select-none">
             KIMUNTU
           </h1>
 
@@ -68,9 +63,9 @@ export default function KimuntuPage() {
           <>
             <div className="flex items-center gap-4 mb-10">
               <span className="w-8 h-0.5 rounded-full bg-violet-400 shrink-0" />
-              <h2 className="text-xs font-bold tracking-[0.22em] uppercase text-slate-500">
+              <span className="text-sm font-medium text-slate-500">
                 {imageFiles.length} screens
-              </h2>
+              </span>
               <span className="flex-1 h-px bg-white/5" />
             </div>
 
@@ -102,7 +97,7 @@ export default function KimuntuPage() {
                     </div>
 
                     {/* Caption */}
-                    <p className="mt-3.5 text-xs font-bold text-slate-600 tracking-[0.18em] uppercase group-hover:text-violet-400 transition-colors duration-300">
+                    <p className="mt-3.5 text-xs font-medium text-slate-600 group-hover:text-violet-400 transition-colors duration-300">
                       Screen {index}
                     </p>
                   </div>
@@ -112,10 +107,7 @@ export default function KimuntuPage() {
           </>
         ) : (
           <div className="rounded-3xl border border-white/8 bg-white/3 p-16 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center mx-auto text-2xl mb-5">
-              📱
-            </div>
-            <p className="text-white font-semibold">No screens yet</p>
+            <p className="text-white font-semibold text-lg">No screens yet</p>
             <p className="mt-2 text-sm text-slate-500">
               Add images to <code className="text-slate-400">public/NtuAppImages</code> and refresh.
             </p>

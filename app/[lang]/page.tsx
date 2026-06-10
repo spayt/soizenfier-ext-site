@@ -1,6 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import {
+  Globe,
+  LayoutDashboard,
+  Server,
+  Wrench,
+  FileText,
+  Search,
+  Zap,
+  Smartphone,
+  Shield,
+  Headphones,
+  Tag,
+  MessageCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   defaultLocale,
@@ -55,7 +69,8 @@ type HomePageProps = {
   };
 };
 
-const SERVICE_ICONS = ["🌐", "📊", "☁️", "🔧", "✍️", "🔍"];
+const SERVICE_ICONS = [Globe, LayoutDashboard, Server, Wrench, FileText, Search] as const;
+const WHY_ICONS = [Zap, Smartphone, Shield, Headphones, Tag, MessageCircle] as const;
 
 export default async function Home({ params }: HomePageProps) {
   const { lang: langParam } = await params;
@@ -90,7 +105,7 @@ export default async function Home({ params }: HomePageProps) {
               <span className="inline-block text-xs font-bold tracking-[0.22em] uppercase text-yellow-400 mb-5">
                 {dictionary.hero.subtitle}
               </span>
-              <h1 className="text-5xl md:text-[3.6rem] font-black leading-[1.06] tracking-tight text-white">
+              <h1 className="text-5xl md:text-[3.6rem] font-black leading-[1.06] tracking-tight text-white text-balance">
                 {translate(dictionary, "hero.title")}
               </h1>
               <p className="mt-6 text-base md:text-lg text-slate-400 max-w-lg leading-relaxed">
@@ -118,15 +133,26 @@ export default async function Home({ params }: HomePageProps) {
             </div>
 
             <div className="flex items-center justify-center">
-              <div className="relative">
+              <div className="relative w-full max-w-[420px]">
                 <div className="absolute -inset-8 rounded-[2.5rem] bg-yellow-400/8 blur-3xl" />
-                <div className="relative p-4 bg-slate-900 rounded-3xl border border-slate-800 shadow-[0_40px_80px_rgba(0,0,0,0.6)]">
+                {/* Browser window mockup — replace with a real client screenshot when available */}
+                <div className="relative rounded-2xl overflow-hidden border border-slate-700 shadow-[0_40px_80px_rgba(0,0,0,0.6)]">
+                  {/* Chrome bar */}
+                  <div className="flex items-center gap-1.5 px-4 py-3 bg-slate-800 border-b border-slate-700/80">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+                    <div className="ml-2 flex-1 h-5 bg-slate-700/80 rounded-md flex items-center px-2.5">
+                      <span className="text-[9px] text-slate-500">femmesdelaterre.net</span>
+                    </div>
+                  </div>
+                  {/* Client site screenshot */}
                   <Image
-                    src="/soizenfier_bamana_logo.svg"
-                    alt={dictionary.company}
-                    width={420}
-                    height={420}
-                    className="logo w-full max-w-[420px]"
+                    src="/captureSiteClient.png"
+                    alt="Client website built by SoiZenFier"
+                    width={840}
+                    height={560}
+                    className="w-full object-cover object-top"
                   />
                 </div>
               </div>
@@ -135,68 +161,69 @@ export default async function Home({ params }: HomePageProps) {
         </section>
 
         {/* ── SERVICES ─────────────────────────────────────────────────────── */}
-        <section id="services">
+        <section id="services" className="reveal">
           <div className="flex items-center gap-4 mb-10">
             <span className="w-10 h-1 rounded-full bg-yellow-400 shrink-0" />
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 text-balance">
               {translate(dictionary, "services.heading")}
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {serviceCards.map((card, i) => (
-              <div
-                key={card.title}
-                className="group relative bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
-              >
-                <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-yellow-300 to-yellow-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform duration-200">
-                  {SERVICE_ICONS[i]}
+            {serviceCards.map((card, i) => {
+              const ServiceIcon = SERVICE_ICONS[i];
+              return (
+                <div
+                  key={card.title}
+                  className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-lg hover:border-yellow-200 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="flex items-start gap-3 mb-3">
+                    <ServiceIcon className="w-5 h-5 text-yellow-500 mt-0.5 shrink-0 group-hover:text-yellow-600 transition-colors duration-200" />
+                    <h3 className="font-bold text-slate-900 text-base leading-tight text-balance">{card.title}</h3>
+                  </div>
+                  <p className="text-sm text-slate-500 leading-relaxed pl-8">{card.desc}</p>
                 </div>
-                <h3 className="font-bold text-slate-900 text-base">{card.title}</h3>
-                <p className="mt-2 text-sm text-slate-500 leading-relaxed">{card.desc}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
         {/* ── WHY CHOOSE US ────────────────────────────────────────────────── */}
         <section
           id="why-choose-us"
-          className="relative rounded-[2.5rem] overflow-hidden bg-slate-950 text-white px-8 md:px-12 py-14 md:py-16"
+          className="reveal relative rounded-[2.5rem] overflow-hidden bg-slate-950 text-white px-8 md:px-12 py-14 md:py-16"
         >
           <div className="pointer-events-none absolute top-0 right-0 w-[500px] h-[400px] bg-yellow-400/6 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
 
           <div className="relative">
-            <div className="flex items-center gap-4 mb-10">
-              <span className="w-10 h-1 rounded-full bg-yellow-400 shrink-0" />
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white">
-                {translate(dictionary, "home.whyHeading")}
-              </h2>
-            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-10 text-balance">
+              {translate(dictionary, "home.whyHeading")}
+            </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {whyItems.map((item) => (
-                <div
-                  key={item.title}
-                  className="group bg-white/5 border border-white/8 rounded-2xl p-6 hover:bg-white/10 hover:border-yellow-400/30 transition-all duration-300"
-                >
-                  <div className="w-7 h-7 rounded-lg bg-yellow-400/15 flex items-center justify-center mb-5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 block" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+              {whyItems.map((item, i) => {
+                const WhyIcon = WHY_ICONS[i % WHY_ICONS.length];
+                return (
+                  <div key={item.title} className="flex items-start gap-4">
+                    <div className="shrink-0 w-9 h-9 rounded-xl bg-yellow-400/10 flex items-center justify-center mt-0.5">
+                      <WhyIcon className="w-4 h-4 text-yellow-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-white text-sm leading-snug mb-1.5 text-balance">{item.title}</h3>
+                      <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
+                    </div>
                   </div>
-                  <h3 className="font-bold text-white text-sm">{item.title}</h3>
-                  <p className="mt-2 text-sm text-slate-400 leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
 
         {/* ── PROCESS ──────────────────────────────────────────────────────── */}
-        <section id="process">
+        <section id="process" className="reveal">
           <div className="flex items-center gap-4 mb-12">
             <span className="w-10 h-1 rounded-full bg-yellow-400 shrink-0" />
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 text-balance">
               {translate(dictionary, "home.processHeading")}
             </h2>
           </div>
@@ -224,13 +251,44 @@ export default async function Home({ params }: HomePageProps) {
           </div>
         </section>
 
+        {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
+        <section id="testimonials" className="reveal">
+          <div className="flex items-center gap-4 mb-10">
+            <span className="w-10 h-1 rounded-full bg-yellow-400 shrink-0" />
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 text-balance">
+              {translate(dictionary, "home.testimonialsHeading")}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {dictionary.home.testimonials.map((t, i) => (
+              <blockquote
+                key={i}
+                className={`rounded-3xl p-8 flex flex-col gap-5 ${i === 0 ? "bg-slate-950 text-white" : "bg-slate-50 border border-slate-100"}`}
+              >
+                <span className="text-4xl font-black leading-none text-yellow-400 select-none">&ldquo;</span>
+                <p className={`text-base leading-relaxed -mt-2 ${i === 0 ? "text-slate-300" : "text-slate-700"}`}>
+                  {t.quote}
+                </p>
+                <footer className="mt-auto pt-2 border-t border-white/10">
+                  <cite className={`not-italic font-bold text-sm block ${i === 0 ? "text-white" : "text-slate-900"}`}>
+                    {t.name}
+                  </cite>
+                  <span className={`text-xs mt-0.5 block ${i === 0 ? "text-slate-500" : "text-slate-400"}`}>
+                    {t.business}
+                  </span>
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </section>
+
         {/* ── PRICING PREVIEW ──────────────────────────────────────────────── */}
-        <section id="pricing-preview">
+        <section id="pricing-preview" className="reveal">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
             {/* left: intro card */}
             <div className="md:col-span-2 rounded-3xl bg-slate-50 border border-slate-100 p-8 flex flex-col justify-between min-h-[240px]">
               <div>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 leading-snug">
+                <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 leading-snug text-balance">
                   {translate(dictionary, "home.pricingPreviewHeading")}
                 </h2>
                 <p className="mt-3 text-sm text-slate-500 leading-relaxed">
@@ -250,16 +308,16 @@ export default async function Home({ params }: HomePageProps) {
             {/* right: price tiles */}
             <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="rounded-3xl bg-yellow-400 p-8 flex flex-col justify-between">
-                <span className="text-3xl">🌐</span>
+                <Globe className="w-6 h-6 text-yellow-800" />
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-yellow-900/60 mb-1">
+                  <p className="text-xs font-bold uppercase tracking-widest text-yellow-900/80 mb-1">
                     {dictionary.home.pricingPreviewWebsiteLabel}
                   </p>
                   <p className="text-4xl font-black text-slate-900">$500+</p>
                 </div>
               </div>
               <div className="rounded-3xl bg-slate-900 text-white p-8 flex flex-col justify-between">
-                <span className="text-3xl">🔧</span>
+                <Wrench className="w-6 h-6 text-slate-400" />
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">
                     {dictionary.home.pricingPreviewMaintenanceLabel}
@@ -277,9 +335,9 @@ export default async function Home({ params }: HomePageProps) {
         {/* ── CTA ──────────────────────────────────────────────────────────── */}
         <section
           id="cta"
-          className="rounded-[2.5rem] bg-yellow-400 px-8 md:px-14 py-14 md:py-16 text-center"
+          className="reveal rounded-[2.5rem] bg-yellow-400 px-8 md:px-14 py-14 md:py-16 text-center"
         >
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 leading-tight">
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 leading-tight text-balance">
             {translate(dictionary, "home.ctaHeading")}
           </h2>
           <p className="text-slate-700 mb-10 max-w-xl mx-auto leading-relaxed">
@@ -307,12 +365,21 @@ export default async function Home({ params }: HomePageProps) {
         </section>
 
         {/* ── FOOTER ───────────────────────────────────────────────────────── */}
-        <footer className="pb-6 pt-8 border-t border-slate-100 text-sm text-slate-500">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <span className="font-medium text-slate-700">
-              © {new Date().getFullYear()}{" "}
-              {translate(dictionary, "footer.company")}
-            </span>
+        <footer className="pb-8 pt-10 border-t border-slate-100 text-sm text-slate-500">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+            <div>
+              <span className="font-semibold text-slate-700 block">
+                © {new Date().getFullYear()}{" "}
+                {translate(dictionary, "footer.company")}
+              </span>
+              <span className="text-xs mt-1 block">Made in Canada 🇨🇦</span>
+            </div>
+            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium">
+              <Link href={localePath(lang, "/services")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.services}</Link>
+              <Link href={localePath(lang, "/pricing")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.pricing}</Link>
+              <Link href={localePath(lang, "/about")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.about}</Link>
+              <Link href={localePath(lang, "/contact")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.contactUs}</Link>
+            </nav>
           </div>
         </footer>
 

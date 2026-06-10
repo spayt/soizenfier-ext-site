@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
+import { Rocket, TrendingUp, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PlanCheckoutButton from "@/components/PlanCheckoutButton";
-import { translate, type TranslationDictionary } from "@/lib/i18n";
+import { localePath, translate, type Locale, type TranslationDictionary } from "@/lib/i18n";
 import { websitePackages, monthlyPlans } from "@/lib/pricing";
 
 type PricingPageClientProps = {
@@ -10,33 +12,23 @@ type PricingPageClientProps = {
   dictionary: TranslationDictionary;
 };
 
-
 const FEATURED_PACKAGE = "business";
 const FEATURED_PLAN    = "premium";
 
-const PKG_ICONS: Record<string, string> = {
-  starter:  "🚀",
-  business: "📈",
-  custom:   "⚡",
-};
+const PKG_ICONS = [Rocket, TrendingUp, Zap] as const;
 
 export default function PricingPageClient({ locale, dictionary }: PricingPageClientProps) {
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      <main className="max-w-6xl mx-auto px-6 py-10 flex flex-col gap-20">
+      <main className="max-w-6xl mx-auto px-6 py-10 flex flex-col gap-16">
 
         {/* ── HERO ── */}
         <section className="relative rounded-[2.5rem] overflow-hidden bg-slate-950 text-white px-8 md:px-14 py-16 md:py-20">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_80%_-10%,rgba(250,204,21,0.14)_0%,transparent_65%)]" />
           <div className="pointer-events-none absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-yellow-400/5 blur-3xl" />
           <div className="relative max-w-2xl">
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-8 h-1 rounded-full bg-yellow-400" />
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-yellow-400">
-                {translate(dictionary, "nav.pricing")}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white">
+            <span className="w-8 h-1 rounded-full bg-yellow-400 block mb-5" />
+            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white text-balance">
               {translate(dictionary, "pricingPage.heading")}
             </h1>
             <p className="mt-5 text-base md:text-lg text-slate-400 leading-relaxed max-w-xl">
@@ -46,18 +38,19 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
         </section>
 
         {/* ── WEBSITE PACKAGES ── */}
-        <section>
+        <section className="reveal">
           <div className="flex items-center gap-4 mb-10">
             <span className="w-10 h-1 rounded-full bg-yellow-400 shrink-0" />
-            <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 text-balance">
               {dictionary.pricingPage.packages}
             </h2>
           </div>
 
           <div className="grid gap-5 md:grid-cols-3">
-            {websitePackages.map((pkg) => {
+            {websitePackages.map((pkg, i) => {
               const t = dictionary.pricingPage.websitePackages[pkg.id];
               const featured = pkg.id === FEATURED_PACKAGE;
+              const Icon = PKG_ICONS[i];
               return (
                 <div
                   key={pkg.id}
@@ -75,9 +68,11 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
                     </div>
                   )}
 
-                  <div className="text-3xl mb-5">{PKG_ICONS[pkg.id] ?? "🌐"}</div>
+                  {Icon && (
+                    <Icon className={`w-5 h-5 mb-5 shrink-0 ${featured ? "text-yellow-400" : "text-yellow-500"}`} />
+                  )}
 
-                  <h3 className={`text-xl font-bold mb-1 ${featured ? "text-white" : "text-slate-900"}`}>
+                  <h3 className={`text-xl font-bold mb-1 text-balance ${featured ? "text-white" : "text-slate-900"}`}>
                     {t?.title ?? pkg.title}
                   </h3>
 
@@ -88,7 +83,7 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
                   <ul className="flex-1 space-y-3 mb-8">
                     {(t?.bullets ?? pkg.bullets).map((b) => (
                       <li key={b} className="flex items-start gap-3 text-sm">
-                        <span className={`mt-1.5 w-2 h-2 rounded-full shrink-0 ${featured ? "bg-yellow-400" : "bg-yellow-400"}`} />
+                        <span className="mt-1.5 w-2 h-2 rounded-full bg-yellow-400 shrink-0" />
                         <span className={featured ? "text-slate-300" : "text-slate-600"}>{b}</span>
                       </li>
                     ))}
@@ -113,15 +108,15 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
         </section>
 
         {/* ── MONTHLY PLANS ── */}
-        <section>
+        <section className="reveal">
           <div className="flex items-center gap-4 mb-10">
             <span className="w-10 h-1 rounded-full bg-yellow-400 shrink-0" />
-            <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 text-balance">
               {translate(dictionary, "pricingPage.plans")}
             </h2>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-4">
+          <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             {monthlyPlans.map((plan) => {
               const t = dictionary.pricingPage.monthlyPlans[plan.id];
               const featured = plan.id === FEATURED_PLAN;
@@ -142,7 +137,7 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
                     </div>
                   )}
 
-                  <h4 className={`text-base font-bold mb-2 ${featured ? "text-white" : "text-slate-900"}`}>
+                  <h4 className={`text-base font-bold mb-2 text-balance ${featured ? "text-white" : "text-slate-900"}`}>
                     {t?.title ?? plan.title}
                   </h4>
 
@@ -180,22 +175,40 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
           </div>
         </section>
 
-        {/* ── BOTTOM NOTE ── */}
-        <section className="rounded-3xl bg-slate-50 border border-slate-100 px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
+        {/* ── CUSTOM QUOTE CTA ── */}
+        <section className="reveal rounded-[2.5rem] bg-yellow-400 px-8 md:px-14 py-12 md:py-14 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <p className="text-sm font-semibold text-slate-700">
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 leading-snug text-balance">
               {dictionary.pricingPage.customQuote}
-            </p>
-            <p className="text-xs text-slate-500 mt-1">
+            </h2>
+            <p className="mt-2 text-slate-700 text-sm md:text-base">
               {dictionary.pricingPage.customQuoteDesc}
             </p>
           </div>
-          <Button asChild className="bg-slate-900 text-white hover:bg-slate-700 !px-8 rounded-2xl font-bold shrink-0 transition-all hover:scale-[1.03]">
+          <Button asChild className="bg-slate-900 text-white hover:bg-slate-700 font-bold !px-8 rounded-2xl shrink-0 transition-all hover:scale-[1.03]">
             <a href={`mailto:${dictionary.mail.contact}?subject=Custom%20Quote`}>
               {translate(dictionary, "home.ctaButton")}
             </a>
           </Button>
         </section>
+
+        {/* ── FOOTER ── */}
+        <footer className="pb-8 pt-10 border-t border-slate-100 text-sm text-slate-500">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+            <div>
+              <span className="font-semibold text-slate-700 block">
+                © {new Date().getFullYear()} {dictionary.company}
+              </span>
+              <span className="text-xs mt-1 block">Made in Canada 🇨🇦</span>
+            </div>
+            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium">
+              <Link href={localePath(locale as Locale, "/services")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.services}</Link>
+              <Link href={localePath(locale as Locale, "/pricing")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.pricing}</Link>
+              <Link href={localePath(locale as Locale, "/about")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.about}</Link>
+              <Link href={localePath(locale as Locale, "/contact")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.contactUs}</Link>
+            </nav>
+          </div>
+        </footer>
 
       </main>
     </div>

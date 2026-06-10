@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Mail, Phone, MapPin } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import {
   defaultLocale,
@@ -59,19 +60,14 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      <main className="max-w-6xl mx-auto px-6 py-10 flex flex-col gap-12">
+      <main className="max-w-6xl mx-auto px-6 py-10 flex flex-col gap-16">
 
         {/* ── HERO ── */}
         <section className="relative rounded-[2.5rem] overflow-hidden bg-slate-950 text-white px-8 md:px-14 py-16 md:py-20">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_80%_-10%,rgba(250,204,21,0.13)_0%,transparent_65%)]" />
           <div className="relative max-w-xl">
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-8 h-1 rounded-full bg-yellow-400" />
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-yellow-400">
-                {translate(dictionary, "nav.contactUs")}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white">
+            <span className="w-8 h-1 rounded-full bg-yellow-400 block mb-5" />
+            <h1 className="text-4xl md:text-5xl font-black leading-tight text-white text-balance">
               {translate(dictionary, "contactPage.title")}
             </h1>
             <p className="mt-5 text-base md:text-lg text-slate-400 leading-relaxed">
@@ -81,7 +77,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
         </section>
 
         {/* ── MAIN CONTENT ── */}
-        <section className="grid grid-cols-1 md:grid-cols-5 gap-6 items-start">
+        <section className="reveal grid grid-cols-1 md:grid-cols-5 gap-6 items-start">
 
           {/* Contact form — takes 3/5 */}
           <div className="md:col-span-3">
@@ -93,18 +89,16 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
             {/* Contact details */}
             <div className="rounded-3xl bg-slate-950 text-white p-8 space-y-6">
-              <div className="flex items-center gap-3">
-                <span className="w-6 h-1 rounded-full bg-yellow-400" />
-                <h2 className="text-sm font-bold uppercase tracking-widest text-yellow-400">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="w-6 h-1 rounded-full bg-yellow-400 shrink-0" />
+                <h2 className="text-sm font-bold text-white">
                   {translate(dictionary, "contactPage.otherWays")}
                 </h2>
               </div>
 
               <div className="space-y-5">
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 w-8 h-8 rounded-xl bg-yellow-400/10 flex items-center justify-center text-base shrink-0">
-                    ✉️
-                  </span>
+                  <Mail className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs font-medium text-slate-400 mb-0.5">Email</p>
                     <a
@@ -117,9 +111,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 w-8 h-8 rounded-xl bg-yellow-400/10 flex items-center justify-center text-base shrink-0">
-                    📞
-                  </span>
+                  <Phone className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs font-medium text-slate-400 mb-0.5">Phone</p>
                     <span className="text-sm font-medium text-white">
@@ -129,9 +121,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 w-8 h-8 rounded-xl bg-yellow-400/10 flex items-center justify-center text-base shrink-0">
-                    📍
-                  </span>
+                  <MapPin className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs font-medium text-slate-400 mb-0.5">Address</p>
                     <span className="text-sm font-medium text-white">
@@ -157,6 +147,24 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
           </div>
         </section>
+
+        {/* ── FOOTER ── */}
+        <footer className="pb-8 pt-10 border-t border-slate-100 text-sm text-slate-500">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+            <div>
+              <span className="font-semibold text-slate-700 block">
+                © {new Date().getFullYear()} {dictionary.company}
+              </span>
+              <span className="text-xs mt-1 block">Made in Canada 🇨🇦</span>
+            </div>
+            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium">
+              <Link href={localePath(lang as Locale, "/services")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.services}</Link>
+              <Link href={localePath(lang as Locale, "/pricing")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.pricing}</Link>
+              <Link href={localePath(lang as Locale, "/about")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.about}</Link>
+              <Link href={localePath(lang as Locale, "/contact")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.contactUs}</Link>
+            </nav>
+          </div>
+        </footer>
 
       </main>
     </div>

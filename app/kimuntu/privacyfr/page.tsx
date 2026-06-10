@@ -28,17 +28,17 @@ const TOC = [
 
 function SectionHeading({ index, title, id }: { index: number; title: string; id: string }) {
   return (
-    <div id={id} className="flex items-start gap-4 mb-5 pt-2">
-      <span className="shrink-0 mt-0.5 w-8 h-8 rounded-xl bg-violet-500/15 border border-violet-500/25 flex items-center justify-center text-[11px] font-black text-violet-400 tabular-nums">
+    <div id={id} className="flex items-baseline gap-3 mb-5 pt-2">
+      <span className="shrink-0 text-[11px] font-black text-violet-400/50 tabular-nums select-none">
         {String(index).padStart(2, "0")}
       </span>
-      <h2 className="text-xl font-bold text-white leading-tight">{title}</h2>
+      <h2 className="text-xl font-bold text-white leading-tight text-balance">{title}</h2>
     </div>
   );
 }
 
 function Prose({ children }: { children: React.ReactNode }) {
-  return <div className="pl-12 space-y-3 text-sm text-slate-400 leading-relaxed">{children}</div>;
+  return <div className="space-y-3 text-sm text-slate-400 leading-relaxed">{children}</div>;
 }
 
 function BulletList({ items }: { items: string[] }) {
@@ -80,12 +80,9 @@ export default function PrivacyPolicyFr() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 mb-4">
-            <span className="w-8 h-0.5 rounded-full bg-violet-400" />
-            <span className="text-xs font-bold tracking-[0.22em] uppercase text-violet-400">Légal</span>
-          </div>
+          <span className="w-8 h-0.5 rounded-full bg-violet-400 block mb-4" />
           <div className="flex flex-wrap items-end gap-4">
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white">
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white text-balance">
               Politique de confidentialité
             </h1>
             <span className="inline-flex items-center rounded-full bg-violet-500/15 border border-violet-500/25 px-3 py-1 text-sm font-bold text-violet-300 mb-1">
@@ -103,7 +100,7 @@ export default function PrivacyPolicyFr() {
           {/* ── SIDEBAR TOC ── */}
           <aside className="hidden lg:block shrink-0 w-56">
             <div className="sticky top-8 space-y-0.5">
-              <p className="text-[10px] font-bold tracking-[0.18em] uppercase text-slate-600 mb-4 px-3">
+              <p className="text-xs font-medium text-slate-500 mb-4 px-3">
                 Sommaire
               </p>
               {TOC.map((item, i) => (

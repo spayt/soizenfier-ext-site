@@ -41,6 +41,7 @@ export type TranslationDictionary = {
     processHeading: string;
     processSteps: { title: string; desc: string }[];
     testimonialsHeading: string;
+    testimonials: { quote: string; name: string; business: string }[];
     featuredProjectsHeading: string;
     featuredProjectsCta: string;
     pricingPreviewHeading: string;
@@ -378,7 +379,20 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
           desc: "Ongoing updates and scaling assistance.",
         },
       ],
-      testimonialsHeading: "Client Testimonials",
+      testimonialsHeading: "What Our Clients Say",
+      // TODO: replace with real client testimonials before launch
+      testimonials: [
+        {
+          quote: "SoiZenFier built our website in under a month and it's already converting more leads. No surprise fees, clear communication throughout.",
+          name: "Sarah L.",
+          business: "Small Business Owner, Toronto",
+        },
+        {
+          quote: "We needed a bilingual site for our Montreal clients. The process was smooth and the result looks exactly like what we asked for.",
+          name: "Jean-François P.",
+          business: "Professional Services, Montréal",
+        },
+      ],
       featuredProjectsHeading: "Featured Projects",
       featuredProjectsCta: "View case study →",
       pricingPreviewHeading: "Simple, Transparent Pricing",
@@ -837,7 +851,20 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
           desc: "Mises à jour continues et assistance pour évoluer.",
         },
       ],
-      testimonialsHeading: "Témoignages clients",
+      testimonialsHeading: "Ce que disent nos clients",
+      // TODO: remplacer par de vrais témoignages clients avant le lancement
+      testimonials: [
+        {
+          quote: "SoiZenFier a construit notre site en moins d'un mois et nous avons déjà plus de prospects. Pas de frais cachés, communication claire.",
+          name: "Sarah L.",
+          business: "Propriétaire PME, Toronto",
+        },
+        {
+          quote: "Nous avions besoin d'un site bilingue pour nos clients montréalais. Le processus était simple et le résultat est exactement ce que nous avions demandé.",
+          name: "Jean-François P.",
+          business: "Services professionnels, Montréal",
+        },
+      ],
       featuredProjectsHeading: "Projets en vedette",
       featuredProjectsCta: "Voir l'étude de cas →",
       pricingPreviewHeading: "Tarification simple et transparente",
