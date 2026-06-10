@@ -1,9 +1,13 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { resolve } from "path";
 
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  plugins: [react()] as any,
+  resolve: {
+    alias: { "@": resolve(__dirname, ".") },
+  },
   test: {
     environment: "jsdom",
     setupFiles: ["./tests/setup.ts"],
