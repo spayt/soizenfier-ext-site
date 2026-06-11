@@ -15,7 +15,7 @@ type PricingPageClientProps = {
 const FEATURED_PACKAGE = "business";
 const FEATURED_PLAN    = "premium";
 
-const PKG_ICONS = [Rocket, TrendingUp, Zap] as const;
+const PKG_ICON_MAP = { starter: Rocket, business: TrendingUp, custom: Zap } as const;
 
 export default function PricingPageClient({ locale, dictionary }: PricingPageClientProps) {
   return (
@@ -47,10 +47,10 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
           </div>
 
           <div className="grid gap-5 md:grid-cols-3">
-            {websitePackages.map((pkg, i) => {
+            {websitePackages.map((pkg) => {
               const t = dictionary.pricingPage.websitePackages[pkg.id];
               const featured = pkg.id === FEATURED_PACKAGE;
-              const Icon = PKG_ICONS[i];
+              const Icon = PKG_ICON_MAP[pkg.id as keyof typeof PKG_ICON_MAP] ?? Rocket;
               return (
                 <div
                   key={pkg.id}
@@ -105,15 +105,29 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
               );
             })}
           </div>
+
+          <p className="mt-6 flex items-center justify-center gap-2 text-sm text-slate-400">
+            <span className="w-1 h-1 rounded-full bg-yellow-400 shrink-0" />
+            {dictionary.pricingPage.packagesPriceNote}
+          </p>
         </section>
 
         {/* ── MONTHLY PLANS ── */}
         <section className="reveal">
-          <div className="flex items-center gap-4 mb-10">
+          <div className="flex items-center gap-4 mb-2">
             <span className="w-10 h-1 rounded-full bg-yellow-400 shrink-0" />
             <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 text-balance">
               {translate(dictionary, "pricingPage.plans")}
             </h2>
+          </div>
+
+          <p className="mb-5 text-sm text-slate-500">
+            {dictionary.pricingPage.plansBridge}
+          </p>
+
+          <div className="inline-flex items-center gap-2 rounded-full bg-yellow-50 border border-yellow-200 px-4 py-1.5 text-xs font-semibold text-yellow-800 mb-7">
+            <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 shrink-0" />
+            {dictionary.pricingPage.plansTrustLine}
           </div>
 
           <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">

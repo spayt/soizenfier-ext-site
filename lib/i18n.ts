@@ -165,7 +165,10 @@ export type TranslationDictionary = {
     heading: string;
     description: string;
     packages: string;
+    packagesPriceNote: string;
+    plansBridge: string;
     plans: string;
+    plansTrustLine: string;
     requestQuote: string;
     getStarted: string;
     mostPopular: string;
@@ -598,10 +601,15 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
     pricingPage: {
       heading: "Website Packages & Monthly Plans",
       description:
-        "Transparent starting ranges; contact us for a tailored quote.",
+        "Transparent starting ranges — your exact price is confirmed before work begins.",
       packages: "Website Packages",
-      plans: "Monthly Plans",
-      requestQuote: "Request Quote",
+      packagesPriceNote:
+        "Your exact price is confirmed before work begins. No surprises, ever.",
+      plansBridge:
+        "Site built? Keep it fast, secure and growing with a monthly care plan.",
+      plans: "Monthly Care Plans",
+      plansTrustLine: "Fixed monthly price · No contracts · No setup fees",
+      requestQuote: "Get a Free Estimate",
       getStarted: "Get Started",
       mostPopular: "Most Popular",
       noContract: "No long-term contract · Cancel anytime",
@@ -671,7 +679,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         "managed-content": {
           title: "Managed Content Plan",
-          price: "$799–$1,500 CAD/month",
+          price: "From $799 CAD/month",
           bullets: [
             "Unlimited content updates",
             "New landing pages on request",
@@ -1089,10 +1097,15 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
     pricingPage: {
       heading: "Forfaits Web et plans mensuels",
       description:
-        "Tarifs de base transparents ; contactez-nous pour un devis personnalisé.",
+        "Tarifs de base transparents — votre prix exact est confirmé avant le début des travaux.",
       packages: "Forfaits Web",
-      plans: "Plans mensuels",
-      requestQuote: "Demander un devis",
+      packagesPriceNote:
+        "Votre prix exact est confirmé avant le début des travaux. Sans surprise, jamais.",
+      plansBridge:
+        "Site lancé ? Gardez-le rapide, sécurisé et en croissance avec un plan mensuel.",
+      plans: "Plans de maintenance mensuels",
+      plansTrustLine: "Prix mensuel fixe · Sans engagement · Sans frais d'installation",
+      requestQuote: "Obtenir une estimation",
       getStarted: "Commencer",
       mostPopular: "Le plus populaire",
       noContract: "Sans engagement · Annulation à tout moment",
@@ -1162,7 +1175,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         "managed-content": {
           title: "Forfait Contenu géré",
-          price: "799–1 500 $ CAD/mois",
+          price: "À partir de 799 $ CAD/mois",
           bullets: [
             "Mises à jour de contenu illimitées",
             "Nouvelles pages d'atterrissage sur demande",

@@ -16,31 +16,36 @@ export type MonthlyPlan = {
 
 export const websitePackages: WebsitePackage[] = [
   {
+    id: "business",
+    title: "Business Website",
+    priceRange: "$4,000 – $8,000 CAD",
+    bullets: [
+      "10–20 pages with flexible CMS",
+      "Blog ready to publish on day one",
+      "Advanced SEO setup from the start",
+      "Scales as your business grows",
+    ],
+  },
+  {
     id: "starter",
     title: "Starter Website",
     priceRange: "$500 – $4,000 CAD",
     bullets: [
-      "Up to 5 pages",
-      "Responsive design",
-      "Contact form",
-      "Basic SEO",
+      "Up to 5 pages, ready to launch fast",
+      "Mobile-first responsive design",
+      "Contact form with email delivery",
+      "Basic SEO so Google can find you",
     ],
-  },
-  {
-    id: "business",
-    title: "Business Website",
-    priceRange: "$4,000 – $8,000 CAD",
-    bullets: ["10–20 pages", "CMS", "Blog", "Advanced SEO setup"],
   },
   {
     id: "custom",
     title: "Custom Platform",
     priceRange: "$8,000 – $25,000+ CAD",
     bullets: [
-      "Custom dashboard",
-      "Stripe integration",
-      "User accounts",
-      "Automation",
+      "Custom dashboard built to your workflow",
+      "Stripe payments & subscriptions",
+      "User accounts with role management",
+      "Automation to save you hours weekly",
     ],
   },
 ];
@@ -49,8 +54,8 @@ export const monthlyPlans: MonthlyPlan[] = [
   // {
   //   id: "familly",
   //   title: "Familly Plan",
-  //   price: "$20 CAD/month",
-  //   amountCents: 2000,
+  //   price: "$22 CAD/month",
+  //   amountCents: 2200,
   //   bullets: ["Hosting", "SSL", "Backups"],
   //   syncToStripe: false,
   // },
@@ -59,7 +64,12 @@ export const monthlyPlans: MonthlyPlan[] = [
     title: "Essential Care",
     price: "$99 CAD/month",
     amountCents: 9900,
-    bullets: ["Hosting", "SSL", "Backups", "Monitoring"],
+    bullets: [
+      "Your site stays online 24/7",
+      "Secure browsing (the padlock icon)",
+      "Daily backups — nothing ever lost",
+      "We catch problems before your customers do",
+    ],
   },
   {
     id: "growth",
@@ -68,8 +78,8 @@ export const monthlyPlans: MonthlyPlan[] = [
     amountCents: 24900,
     bullets: [
       "Everything in Essential",
-      "1 hour updates/month",
-      "Monthly maintenance",
+      "One hour of hands-on changes each month",
+      "Monthly health report — know your site is solid",
     ],
   },
   {
@@ -79,21 +89,21 @@ export const monthlyPlans: MonthlyPlan[] = [
     amountCents: 49900,
     bullets: [
       "Everything in Growth",
-      "Up to 4 hours updates/month",
-      "SEO monitoring",
-      "Priority support",
+      "Up to 4 hours of updates per month",
+      "SEO monitoring with monthly report",
+      "Priority support — same business day",
     ],
   },
   {
     id: "managed-content",
     title: "Managed Content Plan",
-    price: "$799–$1,500 CAD/month",
+    price: "From $799 CAD/month",
     amountCents: 79900,
     bullets: [
-      "Content updates",
-      "Landing pages",
-      "Blog publishing",
-      "SEO recommendations",
+      "Unlimited content updates",
+      "New landing pages on request",
+      "Blog publishing & formatting",
+      "SEO recommendations each month",
     ],
   },
 ];
