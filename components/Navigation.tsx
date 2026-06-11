@@ -65,11 +65,11 @@ export default function Navigation() {
       label: dictionary.nav.contactUs,
       matcher: (p) => p.startsWith(`/${currentLang}/contact`),
     },
-    {
-      href: "/kimuntu",
-      label: dictionary.nav.kimuntu,
-      matcher: (p) => p === "/kimuntu",
-    },
+    // {
+    //   href: "/kimuntu",
+    //   label: dictionary.nav.kimuntu,
+    //   matcher: (p) => p === "/kimuntu",
+    // },
   ];
 
   const isActive = (link: NavLink): boolean =>
@@ -85,9 +85,11 @@ export default function Navigation() {
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100/80 shadow-[0_1px_12px_rgba(15,23,42,0.06)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-
             {/* ── Logo ── */}
-            <Link href={langPath("/")} className="flex items-center gap-2.5 group shrink-0">
+            <Link
+              href={langPath("/")}
+              className="flex items-center gap-2.5 group shrink-0"
+            >
               <div className="w-8 h-8 rounded-xl overflow-hidden shadow-sm ring-1 ring-slate-200 shrink-0">
                 <Image
                   src="/soiZenFier_logo.png"
@@ -203,7 +205,10 @@ export default function Navigation() {
               ) : (
                 <button
                   type="button"
-                  onClick={() => { setSignInOpen(true); setMenuOpen(false); }}
+                  onClick={() => {
+                    setSignInOpen(true);
+                    setMenuOpen(false);
+                  }}
                   className="inline-flex items-center gap-2 rounded-full bg-yellow-400 px-5 py-2 text-sm font-bold text-slate-900 hover:bg-yellow-300 transition-colors"
                 >
                   {dictionary.profilePage.signIn} →
