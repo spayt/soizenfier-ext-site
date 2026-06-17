@@ -61,7 +61,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <main className="max-w-6xl mx-auto px-6 py-10 flex flex-col gap-16">
-
         {/* ── HERO ── */}
         <section className="relative rounded-[2.5rem] overflow-hidden bg-slate-950 text-white px-8 md:px-14 py-16 md:py-20">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_80%_-10%,rgba(250,204,21,0.13)_0%,transparent_65%)]" />
@@ -78,7 +77,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
         {/* ── MAIN CONTENT ── */}
         <section className="reveal grid grid-cols-1 md:grid-cols-5 gap-6 items-start">
-
           {/* Contact form — takes 3/5 */}
           <div className="md:col-span-3">
             <ContactForm dictionary={dictionary} />
@@ -86,7 +84,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
           {/* Info panel — takes 2/5 */}
           <div className="md:col-span-2 flex flex-col gap-4">
-
             {/* Contact details */}
             <div className="rounded-3xl bg-slate-950 text-white p-8 space-y-6">
               <div className="flex items-center gap-3 mb-2">
@@ -100,7 +97,9 @@ export default async function ContactPage({ params }: ContactPageProps) {
                 <div className="flex items-start gap-3">
                   <Mail className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-xs font-medium text-slate-400 mb-0.5">Email</p>
+                    <p className="text-xs font-medium text-slate-400 mb-0.5">
+                      Email
+                    </p>
                     <a
                       href={`mailto:${dictionary.mail.contact}`}
                       className="text-sm font-medium text-white hover:text-yellow-400 transition-colors break-all"
@@ -113,14 +112,16 @@ export default async function ContactPage({ params }: ContactPageProps) {
                 <div className="flex items-start gap-3">
                   <Phone className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-xs font-medium text-slate-400 mb-0.5">Phone</p>
+                    <p className="text-xs font-medium text-slate-400 mb-0.5">
+                      Phone
+                    </p>
                     <span className="text-sm font-medium text-white">
                       {translate(dictionary, "contactPage.phone")}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3">
+                {/*<div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs font-medium text-slate-400 mb-0.5">Address</p>
@@ -128,7 +129,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
                       {translate(dictionary, "contactPage.address")}
                     </span>
                   </div>
-                </div>
+                </div>*/}
               </div>
             </div>
 
@@ -144,7 +145,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
                 →
               </span>
             </Link>
-
           </div>
         </section>
 
@@ -157,15 +157,37 @@ export default async function ContactPage({ params }: ContactPageProps) {
               </span>
               <span className="text-xs mt-1 block">Made in Canada 🇨🇦</span>
             </div>
-            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium">
-              <Link href={localePath(lang as Locale, "/services")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.services}</Link>
-              <Link href={localePath(lang as Locale, "/pricing")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.pricing}</Link>
-              <Link href={localePath(lang as Locale, "/about")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.about}</Link>
-              <Link href={localePath(lang as Locale, "/contact")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.contactUs}</Link>
+            <nav
+              aria-label="Footer navigation"
+              className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium"
+            >
+              <Link
+                href={localePath(lang as Locale, "/services")}
+                className="hover:text-slate-900 transition-colors duration-150"
+              >
+                {dictionary.nav.services}
+              </Link>
+              <Link
+                href={localePath(lang as Locale, "/pricing")}
+                className="hover:text-slate-900 transition-colors duration-150"
+              >
+                {dictionary.nav.pricing}
+              </Link>
+              <Link
+                href={localePath(lang as Locale, "/about")}
+                className="hover:text-slate-900 transition-colors duration-150"
+              >
+                {dictionary.nav.about}
+              </Link>
+              <Link
+                href={localePath(lang as Locale, "/contact")}
+                className="hover:text-slate-900 transition-colors duration-150"
+              >
+                {dictionary.nav.contactUs}
+              </Link>
             </nav>
           </div>
         </footer>
-
       </main>
     </div>
   );
