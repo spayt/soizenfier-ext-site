@@ -23,6 +23,7 @@ export type TranslationDictionary = {
     checkout: string;
     contactUs: string;
     kimuntu: string;
+    realisations: string;
     privacy: string;
     terms: string;
   };
@@ -273,6 +274,21 @@ export type TranslationDictionary = {
     canceledOn: string;
     loading: string;
   };
+  realisationsPage: {
+    heading: string;
+    intro: string;
+    trustStat: string;
+    featuredWork: string;
+    cta: { heading: string; description: string; button: string };
+    kimuntu: {
+      tagline: string;
+      attribution: string;
+      description: string;
+      features: string[];
+      downloadOn: string;
+      viewGallery: string;
+    };
+  };
 };
 
 export type ProjectKey = "nextgenCommerce" | "fittrackMobile" | "zenboardPro";
@@ -303,6 +319,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       checkout: "Checkout",
       contactUs: "Contact Us",
       kimuntu: "Kimuntu Gallery",
+      realisations: "Realisations",
       privacy: "Privacy",
       terms: "Terms",
     },
@@ -781,6 +798,32 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       canceledOn: "Canceled On",
       loading: "Loading subscribers…",
     },
+    realisationsPage: {
+      heading: "We build real things.",
+      intro: "KimuNtu is live in the App Store and Google Play, used by communities managing real money. This is what we ship.",
+      trustStat: "1 live app · iOS & Android · available worldwide",
+      featuredWork: "Featured Work",
+      cta: {
+        heading: "Have an app idea? We build them.",
+        description: "From concept to App Store — tell us about your project. Free first consultation, no commitment.",
+        button: "Get a Free Consultation",
+      },
+      kimuntu: {
+        tagline: "We took a complex group-finance problem and shipped a clean, cross-platform mobile app — live in both stores.",
+        attribution: "Built by SoiZenFier · 2026 · iOS & Android",
+        description:
+          "KimuNtu handles recurring and one-time contributions for associations, friend groups, families, and organizations. Real-time payment tracking, automatic scheduling, and smart split calculation — so no one has to chase down who owes what.",
+        features: [
+          "Real-time payment status across all members — no spreadsheets",
+          "Cross-platform: one codebase, two stores, zero compromises",
+          "Automatic scheduling — weekly, bi-weekly, monthly, or yearly",
+          "Smart split calculation — exact shares, calculated instantly",
+          "Push alerts — members always know where they stand",
+        ],
+        downloadOn: "Get it free on",
+        viewGallery: "View full gallery →",
+      },
+    },
   },
   fr: {
     company: COMPANY_NAME,
@@ -797,6 +840,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       checkout: "Paiement",
       contactUs: "Contactez-nous",
       kimuntu: "Galerie Kimuntu",
+      realisations: "Réalisations",
       privacy: "Confidentialité",
       terms: "Conditions",
     },
@@ -1278,6 +1322,32 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       renewsOn: "Renouvellement le",
       canceledOn: "Annulé le",
       loading: "Chargement des abonnés…",
+    },
+    realisationsPage: {
+      heading: "On construit des vraies choses.",
+      intro: "KimuNtu est disponible sur l'App Store et Google Play, utilisé par des communautés qui gèrent de l'argent réel. C'est ce qu'on livre.",
+      trustStat: "1 app en production · iOS & Android · disponible dans le monde entier",
+      featuredWork: "Projet en vedette",
+      cta: {
+        heading: "Vous avez une idée d'application ? On la construit.",
+        description: "Du concept aux stores — parlez-nous de votre projet. Première consultation gratuite, sans engagement.",
+        button: "Obtenir une consultation gratuite",
+      },
+      kimuntu: {
+        tagline: "On a pris un problème de finance de groupe complexe et livré une application mobile multiplateforme propre — disponible dans les deux stores.",
+        attribution: "Développé par SoiZenFier · 2026 · iOS & Android",
+        description:
+          "KimuNtu gère les cotisations récurrentes et ponctuelles pour les associations, groupes d'amis, familles et organisations. Suivi des paiements en temps réel, programmation automatique et calcul de répartition intelligent — plus besoin de courir après les dettes.",
+        features: [
+          "Statut de paiement en temps réel pour tous les membres — zéro tableur",
+          "Multiplateforme : un seul code, deux stores, zéro compromis",
+          "Programmation automatique — hebdomadaire, bimensuelle, mensuelle, annuelle",
+          "Calcul de répartition intelligent — quotes-parts exactes, calculées instantanément",
+          "Alertes push — les membres savent toujours où ils en sont",
+        ],
+        downloadOn: "Télécharger gratuitement sur",
+        viewGallery: "Voir la galerie complète →",
+      },
     },
   },
 };

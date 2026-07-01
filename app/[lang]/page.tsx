@@ -379,6 +379,7 @@ export default async function Home({ params }: HomePageProps) {
               <Link href={localePath(lang, "/pricing")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.pricing}</Link>
               <Link href={localePath(lang, "/about")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.about}</Link>
               <Link href={localePath(lang, "/contact")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.contactUs}</Link>
+              <Link href={localePath(lang, "/realisations")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.realisations}</Link>
             </nav>
           </div>
         </footer>

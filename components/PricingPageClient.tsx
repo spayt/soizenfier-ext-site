@@ -223,6 +223,7 @@ export default function PricingPageClient({ locale, dictionary }: PricingPageCli
               <Link href={localePath(locale as Locale, "/pricing")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.pricing}</Link>
               <Link href={localePath(locale as Locale, "/about")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.about}</Link>
               <Link href={localePath(locale as Locale, "/contact")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.contactUs}</Link>
+              <Link href={localePath(locale as Locale, "/realisations")} className="hover:text-slate-900 transition-colors duration-150">{dictionary.nav.realisations}</Link>
             </nav>
           </div>
         </footer>

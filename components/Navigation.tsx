@@ -65,6 +65,11 @@ export default function Navigation() {
       label: dictionary.nav.contactUs,
       matcher: (p) => p.startsWith(`/${currentLang}/contact`),
     },
+    {
+      href: langPath("/realisations"),
+      label: dictionary.nav.realisations,
+      matcher: (p) => p.startsWith(`/${currentLang}/realisations`),
+    },
     // {
     //   href: "/kimuntu",
     //   label: dictionary.nav.kimuntu,

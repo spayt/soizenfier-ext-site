@@ -2,14 +2,6 @@ import fs from "fs";
 import path from "path";
 import Link from "next/link";
 
-const imagesDirectory = path.join(process.cwd(), "public", "NtuAppImages");
-const imageFiles = fs.existsSync(imagesDirectory)
-  ? fs
-      .readdirSync(imagesDirectory)
-      .filter((file) => /\.(jpe?g|png|webp|gif|svg|avif)$/i.test(file))
-      .sort()
-  : [];
-
 export const metadata = {
   title: "Kimuntu — App Gallery",
   description:
@@ -17,6 +9,14 @@ export const metadata = {
 };
 
 export default function KimuntuPage() {
+  const imagesDirectory = path.join(process.cwd(), "public", "NtuAppImages");
+  const imageFiles = fs.existsSync(imagesDirectory)
+    ? fs
+        .readdirSync(imagesDirectory)
+        .filter((file) => /\.(jpe?g|png|webp|gif|svg|avif)$/i.test(file))
+        .sort()
+    : [];
+
   return (
     <div className="min-h-screen bg-[#06060a] text-white">
 
