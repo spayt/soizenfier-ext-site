@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "5NA5P5BVBX.com.soizenfier.zandu",
+        "appIDs": ["5NA5P5BVBX.com.soizenfier.zandu"],
+        "paths": ["/zandu/*"],
+        "components": [
+          { "/": "/zandu/*" }
+        ]
+      }
+    ]
+  }
+}
