@@ -279,6 +279,8 @@ export type TranslationDictionary = {
     intro: string;
     trustStat: string;
     featuredWork: string;
+    mobileWork: string;
+    webWork: string;
     cta: { heading: string; description: string; button: string };
     kimuntu: {
       tagline: string;
@@ -287,6 +289,23 @@ export type TranslationDictionary = {
       features: string[];
       downloadOn: string;
       viewGallery: string;
+    };
+    kotaPona: {
+      tagline: string;
+      attribution: string;
+      description: string;
+      androidComingSoon: string;
+      viewGallery: string;
+    };
+    uplabAfrique: {
+      tagline: string;
+      attribution: string;
+      description: string;
+      viewSite: string;
+    };
+    testimonial: {
+      quote: string;
+      role: string;
     };
   };
 };
@@ -800,12 +819,14 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
     },
     realisationsPage: {
       heading: "We build real things.",
-      intro: "KimuNtu is live in the App Store and Google Play, used by communities managing real money. This is what we ship.",
-      trustStat: "1 live app · iOS & Android · available worldwide",
+      intro: "From mobile apps live in the App Store and Google Play to full bilingual websites — this is what we ship for real clients and communities.",
+      trustStat: "3 shipped projects · Mobile & Web · built for real clients",
       featuredWork: "Featured Work",
+      mobileWork: "Mobile Apps",
+      webWork: "Websites",
       cta: {
-        heading: "Have an app idea? We build them.",
-        description: "From concept to App Store — tell us about your project. Free first consultation, no commitment.",
+        heading: "Have a project in mind — app or website? We build it.",
+        description: "From concept to launch — tell us about your project. Free first consultation, no commitment.",
         button: "Get a Free Consultation",
       },
       kimuntu: {
@@ -822,6 +843,26 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         ],
         downloadOn: "Get it free on",
         viewGallery: "View full gallery →",
+      },
+      kotaPona: {
+        tagline: "One app for every local business — discover stores, order groceries, and book services, all in your community.",
+        attribution: "Built by SoiZenFier · iOS live · Android coming soon",
+        description:
+          "Kota-Pona connects communities with the local businesses around them — grocery orders, service bookings, and store discovery — in one clean mobile experience.",
+        androidComingSoon: "Coming soon",
+        viewGallery: "View full gallery →",
+      },
+      uplabAfrique: {
+        tagline: "A data-driven platform mapping urban growth across Africa's most overlooked secondary cities — built to turn territorial foresight into something decision-makers can actually use.",
+        attribution: "Built by SoiZenFier · Website · Live",
+        description:
+          "UPLAB Afrique needed a serious, credible web presence for territorial research — clean typography, real data visualization, and a tone that matches the rigor of the work. We designed and built the whole thing end to end.",
+        viewSite: "Visit the live site",
+      },
+      testimonial: {
+        quote:
+          "SoiZenFier Technologies took what we needed — a bilingual, professional site worthy of our continental ambition — and turned it into something we didn't expect: instead of the generic 'NGO site' we dreaded, they built a visual identity entirely shaped around our work, territorial foresight, right down to an animated urban growth map we haven't seen anywhere else. The site is fast, responsive, fully bilingual French/English, and built to grow with us — publications, projects, news, everything is already in place for our team to run it. Real, thorough work, delivered with rigor.",
+        role: "Founder",
       },
     },
   },
@@ -1325,12 +1366,14 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
     },
     realisationsPage: {
       heading: "On construit des vraies choses.",
-      intro: "KimuNtu est disponible sur l'App Store et Google Play, utilisé par des communautés qui gèrent de l'argent réel. C'est ce qu'on livre.",
-      trustStat: "1 app en production · iOS & Android · disponible dans le monde entier",
+      intro: "Des applications mobiles disponibles sur l'App Store et Google Play jusqu'aux sites web bilingues complets — voici ce qu'on livre pour de vrais clients et communautés.",
+      trustStat: "3 réalisations livrées · Mobile & Web · pour de vrais clients",
       featuredWork: "Projet en vedette",
+      mobileWork: "Applications mobiles",
+      webWork: "Sites web",
       cta: {
-        heading: "Vous avez une idée d'application ? On la construit.",
-        description: "Du concept aux stores — parlez-nous de votre projet. Première consultation gratuite, sans engagement.",
+        heading: "Une idée de projet — app ou site web ? On la construit.",
+        description: "Du concept au lancement — parlez-nous de votre projet. Première consultation gratuite, sans engagement.",
         button: "Obtenir une consultation gratuite",
       },
       kimuntu: {
@@ -1347,6 +1390,26 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         ],
         downloadOn: "Télécharger gratuitement sur",
         viewGallery: "Voir la galerie complète →",
+      },
+      kotaPona: {
+        tagline: "Une seule appli pour tous les commerces locaux — découvrez des boutiques, commandez vos courses et réservez des services, dans votre communauté.",
+        attribution: "Développé par SoiZenFier · iOS disponible · Android bientôt",
+        description:
+          "Kota-Pona connecte les communautés aux commerces locaux qui les entourent — commandes d'épicerie, réservation de services et découverte de boutiques — dans une seule application mobile soignée.",
+        androidComingSoon: "Bientôt disponible",
+        viewGallery: "Voir la galerie complète →",
+      },
+      uplabAfrique: {
+        tagline: "Une plateforme axée sur la donnée qui cartographie la croissance urbaine des villes secondaires africaines les moins regardées — pensée pour transformer la prospective territoriale en un outil que les décideurs peuvent réellement utiliser.",
+        attribution: "Développé par SoiZenFier · Site web · En ligne",
+        description:
+          "UPLAB Afrique avait besoin d'une présence web sérieuse et crédible pour la recherche territoriale — typographie soignée, vraies visualisations de données, et un ton à la hauteur de la rigueur du travail. On a conçu et développé l'ensemble, de bout en bout.",
+        viewSite: "Visiter le site",
+      },
+      testimonial: {
+        quote:
+          "SoiZenFier Technologies a transformé notre besoin — un site bilingue, professionnel, à la hauteur de notre ambition continentale — en quelque chose qu'on n'attendait pas : au lieu du site \"ONG\" générique qu'on redoutait, ils ont construit une identité visuelle entièrement pensée autour de notre métier, la prospective territoriale, jusque dans une carte de croissance urbaine animée qu'on n'a vue nulle part ailleurs. Le site est rapide, responsive, entièrement bilingue français/anglais, et pensé pour évoluer avec nous — publications, projets, actualités, tout est déjà en place pour que notre équipe l'alimente. Un vrai travail de fond, livré avec rigueur.",
+        role: "Fondateur",
       },
     },
   },
