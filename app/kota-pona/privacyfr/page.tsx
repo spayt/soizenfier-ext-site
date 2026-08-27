@@ -161,7 +161,7 @@ export default function KotaPonaPrivacyFr() {
               <SectionHeading index={7} title="Commandes, réservations et paiements" id="paiements" />
               <Prose>
                 <p>Lorsque vous payez une commande ou une réservation de service, les fonds sont conservés en sécurité par la plateforme et ne sont versés au vendeur (et à un éventuel partenaire) qu&apos;une fois la prestation confirmée — jamais au moment du paiement lui-même.</p>
-                <p>Une fois que le vendeur indique que votre commande a été livrée (ou que le service a été rendu), vous recevrez une notification vous demandant de confirmer dans l&apos;application que vous avez bien reçu votre commande ou bénéficié du service. C&apos;est cette confirmation qui déclenche le paiement du vendeur.</p>
+                <p>Une fois que le vendeur indique que votre commande a été livrée (ou que le service a été rendu), l&apos;application vous demandera si tout s&apos;est bien passé. C&apos;est votre réponse qui déclenche le paiement du vendeur.</p>
                 <p>Si vous ne répondez pas, la commande ou la réservation est automatiquement considérée comme confirmée et le vendeur est payé après un délai de 3 jours.</p>
                 <p>Si vous signalez un problème au lieu de confirmer, la commande ou la réservation n&apos;est ni annulée ni payée automatiquement : elle est mise en attente et examinée par notre équipe, qui détermine ensuite si vous êtes remboursé ou si le vendeur est payé.</p>
               </Prose>

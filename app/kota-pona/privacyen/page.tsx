@@ -161,7 +161,7 @@ export default function KotaPonaPrivacyEn() {
               <SectionHeading index={7} title="Orders, Bookings and Payments" id="payments" />
               <Prose>
                 <p>When you pay for an order or a service booking, the funds are held securely by the platform and are only released to the seller (and to a referral partner, if any) once the order or service has been confirmed as completed — never at the moment payment is made.</p>
-                <p>Once the seller marks your order as delivered (or your service as completed), you&apos;ll be asked in the app to confirm that you actually received your order or benefited from the service. It&apos;s this confirmation that releases payment to the seller.</p>
+                <p>Once the seller marks your order as delivered (or your service as completed), the app will ask whether everything went well. It&apos;s your response that releases payment to the seller.</p>
                 <p>If you don&apos;t respond, the order or booking is automatically treated as confirmed and the seller is paid after a grace period of 3 days.</p>
                 <p>If you report a problem instead of confirming, the order or booking is neither cancelled nor paid out automatically: it&apos;s placed on hold and reviewed by our team, who then decide whether you are refunded or the seller is paid.</p>
               </Prose>
