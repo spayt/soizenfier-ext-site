@@ -246,17 +246,22 @@ export default async function RealisationsPage({ params }: Props) {
                     </span>
                   </a>
 
-                  <span className="inline-flex items-center gap-3 border border-white/10 bg-white/5 rounded-xl px-4 py-3 text-sm opacity-70">
-                    <svg className="w-5 h-5 shrink-0 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.soizenfier.zandu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 border border-white/10 bg-white/10 text-white rounded-xl px-4 py-3 text-sm hover:bg-white/[0.15] transition-all hover:scale-[1.02]"
+                  >
+                    <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M3.18 23.76c.35.2.74.24 1.12.14l12.73-7.36-2.79-2.79-11.06 10.01zM20.06 9.37l-2.93-1.69-3.14 3.14 3.14 3.14 2.95-1.71a2 2 0 0 0 0-2.88zM1 1.23v21.54l11.29-10.77L1 1.23zm15.03 6.82L4.3.37 15.07 11.3l.96-3.25z"/>
                     </svg>
                     <span className="text-left">
-                      <span className="block text-[9px] uppercase tracking-wider text-slate-500 font-medium">
-                        Google Play
+                      <span className="block text-[9px] uppercase tracking-wider text-white/50 font-medium">
+                        {kd.downloadOn}
                       </span>
-                      <span className="font-bold text-sm text-slate-300">{kpd.androidComingSoon}</span>
+                      <span className="font-bold text-sm">Google Play</span>
                     </span>
-                  </span>
+                  </a>
                 </div>
 
                 {/* Gallery link */}

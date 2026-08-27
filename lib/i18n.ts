@@ -294,7 +294,6 @@ export type TranslationDictionary = {
       tagline: string;
       attribution: string;
       description: string;
-      androidComingSoon: string;
       viewGallery: string;
     };
     uplabAfrique: {
@@ -846,10 +845,9 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       },
       kotaPona: {
         tagline: "One app for every local business — discover stores, order groceries, and book services, all in your community.",
-        attribution: "Built by SoiZenFier · iOS live · Android coming soon",
+        attribution: "Built by SoiZenFier · iOS & Android",
         description:
           "Kota-Pona connects communities with the local businesses around them — grocery orders, service bookings, and store discovery — in one clean mobile experience.",
-        androidComingSoon: "Coming soon",
         viewGallery: "View full gallery →",
       },
       uplabAfrique: {
@@ -1393,10 +1391,9 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       },
       kotaPona: {
         tagline: "Une seule appli pour tous les commerces locaux — découvrez des boutiques, commandez vos courses et réservez des services, dans votre communauté.",
-        attribution: "Développé par SoiZenFier · iOS disponible · Android bientôt",
+        attribution: "Développé par SoiZenFier · iOS & Android",
         description:
           "Kota-Pona connecte les communautés aux commerces locaux qui les entourent — commandes d'épicerie, réservation de services et découverte de boutiques — dans une seule application mobile soignée.",
-        androidComingSoon: "Bientôt disponible",
         viewGallery: "Voir la galerie complète →",
       },
       uplabAfrique: {

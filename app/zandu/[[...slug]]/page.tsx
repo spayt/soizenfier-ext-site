@@ -60,7 +60,7 @@ export default function DeepLinkPage() {
       }}
     >
       <div>
-        <h1>Opening Zandu...</h1>
+        <h1>Opening Kota-Pona...</h1>
         <p>
           If the application does not open automatically, you will be redirected
           to the download page.
