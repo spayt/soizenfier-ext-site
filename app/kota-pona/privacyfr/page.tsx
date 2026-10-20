@@ -2,7 +2,7 @@ import Link from "next/link";
 import { COMPANY_NAME, COMPANY_EMAIL } from "@/lib/config";
 
 const APP_NAME = "Kota-Pona";
-const DATE_UPDATED = "17 juillet 2026";
+const DATE_UPDATED = "16 octobre 2026";
 
 export const metadata = {
   title: "Kota-Pona — Politique de confidentialité",
@@ -16,6 +16,8 @@ const TOC = [
   { id: "cookies",       label: "Les cookies" },
   { id: "fournisseurs",  label: "Les fournisseurs de services" },
   { id: "securite",      label: "Sécurité" },
+  { id: "vendeurslivreurs", label: "Vendeurs et livreurs" },
+  { id: "fiscal",        label: "Renseignements fiscaux" },
   { id: "paiements",     label: "Commandes, réservations et paiements" },
   { id: "liens",         label: "Liens vers d'autres sites" },
   { id: "enfants",       label: "Confidentialité des enfants" },
@@ -142,7 +144,7 @@ export default function KotaPonaPrivacyFr() {
             <section>
               <SectionHeading index={5} title="Les fournisseurs de services" id="fournisseurs" />
               <Prose>
-                <p>Nous pouvons employer des sociétés tierces et des particuliers pour les raisons suivantes : pour faciliter notre service ; pour fournir le service en notre nom ; pour exécuter des services liés au service ; ou pour nous aider à analyser l&apos;utilisation de notre service. Cela inclut notamment notre fournisseur de traitement des paiements, Stripe.</p>
+                <p>Nous pouvons employer des sociétés tierces et des particuliers pour les raisons suivantes : pour faciliter notre service ; pour fournir le service en notre nom ; pour exécuter des services liés au service ; ou pour nous aider à analyser l&apos;utilisation de notre service. Cela inclut notamment notre fournisseur de traitement des paiements, Stripe, ainsi que Google Cloud, utilisé pour chiffrer certains renseignements fiscaux sensibles (voir « Renseignements fiscaux » ci-dessous).</p>
               </Prose>
             </section>
 
@@ -158,19 +160,42 @@ export default function KotaPonaPrivacyFr() {
             <div className="h-px bg-white/5" />
 
             <section>
-              <SectionHeading index={7} title="Commandes, réservations et paiements" id="paiements" />
+              <SectionHeading index={7} title="Vendeurs et livreurs" id="vendeurslivreurs" />
               <Prose>
-                <p>Lorsque vous payez une commande ou une réservation de service, les fonds sont conservés en sécurité par la plateforme et ne sont versés au vendeur (et à un éventuel partenaire) qu&apos;une fois la prestation confirmée — jamais au moment du paiement lui-même.</p>
-                <p>Une fois que le vendeur indique que votre commande a été livrée (ou que le service a été rendu), l&apos;application vous demandera si tout s&apos;est bien passé. C&apos;est votre réponse qui déclenche le paiement du vendeur.</p>
-                <p>Si vous ne répondez pas, la commande ou la réservation est automatiquement considérée comme confirmée et le vendeur est payé après un délai de 3 jours.</p>
-                <p>Si vous signalez un problème au lieu de confirmer, la commande ou la réservation n&apos;est ni annulée ni payée automatiquement : elle est mise en attente et examinée par notre équipe, qui détermine ensuite si vous êtes remboursé ou si le vendeur est payé.</p>
+                <p>Si vous vous inscrivez comme vendeur, nous recueillons des informations sur votre boutique, telles que son nom, son adresse, ses coordonnées, et les produits ou services que vous offrez.</p>
+                <p>Si vous vous inscrivez comme livreur, nous recueillons votre nom, votre numéro de téléphone, votre type de véhicule et votre localisation générale, afin que des livraisons puissent vous être proposées et coordonnées. Dès que vous (en tant que livreur) prenez en charge une livraison, votre nom et votre numéro de téléphone sont partagés avec le vendeur dont vous livrez la commande, et l&apos;adresse de livraison du client vous est communiquée — uniquement dans le but de coordonner cette livraison.</p>
               </Prose>
             </section>
 
             <div className="h-px bg-white/5" />
 
             <section>
-              <SectionHeading index={8} title="Liens vers d'autres sites" id="liens" />
+              <SectionHeading index={8} title="Renseignements fiscaux et déclarations gouvernementales" id="fiscal" />
+              <Prose>
+                <p>La législation fiscale canadienne (partie XX du Règlement de l&apos;impôt sur le revenu) exige que des plateformes comme la nôtre recueillent des renseignements d&apos;identification fiscale auprès des vendeurs et livreurs qui atteignent certains seuils d&apos;activité, et qu&apos;elles déclarent leurs ventes ou leurs revenus de livraison aux autorités fiscales gouvernementales. Si vous vous inscrivez comme vendeur ou livreur, nous pouvons vous demander de fournir votre nom légal, votre date de naissance, votre numéro d&apos;assurance sociale (NAS) ou votre numéro d&apos;entreprise, ainsi que vos numéros d&apos;inscription à la TPS/TVQ, selon le cas.</p>
+                <p>Votre NAS est chiffré au moyen du service de gestion de clés de Google Cloud dès que vous le soumettez, et seule une version masquée (montrant ses 3 derniers chiffres) vous est ensuite présentée dans l&apos;application. Il ne peut être déchiffré que par du personnel autorisé de {COMPANY_NAME}, dans le but précis de préparer et de transmettre les déclarations fiscales requises.</p>
+                <p>Si vous êtes un vendeur ou un livreur déclarable pour une année civile donnée, nous préparons un relevé annuel résumant votre activité sur la plateforme et vous en rendons une copie masquée disponible dans l&apos;application. Lorsque la loi l&apos;exige, nous transmettons également les renseignements correspondants à l&apos;Agence du revenu du Canada (ARC) et à Revenu Québec.</p>
+                <p>Si vous ne fournissez pas les renseignements fiscaux requis dans le délai qui vous est communiqué, votre compte vendeur ou livreur peut être suspendu jusqu&apos;à ce qu&apos;ils soient fournis.</p>
+              </Prose>
+            </section>
+
+            <div className="h-px bg-white/5" />
+
+            <section>
+              <SectionHeading index={9} title="Commandes, réservations et paiements" id="paiements" />
+              <Prose>
+                <p>Lorsque vous payez une commande ou une réservation de service, les fonds sont traités selon l&apos;un des deux modèles suivants, selon la configuration de paiement propre au vendeur : (a) ils sont conservés en sécurité par la plateforme et ne sont versés au vendeur (et à un éventuel partenaire) qu&apos;une fois la prestation confirmée — jamais au moment du paiement lui-même ; ou (b) ils sont crédités directement au compte Stripe du vendeur au moment du paiement, notre commission étant déduite automatiquement, tandis que le retrait réel de ces fonds vers le compte bancaire du vendeur est retardé d&apos;une courte période, précisément pour permettre qu&apos;un problème signalé ou une annulation puisse encore être annulé et remboursé.</p>
+                <p>Une fois que le vendeur indique que votre commande a été livrée (ou que le service a été rendu), l&apos;application vous demandera si tout s&apos;est bien passé. C&apos;est votre réponse qui finalise le paiement du vendeur.</p>
+                <p>Si vous ne répondez pas, la commande ou la réservation est automatiquement considérée comme confirmée et le vendeur est payé (ou la période de retard prend fin) après un délai de 3 jours.</p>
+                <p>Si vous signalez un problème au lieu de confirmer, la commande ou la réservation n&apos;est ni annulée ni payée automatiquement : elle est mise en attente et examinée par notre équipe, qui détermine ensuite si vous êtes remboursé ou si le vendeur est payé.</p>
+                <p>Pour une commande en mode livraison, celle-ci peut être effectuée soit par le vendeur lui-même, soit par un livreur indépendant qui l&apos;a prise en charge sur la plateforme, comme décrit dans la section « Vendeurs et livreurs » ci-dessus.</p>
+              </Prose>
+            </section>
+
+            <div className="h-px bg-white/5" />
+
+            <section>
+              <SectionHeading index={10} title="Liens vers d'autres sites" id="liens" />
               <Prose>
                 <p>Ce service peut contenir des liens vers d&apos;autres sites. Si vous cliquez sur un lien tiers, vous serez dirigé vers ce site.</p>
               </Prose>
@@ -179,7 +204,7 @@ export default function KotaPonaPrivacyFr() {
             <div className="h-px bg-white/5" />
 
             <section>
-              <SectionHeading index={9} title="Confidentialité des enfants" id="enfants" />
+              <SectionHeading index={11} title="Confidentialité des enfants" id="enfants" />
               <Prose>
                 <p>Ces Services ne s&apos;adressent à personne de moins de 13 ans.</p>
               </Prose>
@@ -188,7 +213,7 @@ export default function KotaPonaPrivacyFr() {
             <div className="h-px bg-white/5" />
 
             <section>
-              <SectionHeading index={10} title="Modifications de cette politique de confidentialité" id="modifications" />
+              <SectionHeading index={12} title="Modifications de cette politique de confidentialité" id="modifications" />
               <Prose>
                 <p>Nous pouvons mettre à jour notre politique de confidentialité de temps à autre. Cette politique est en vigueur à compter du {DATE_UPDATED}.</p>
               </Prose>
@@ -197,7 +222,7 @@ export default function KotaPonaPrivacyFr() {
             <div className="h-px bg-white/5" />
 
             <section>
-              <SectionHeading index={11} title="Nous contacter" id="contact" />
+              <SectionHeading index={13} title="Nous contacter" id="contact" />
               <Prose>
                 <p>Si vous avez des questions ou des suggestions concernant notre politique de confidentialité, n&apos;hésitez pas à nous contacter à{" "}
                   <a href={`mailto:${COMPANY_EMAIL}`} className="text-emerald-400 hover:underline">{COMPANY_EMAIL}</a>.

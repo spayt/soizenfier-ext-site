@@ -2,7 +2,7 @@ import Link from "next/link";
 import { COMPANY_NAME, COMPANY_EMAIL } from "@/lib/config";
 
 const APP_NAME = "Kota-Pona";
-const DATE_UPDATED = "July 17, 2026";
+const DATE_UPDATED = "October 16, 2026";
 
 export const metadata = {
   title: "Kota-Pona — Privacy Policy",
@@ -16,6 +16,8 @@ const TOC = [
   { id: "cookies",      label: "Cookies" },
   { id: "providers",    label: "Service Providers" },
   { id: "security",     label: "Security" },
+  { id: "sellerscouriers", label: "Sellers and Couriers" },
+  { id: "tax",          label: "Tax Information" },
   { id: "payments",     label: "Orders, Bookings and Payments" },
   { id: "links",        label: "Links to Other Sites" },
   { id: "children",     label: "Children's Privacy" },
@@ -142,7 +144,7 @@ export default function KotaPonaPrivacyEn() {
             <section>
               <SectionHeading index={5} title="Service Providers" id="providers" />
               <Prose>
-                <p>We may employ third-party companies and individuals to facilitate our Service; to provide the Service on our behalf; to perform Service-related services; or to assist us in analyzing how our Service is used. This includes our payment processing provider, Stripe.</p>
+                <p>We may employ third-party companies and individuals to facilitate our Service; to provide the Service on our behalf; to perform Service-related services; or to assist us in analyzing how our Service is used. This includes our payment processing provider, Stripe, as well as Google Cloud, used to encrypt certain sensitive tax information (see &quot;Tax Information&quot; below).</p>
               </Prose>
             </section>
 
@@ -158,19 +160,42 @@ export default function KotaPonaPrivacyEn() {
             <div className="h-px bg-white/5" />
 
             <section>
-              <SectionHeading index={7} title="Orders, Bookings and Payments" id="payments" />
+              <SectionHeading index={7} title="Sellers and Couriers" id="sellerscouriers" />
               <Prose>
-                <p>When you pay for an order or a service booking, the funds are held securely by the platform and are only released to the seller (and to a referral partner, if any) once the order or service has been confirmed as completed — never at the moment payment is made.</p>
-                <p>Once the seller marks your order as delivered (or your service as completed), the app will ask whether everything went well. It&apos;s your response that releases payment to the seller.</p>
-                <p>If you don&apos;t respond, the order or booking is automatically treated as confirmed and the seller is paid after a grace period of 3 days.</p>
-                <p>If you report a problem instead of confirming, the order or booking is neither cancelled nor paid out automatically: it&apos;s placed on hold and reviewed by our team, who then decide whether you are refunded or the seller is paid.</p>
+                <p>If you register as a seller, we collect information about your store, such as its name, address, contact details, and the products or services you offer.</p>
+                <p>If you register as a courier, we collect your name, phone number, vehicle type, and general location, so that deliveries can be offered to you and coordinated. Once you (as a courier) claim a delivery, your name and phone number are shared with the seller whose order you are delivering, and the customer&apos;s delivery address is shared with you — solely for the purpose of coordinating that delivery.</p>
               </Prose>
             </section>
 
             <div className="h-px bg-white/5" />
 
             <section>
-              <SectionHeading index={8} title="Links to Other Sites" id="links" />
+              <SectionHeading index={8} title="Tax Information and Government Reporting" id="tax" />
+              <Prose>
+                <p>Canadian tax law (Part XX of the Income Tax Regulations) requires platforms like ours to collect tax identification information from sellers and couriers who meet certain activity thresholds, and to report their sales or delivery earnings to government tax authorities. If you register as a seller or courier, we may ask you to provide your legal name, date of birth, Social Insurance Number (SIN) or business number, and GST/QST registration numbers, as applicable.</p>
+                <p>Your SIN is encrypted using Google Cloud&apos;s key management service as soon as you submit it, and only a masked version (showing its last 3 digits) is ever shown back to you in the app. It can only be decrypted by authorized {COMPANY_NAME} personnel, for the specific purpose of preparing and filing required tax statements.</p>
+                <p>If you are a reportable seller or courier for a given calendar year, we prepare an annual statement summarizing your activity on the platform and make a masked copy of it available to you in the app. Where required by law, we also transmit the corresponding information to the Canada Revenue Agency (CRA) and Revenu Québec.</p>
+                <p>If you don&apos;t provide the required tax information within the timeframe we communicate to you, your seller or courier account may be suspended until it is provided.</p>
+              </Prose>
+            </section>
+
+            <div className="h-px bg-white/5" />
+
+            <section>
+              <SectionHeading index={9} title="Orders, Bookings and Payments" id="payments" />
+              <Prose>
+                <p>When you pay for an order or a service booking, funds are handled under one of two models, depending on the seller&apos;s own payment configuration: (a) held securely by the platform and released to the seller (and to a referral partner, if any) only once the order or service has been confirmed as completed — never at the moment payment is made; or (b) credited directly to the seller&apos;s own Stripe account at the time of payment, with our commission automatically deducted, while the actual withdrawal of those funds to the seller&apos;s bank account is delayed for a short period, specifically so that a reported problem or a cancellation can still be reversed and refunded to you.</p>
+                <p>Once the seller marks your order as delivered (or your service as completed), the app will ask whether everything went well. It&apos;s your response that finalizes payment to the seller.</p>
+                <p>If you don&apos;t respond, the order or booking is automatically treated as confirmed and the seller is paid (or the delay period ends) after a grace period of 3 days.</p>
+                <p>If you report a problem instead of confirming, the order or booking is neither cancelled nor paid out automatically: it&apos;s placed on hold and reviewed by our team, who then decide whether you are refunded or the seller is paid.</p>
+                <p>For a delivery order, delivery may be completed either by the seller directly or by an independent courier who has claimed it on the platform, as described in &quot;Sellers and Couriers&quot; above.</p>
+              </Prose>
+            </section>
+
+            <div className="h-px bg-white/5" />
+
+            <section>
+              <SectionHeading index={10} title="Links to Other Sites" id="links" />
               <Prose>
                 <p>This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site.</p>
               </Prose>
@@ -179,7 +204,7 @@ export default function KotaPonaPrivacyEn() {
             <div className="h-px bg-white/5" />
 
             <section>
-              <SectionHeading index={9} title="Children's Privacy" id="children" />
+              <SectionHeading index={11} title="Children's Privacy" id="children" />
               <Prose>
                 <p>These Services do not address anyone under the age of 13.</p>
               </Prose>
@@ -188,7 +213,7 @@ export default function KotaPonaPrivacyEn() {
             <div className="h-px bg-white/5" />
 
             <section>
-              <SectionHeading index={10} title="Changes to This Privacy Policy" id="changes" />
+              <SectionHeading index={12} title="Changes to This Privacy Policy" id="changes" />
               <Prose>
                 <p>We may update our Privacy Policy from time to time. This policy is effective as of {DATE_UPDATED}.</p>
               </Prose>
@@ -197,7 +222,7 @@ export default function KotaPonaPrivacyEn() {
             <div className="h-px bg-white/5" />
 
             <section>
-              <SectionHeading index={11} title="Contact Us" id="contact" />
+              <SectionHeading index={13} title="Contact Us" id="contact" />
               <Prose>
                 <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at{" "}
                   <a href={`mailto:${COMPANY_EMAIL}`} className="text-emerald-400 hover:underline">{COMPANY_EMAIL}</a>.
