@@ -20,7 +20,7 @@ export async function generateMetadata({
     ? {
         title: "Tarifs Conception Web & Plans de Maintenance",
         description:
-          "Tarifs transparents pour la création de sites web à partir de 500 $ CAD. Plans de maintenance mensuelle à partir de 99 $/mois. Aucun frais caché.",
+          "Tarifs transparents pour la création de sites web à partir de 250 $ CAD. Plans de maintenance mensuelle à partir de 49,50 $/mois. Aucun frais caché.",
         openGraph: {
           title: "Tarifs Web — SoiZenFier Technologies",
           description:
@@ -32,11 +32,11 @@ export async function generateMetadata({
     : {
         title: "Web Design Pricing & Monthly Maintenance Plans",
         description:
-          "Transparent website pricing starting at $500 CAD. Monthly maintenance plans from $99/month. Clear packages with no hidden fees for small businesses.",
+          "Transparent website pricing starting at $250 CAD. Monthly maintenance plans from $49.50/month. Clear packages with no hidden fees for small businesses.",
         openGraph: {
           title: "Website Pricing — SoiZenFier Technologies",
           description:
-            "Website design packages from $500 CAD. Monthly maintenance and hosting plans from $99/month. No hidden fees.",
+            "Website design packages from $250 CAD. Monthly maintenance and hosting plans from $49.50/month. No hidden fees.",
           type: "website",
           locale: "en_CA",
         },

@@ -460,7 +460,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       description:
         "Keep your new website online with fast, secure hosting and simple monthly billing tailored for small businesses.",
       planLabel: "Starter plan",
-      planPrice: "$59",
+      planPrice: "$29.50 CAD",
       planCycle: "per month",
       planDescription:
         "Our hosting includes performance monitoring, automated backups, and a smooth payment flow so your site stays reliable.",
@@ -653,7 +653,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       websitePackages: {
         starter: {
           title: "Starter Website",
-          priceRange: "$500 – $4,000 CAD",
+          priceRange: "$250 – $2,000 CAD",
           bullets: [
             "Up to 5 pages, ready to launch fast",
             "Mobile-first responsive design",
@@ -663,7 +663,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         business: {
           title: "Business Website",
-          priceRange: "$4,000 – $8,000 CAD",
+          priceRange: "$2,000 – $4,000 CAD",
           bullets: [
             "10–20 pages with flexible CMS",
             "Blog ready to publish on day one",
@@ -673,7 +673,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         custom: {
           title: "Custom Platform",
-          priceRange: "$8,000 – $25,000+ CAD",
+          priceRange: "$4,000 – $12,500+ CAD",
           bullets: [
             "Custom dashboard built to your workflow",
             "Stripe payments & subscriptions",
@@ -685,7 +685,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       monthlyPlans: {
         essential: {
           title: "Essential Care",
-          price: "$99 CAD/month",
+          price: "$49.50 CAD/month",
           bullets: [
             "Reliable managed hosting",
             "SSL certificate included",
@@ -695,7 +695,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         growth: {
           title: "Growth Plan",
-          price: "$249 CAD/month",
+          price: "$124.50 CAD/month",
           bullets: [
             "Everything in Essential",
             "1 hour of site updates/month",
@@ -704,7 +704,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         premium: {
           title: "Premium Plan",
-          price: "$499 CAD/month",
+          price: "$249.50 CAD/month",
           bullets: [
             "Everything in Growth",
             "Up to 4 hours of updates/month",
@@ -714,7 +714,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         "managed-content": {
           title: "Managed Content Plan",
-          price: "From $799 CAD/month",
+          price: "From $399.50 CAD/month",
           bullets: [
             "Unlimited content updates",
             "New landing pages on request",
@@ -1002,7 +1002,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       description:
         "Gardez votre nouveau site en ligne avec un hébergement rapide, sécurisé et une facturation mensuelle claire pour les petites entreprises.",
       planLabel: "Plan de base",
-      planPrice: "59€",
+      planPrice: "29,50 $ CAD",
       planCycle: "par mois",
       planDescription:
         "Notre hébergement inclut la surveillance des performances, des sauvegardes automatisées et un paiement simplifié pour un site fiable.",
@@ -1197,7 +1197,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       websitePackages: {
         starter: {
           title: "Forfait de démarrage",
-          priceRange: "500 $ – 4 000 $ CAD",
+          priceRange: "250 $ – 2 000 $ CAD",
           bullets: [
             "Jusqu'à 5 pages, prêt à lancer rapidement",
             "Design responsive mobile-first",
@@ -1207,7 +1207,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         business: {
           title: "Forfait Affaires",
-          priceRange: "4 000 $ – 8 000 $ CAD",
+          priceRange: "2 000 $ – 4 000 $ CAD",
           bullets: [
             "10 à 20 pages avec CMS flexible",
             "Blog prêt à publier dès le premier jour",
@@ -1217,7 +1217,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         custom: {
           title: "Plateforme sur mesure",
-          priceRange: "8 000 $ – 25 000+ $ CAD",
+          priceRange: "4 000 $ – 12 500+ $ CAD",
           bullets: [
             "Tableau de bord personnalisé selon votre flux de travail",
             "Paiements Stripe et abonnements",
@@ -1229,7 +1229,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
       monthlyPlans: {
         essential: {
           title: "Assistance essentielle",
-          price: "99 $ CAD/mois",
+          price: "49,50 $ CAD/mois",
           bullets: [
             "Hébergement géré fiable",
             "Certificat SSL inclus",
@@ -1239,7 +1239,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         growth: {
           title: "Plan Croissance",
-          price: "249 $ CAD/mois",
+          price: "124,50 $ CAD/mois",
           bullets: [
             "Tout ce qui est dans Essentiel",
             "1 heure de mises à jour/mois",
@@ -1248,7 +1248,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         premium: {
           title: "Plan Premium",
-          price: "499 $ CAD/mois",
+          price: "249,50 $ CAD/mois",
           bullets: [
             "Tout ce qui est dans Croissance",
             "Jusqu'à 4 heures de mises à jour/mois",
@@ -1258,7 +1258,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
         },
         "managed-content": {
           title: "Forfait Contenu géré",
-          price: "À partir de 799 $ CAD/mois",
+          price: "À partir de 399,50 $ CAD/mois",
           bullets: [
             "Mises à jour de contenu illimitées",
             "Nouvelles pages d'atterrissage sur demande",

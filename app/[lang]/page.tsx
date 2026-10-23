@@ -42,7 +42,7 @@ export async function generateMetadata({
     ? {
         title: "Conception et Développement Web pour PME — SoiZenFier Technologies",
         description:
-          "Sites web sur mesure, applications web et mobiles pour les entreprises au Canada. Rapides, optimisés SEO et maintenus professionnellement. À partir de 500 $ CAD.",
+          "Sites web sur mesure, applications web et mobiles pour les entreprises au Canada. Rapides, optimisés SEO et maintenus professionnellement. À partir de 250 $ CAD.",
         openGraph: {
           title: "SoiZenFier Technologies — Agence Web Canadienne",
           description:
@@ -54,7 +54,7 @@ export async function generateMetadata({
     : {
         title: "Web Design & Development for Small Businesses — SoiZenFier Technologies",
         description:
-          "Custom websites, web apps, and mobile apps for small businesses in Canada. Fast, SEO-optimized, and professionally maintained. Free quote — starting at $500 CAD.",
+          "Custom websites, web apps, and mobile apps for small businesses in Canada. Fast, SEO-optimized, and professionally maintained. Free quote — starting at $250 CAD.",
         openGraph: {
           title: "SoiZenFier Technologies — Canadian Web Development Agency",
           description:
@@ -313,7 +313,7 @@ export default async function Home({ params }: HomePageProps) {
                   <p className="text-xs font-bold uppercase tracking-widest text-yellow-900/80 mb-1">
                     {dictionary.home.pricingPreviewWebsiteLabel}
                   </p>
-                  <p className="text-4xl font-black text-slate-900">$500+</p>
+                  <p className="text-4xl font-black text-slate-900">$250+</p>
                 </div>
               </div>
               <div className="rounded-3xl bg-slate-900 text-white p-8 flex flex-col justify-between">
@@ -323,7 +323,7 @@ export default async function Home({ params }: HomePageProps) {
                     {dictionary.home.pricingPreviewMaintenanceLabel}
                   </p>
                   <p className="text-4xl font-black text-white">
-                    $99+
+                    $49.50+
                     <span className="text-lg font-normal text-slate-400"> /mo</span>
                   </p>
                 </div>

@@ -18,7 +18,7 @@ export const websitePackages: WebsitePackage[] = [
   {
     id: "business",
     title: "Business Website",
-    priceRange: "$4,000 – $8,000 CAD",
+    priceRange: "$2,000 – $4,000 CAD",
     bullets: [
       "10–20 pages with flexible CMS",
       "Blog ready to publish on day one",
@@ -29,7 +29,7 @@ export const websitePackages: WebsitePackage[] = [
   {
     id: "starter",
     title: "Starter Website",
-    priceRange: "$500 – $4,000 CAD",
+    priceRange: "$250 – $2,000 CAD",
     bullets: [
       "Up to 5 pages, ready to launch fast",
       "Mobile-first responsive design",
@@ -40,7 +40,7 @@ export const websitePackages: WebsitePackage[] = [
   {
     id: "custom",
     title: "Custom Platform",
-    priceRange: "$8,000 – $25,000+ CAD",
+    priceRange: "$4,000 – $12,500+ CAD",
     bullets: [
       "Custom dashboard built to your workflow",
       "Stripe payments & subscriptions",
@@ -62,8 +62,8 @@ export const monthlyPlans: MonthlyPlan[] = [
   {
     id: "essential",
     title: "Essential Care",
-    price: "$99 CAD/month",
-    amountCents: 9900,
+    price: "$49.50 CAD/month",
+    amountCents: 4950,
     bullets: [
       "Your site stays online 24/7",
       "Secure browsing (the padlock icon)",
@@ -74,8 +74,8 @@ export const monthlyPlans: MonthlyPlan[] = [
   {
     id: "growth",
     title: "Growth Plan",
-    price: "$249 CAD/month",
-    amountCents: 24900,
+    price: "$124.50 CAD/month",
+    amountCents: 12450,
     bullets: [
       "Everything in Essential",
       "One hour of hands-on changes each month",
@@ -85,8 +85,8 @@ export const monthlyPlans: MonthlyPlan[] = [
   {
     id: "premium",
     title: "Premium Plan",
-    price: "$499 CAD/month",
-    amountCents: 49900,
+    price: "$249.50 CAD/month",
+    amountCents: 24950,
     bullets: [
       "Everything in Growth",
       "Up to 4 hours of updates per month",
@@ -97,8 +97,8 @@ export const monthlyPlans: MonthlyPlan[] = [
   {
     id: "managed-content",
     title: "Managed Content Plan",
-    price: "From $799 CAD/month",
-    amountCents: 79900,
+    price: "From $399.50 CAD/month",
+    amountCents: 39950,
     bullets: [
       "Unlimited content updates",
       "New landing pages on request",
@@ -110,8 +110,8 @@ export const monthlyPlans: MonthlyPlan[] = [
 
 export const pricingIntro = {
   startingFrom: {
-    website: "$500",
-    maintenance: "$99/month",
+    website: "$250",
+    maintenance: "$49.50/month",
   },
 };
 
