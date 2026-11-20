@@ -124,7 +124,7 @@ export default function PrivacyPolicyFr() {
             <section>
               <SectionHeading index={1} title="Introduction" id="introduction" />
               <Prose>
-                <p>{COMPANY_NAME} a développé l'application {APP_NAME} en tant qu'application gratuite. Ce service est fourni gratuitement et est destiné à être utilisé tel quel.</p>
+                <p>{COMPANY_NAME} a développé l&apos;application {APP_NAME} en tant qu&apos;application gratuite. Ce service est fourni gratuitement et est destiné à être utilisé tel quel.</p>
                 <p>Cette page explique comment nous collectons, utilisons et protégeons vos informations lorsque vous utilisez {APP_NAME}.</p>
               </Prose>
             </section>
@@ -141,7 +141,7 @@ export default function PrivacyPolicyFr() {
                   "Statut de paiement (à jour ou en retard)",
                   "Contributions récurrentes planifiées",
                 ]} />
-                <p>Ces données sont utilisées strictement pour faire fonctionner et améliorer l'application.</p>
+                <p>Ces données sont utilisées strictement pour faire fonctionner et améliorer l&apos;application.</p>
               </Prose>
             </section>
 
@@ -174,7 +174,7 @@ export default function PrivacyPolicyFr() {
             <section>
               <SectionHeading index={5} title="Journaux de connexion" id="journaux" />
               <Prose>
-                <p>En cas d'erreur, des données techniques peuvent être collectées telles que l'adresse IP, le type d'appareil, la version du système d'exploitation et les horodatages d'utilisation.</p>
+                <p>En cas d&apos;erreur, des données techniques peuvent être collectées telles que l&apos;adresse IP, le type d&apos;appareil, la version du système d&apos;exploitation et les horodatages d&apos;utilisation.</p>
               </Prose>
             </section>
 
@@ -183,7 +183,7 @@ export default function PrivacyPolicyFr() {
             <section>
               <SectionHeading index={6} title="Cookies" id="cookies" />
               <Prose>
-                <p>Cette application n'utilise pas explicitement de cookies, mais les services tiers peuvent en utiliser pour améliorer leurs services.</p>
+                <p>Cette application n&apos;utilise pas explicitement de cookies, mais les services tiers peuvent en utiliser pour améliorer leurs services.</p>
               </Prose>
             </section>
 
@@ -212,7 +212,7 @@ export default function PrivacyPolicyFr() {
             <section>
               <SectionHeading index={9} title="Vos droits" id="droits" />
               <Prose>
-                <p>Vous avez le droit d'accéder, de corriger ou de supprimer vos données personnelles.</p>
+                <p>Vous avez le droit d&apos;accéder, de corriger ou de supprimer vos données personnelles.</p>
               </Prose>
             </section>
 
@@ -221,7 +221,7 @@ export default function PrivacyPolicyFr() {
             <section>
               <SectionHeading index={10} title="Sécurité" id="securite" />
               <Prose>
-                <p>Nous mettons en œuvre des mesures de sécurité raisonnables pour protéger vos données, mais aucun système n'est totalement sécurisé.</p>
+                <p>Nous mettons en œuvre des mesures de sécurité raisonnables pour protéger vos données, mais aucun système n&apos;est totalement sécurisé.</p>
               </Prose>
             </section>
 
@@ -230,7 +230,7 @@ export default function PrivacyPolicyFr() {
             <section>
               <SectionHeading index={11} title="Liens externes" id="liens" />
               <Prose>
-                <p>L'application peut contenir des liens vers des sites externes. Nous ne sommes pas responsables de leur contenu ou de leurs pratiques de confidentialité.</p>
+                <p>L&apos;application peut contenir des liens vers des sites externes. Nous ne sommes pas responsables de leur contenu ou de leurs pratiques de confidentialité.</p>
               </Prose>
             </section>
 
@@ -239,7 +239,7 @@ export default function PrivacyPolicyFr() {
             <section>
               <SectionHeading index={12} title="Confidentialité des enfants" id="enfants" />
               <Prose>
-                <p>Cette application n'est pas destinée aux enfants de moins de 13 ans. Nous ne collectons pas sciemment leurs données.</p>
+                <p>Cette application n&apos;est pas destinée aux enfants de moins de 13 ans. Nous ne collectons pas sciemment leurs données.</p>
               </Prose>
             </section>
 

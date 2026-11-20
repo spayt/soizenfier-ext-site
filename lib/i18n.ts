@@ -15,7 +15,7 @@ export type TranslationDictionary = {
   };
   nav: {
     home: string;
-    // ourWork: string;
+    ourWork: string;
     about: string;
     services: string;
     hosting: string;
@@ -329,7 +329,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
     },
     nav: {
       home: "Home",
-      // ourWork: "Our Work",
+      ourWork: "Our Work",
       about: "About",
       services: "Services",
       hosting: "Hosting",
@@ -871,7 +871,7 @@ const dictionaries: Record<Locale, TranslationDictionary> = {
     },
     nav: {
       home: "Accueil",
-      // ourWork: "Notre travail",
+      ourWork: "Notre travail",
       about: "À propos",
       services: "Services",
       hosting: "Hébergement",

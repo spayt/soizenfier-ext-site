@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
+import { readFunctionResponse } from "@/lib/functionResponse";
 
-// Set STRIPE_FUNCTION_URL to your Firebase functions base URL, for example:
+// Set NEXT_FIREBASE_FUNCTIONS_URL (or NEXT_STRIPE_LIVE_FUNCTION_URL) to your Firebase functions base URL, for example:
 // https://us-central1-YOUR_PROJECT.cloudfunctions.net
 // or http://localhost:5001/YOUR_PROJECT/us-central1 when using the emulator.
 type CheckoutRequestBody = {
@@ -16,6 +17,7 @@ type CheckoutRequestBody = {
 
 export async function POST(req: Request) {
   const stripeFunctionUrl =
+    process.env.NEXT_FIREBASE_FUNCTIONS_URL ||
     process.env.NEXT_STRIPE_LIVE_FUNCTION_URL ||
     process.env.NEXT_FIREBASE_EMULATOR_FUNCTION_URL;
 
@@ -29,19 +31,27 @@ export async function POST(req: Request) {
   const body = (await req.json()) as CheckoutRequestBody;
   const authorization = req.headers.get("Authorization") ?? "";
 
-  const response = await fetch(
-    `${stripeFunctionUrl.replace(/\/+$/, "")}/createCheckoutSession`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(authorization ? { Authorization: authorization } : {}),
+  let response: Response;
+  try {
+    response = await fetch(
+      `${stripeFunctionUrl.replace(/\/+$/, "")}/createCheckoutSession`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(authorization ? { Authorization: authorization } : {}),
+        },
+        body: JSON.stringify(body),
       },
-      body: JSON.stringify(body),
-    },
-  );
+    );
+  } catch {
+    return NextResponse.json(
+      { error: "Could not reach checkout service. Please try again." },
+      { status: 502 },
+    );
+  }
 
-  const data = await response.json();
+  const data = await readFunctionResponse(response);
 
   if (!response.ok) {
     return NextResponse.json(

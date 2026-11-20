@@ -6,6 +6,7 @@ import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore"
 import { firebaseAuth, firebaseFirestore } from "@/lib/firebase";
 import { type TranslationDictionary, type Locale } from "@/lib/i18n";
 import { websitePackages } from "@/lib/pricing";
+import { formatMoney } from "@/lib/format";
 import Link from "next/link";
 
 type SubscriptionData = {
@@ -43,15 +44,6 @@ function formatDate(ts: { seconds: number } | null): string {
   return new Date(ts.seconds * 1000).toLocaleDateString(undefined, {
     month: "short", day: "numeric", year: "numeric",
   });
-}
-
-function formatMoney(amount: number | null, currency: string | null): string {
-  if (amount == null) return "—";
-  return new Intl.NumberFormat(undefined, {
-    style: "currency",
-    currency: currency?.toUpperCase() ?? "USD",
-    maximumFractionDigits: 0,
-  }).format(amount / 100);
 }
 
 function StatusDot({ status }: { status: string }) {
@@ -330,7 +322,7 @@ export default function AdminPageClient({ dictionary, locale }: AdminPageClientP
   // ── Stats + filtering ──
   const allSubs = subscribers.flatMap((u) => Object.values(u.subscriptions ?? {}));
   const activeSubs = allSubs.filter((s) => s.status === "active");
-  const mrr = activeSubs.reduce((sum, s) => sum + (s.amount ?? 0), 0) / 100;
+  const mrrCents = activeSubs.reduce((sum, s) => sum + (s.amount ?? 0), 0);
 
   const filtered = subscribers.filter((u) => {
     const q = search.trim().toLowerCase();
@@ -421,9 +413,7 @@ export default function AdminPageClient({ dictionary, locale }: AdminPageClientP
               { label: "Active subscriptions", value: activeSubs.length },
               {
                 label: "MRR",
-                value: new Intl.NumberFormat(undefined, {
-                  style: "currency", currency: "CAD", maximumFractionDigits: 0,
-                }).format(mrr),
+                value: formatMoney(mrrCents, "cad"),
               },
             ].map(({ label, value }) => (
               <div

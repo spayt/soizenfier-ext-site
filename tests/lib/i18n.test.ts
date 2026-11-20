@@ -4,6 +4,10 @@ import {
   getDictionary,
   translate,
   localePath,
+  getProjectParams,
+  getProjectList,
+  getProjectDetail,
+  isProjectSlug,
 } from "@/lib/i18n";
 
 // ── isLocale ──────────────────────────────────────────────────────────────────
@@ -113,5 +117,66 @@ describe("localePath", () => {
     const result = localePath("en", "about");
     // Should at minimum contain the locale prefix
     expect(result.startsWith("/en")).toBe(true);
+  });
+});
+
+// ── Translation parity ────────────────────────────────────────────────────────
+
+describe("EN/FR dictionaries", () => {
+  // Collects every leaf path with its value type ("string", "array", …).
+  function shape(value: unknown, path = ""): Record<string, string> {
+    if (Array.isArray(value)) return { [path]: `array(${value.length})` };
+    if (value && typeof value === "object") {
+      return Object.entries(value).reduce<Record<string, string>>(
+        (acc, [k, v]) => ({ ...acc, ...shape(v, path ? `${path}.${k}` : k) }),
+        {},
+      );
+    }
+    return { [path]: typeof value };
+  }
+
+  it("French has exactly the same keys (and list lengths) as English", () => {
+    expect(shape(getDictionary("fr"))).toEqual(shape(getDictionary("en")));
+  });
+
+  it("has no empty strings in either language", () => {
+    for (const locale of ["en", "fr"]) {
+      const empty = Object.entries(shape(getDictionary(locale)))
+        .filter(([path, type]) => type === "string" && translate(getDictionary(locale), path).trim() === "")
+        .map(([path]) => path);
+      expect(empty, `empty ${locale} strings`).toEqual([]);
+    }
+  });
+});
+
+// ── Projects ──────────────────────────────────────────────────────────────────
+
+describe("projects helpers", () => {
+  const dict = getDictionary("en");
+
+  it("getProjectParams returns one entry per project slug", () => {
+    const params = getProjectParams();
+    expect(params.length).toBeGreaterThan(0);
+    for (const { slug } of params) expect(isProjectSlug(slug)).toBe(true);
+  });
+
+  it("isProjectSlug rejects unknown slugs", () => {
+    expect(isProjectSlug("does-not-exist")).toBe(false);
+    expect(isProjectSlug(undefined)).toBe(false);
+  });
+
+  it("getProjectList resolves translated titles (no raw keys)", () => {
+    for (const project of getProjectList(dict)) {
+      expect(project.title).not.toMatch(/^projects\./);
+      expect(project.summary).not.toMatch(/^projects\./);
+    }
+  });
+
+  it("getProjectDetail returns translated details with features", () => {
+    const [{ slug }] = getProjectParams();
+    const detail = getProjectDetail(slug, dict)!;
+    expect(detail.slug).toBe(slug);
+    expect(detail.description).not.toMatch(/^projects\./);
+    expect(detail.features.length).toBeGreaterThan(0);
   });
 });

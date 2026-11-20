@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { readFunctionResponse } from "@/lib/functionResponse";
 
 export async function POST(req: Request) {
   const stripeFunctionUrl =
@@ -16,19 +17,27 @@ export async function POST(req: Request) {
   const body = await req.json();
   const authorization = req.headers.get("Authorization") ?? "";
 
-  const response = await fetch(
-    `${stripeFunctionUrl.replace(/\/+$/, "")}/createCustomerPortalSession`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(authorization ? { Authorization: authorization } : {}),
+  let response: Response;
+  try {
+    response = await fetch(
+      `${stripeFunctionUrl.replace(/\/+$/, "")}/createCustomerPortalSession`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(authorization ? { Authorization: authorization } : {}),
+        },
+        body: JSON.stringify(body),
       },
-      body: JSON.stringify(body),
-    },
-  );
+    );
+  } catch {
+    return NextResponse.json(
+      { error: "Could not reach billing portal service. Please try again." },
+      { status: 502 },
+    );
+  }
 
-  const data = await response.json();
+  const data = await readFunctionResponse(response);
 
   if (!response.ok) {
     return NextResponse.json(

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { readFunctionResponse } from "@/lib/functionResponse";
 
 function getFunctionsBaseUrl(): string | null {
   return (
@@ -35,7 +36,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const data = await response.json();
+  const data = await readFunctionResponse(response);
   if (!response.ok) {
     return NextResponse.json(
       { error: data?.error ?? "Verification failed." },

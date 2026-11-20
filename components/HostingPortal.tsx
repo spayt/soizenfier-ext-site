@@ -9,6 +9,7 @@ import {
   type User,
 } from "firebase/auth";
 import { firebaseAuth } from "@/lib/firebase";
+import { authErrorCode, googleSignInErrorMessage } from "@/lib/authErrors";
 import { ensureUserDocument } from "@/lib/user";
 import { translate, type TranslationDictionary } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
@@ -48,7 +49,8 @@ export default function HostingPortal({ dictionary }: HostingPortalProps) {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(firebaseAuth, provider);
     } catch (err) {
-      setError("Unable to sign in. Please try again.");
+      console.error("Google sign-in failed", authErrorCode(err), err);
+      setError(googleSignInErrorMessage(err));
     }
   };
 

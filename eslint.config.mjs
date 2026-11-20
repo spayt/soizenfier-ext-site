@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated output.
+    "coverage/**",
+    // Firebase Functions: separate project with its own tooling.
+    "functions/**",
   ]),
 ]);
 

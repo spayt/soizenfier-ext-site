@@ -7,6 +7,7 @@ import { firebaseAuth, firebaseFirestore } from "@/lib/firebase";
 import { ensureUserDocument } from "@/lib/user";
 import { type TranslationDictionary, type Locale } from "@/lib/i18n";
 import { websitePackages } from "@/lib/pricing";
+import { formatMoney } from "@/lib/format";
 import SignInDialog from "@/components/SignInDialog";
 import Link from "next/link";
 
@@ -33,6 +34,7 @@ type UserDocument = {
   role: string;
   createdAt: { seconds: number } | null;
   stripeCustomerId: string | null;
+  stripeTestCustomerId?: string | null;
   subscriptions: Record<string, SubscriptionData> | null;
 };
 
@@ -231,6 +233,8 @@ export default function ProfilePageClient({ dictionary, locale }: ProfilePageCli
   const activeSubscriptions = allSubscriptions.filter((s) => s.status !== "canceled");
   const hasSubscription = activeSubscriptions.length > 0;
   const awaitingSubscription = fromCheckout && !hasSubscription;
+  // The customer ID is stored per Stripe mode (live vs test).
+  const hasStripeCustomer = Boolean(userDoc?.stripeCustomerId || userDoc?.stripeTestCustomerId);
   const isAdministrator = userDoc?.role === "Administrator";
   const initials = getInitials(user.displayName, user.email);
 
@@ -403,10 +407,7 @@ export default function ProfilePageClient({ dictionary, locale }: ProfilePageCli
                       <div className="relative rounded-2xl bg-white/4 border border-white/8 px-5 py-3.5 flex items-center justify-between">
                         <span className="text-xs text-slate-400 font-medium">Price</span>
                         <span className="text-lg font-black text-white">
-                          {new Intl.NumberFormat(undefined, {
-                            style: "currency",
-                            currency: sub.currency?.toUpperCase() ?? "USD",
-                          }).format(sub.amount / 100)}
+                          {formatMoney(sub.amount, sub.currency)}
                           {sub.interval && (
                             <span className="text-xs font-normal text-slate-500"> / {sub.interval}</span>
                           )}
@@ -431,7 +432,7 @@ export default function ProfilePageClient({ dictionary, locale }: ProfilePageCli
                 ))}
 
                 <div className="flex flex-wrap gap-3">
-                  {userDoc?.stripeCustomerId && (
+                  {hasStripeCustomer && (
                     <button
                       type="button"
                       onClick={handleManageSubscription}
@@ -447,7 +448,7 @@ export default function ProfilePageClient({ dictionary, locale }: ProfilePageCli
                   >
                     {t.changePlan}
                   </Link>
-                  {userDoc?.stripeCustomerId && (
+                  {hasStripeCustomer && (
                     <button
                       type="button"
                       onClick={handleSync}

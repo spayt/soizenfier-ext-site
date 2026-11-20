@@ -6,9 +6,11 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   updateProfile,
+  sendPasswordResetEmail,
   GoogleAuthProvider,
 } from "firebase/auth";
 import { firebaseAuth } from "@/lib/firebase";
+import { authErrorCode, googleSignInErrorMessage } from "@/lib/authErrors";
 import { Input } from "@/components/ui/input";
 import {
   Dialog,
@@ -17,7 +19,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-type AuthStep = "signin" | "register" | "verify-code";
+type AuthStep = "signin" | "register" | "verify-code" | "reset-password" | "reset-sent";
 
 type SignInDialogProps = {
   open: boolean;
@@ -132,8 +134,9 @@ export default function SignInDialog({ open, onOpenChange }: SignInDialogProps) 
     try {
       await signInWithPopup(firebaseAuth, new GoogleAuthProvider());
       onOpenChange(false);
-    } catch {
-      setError("Google sign-in failed. Please try again.");
+    } catch (err) {
+      console.error("Google sign-in failed", authErrorCode(err), err);
+      setError(googleSignInErrorMessage(err));
     } finally {
       setLoading(false);
     }
@@ -159,6 +162,31 @@ export default function SignInDialog({ open, onOpenChange }: SignInDialogProps) 
         setError("Please enter a valid email address.");
       } else {
         setError("Sign-in failed. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ── Forgot password ───────────────────────────────────────────────────────
+  const handleResetPassword = async (e: { preventDefault(): void }) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    try {
+      await sendPasswordResetEmail(firebaseAuth, email.trim());
+      setStep("reset-sent");
+    } catch (err) {
+      const fbCode = authErrorCode(err);
+      if (fbCode === "auth/user-not-found") {
+        // Don't reveal whether an account exists for this email.
+        setStep("reset-sent");
+      } else if (fbCode === "auth/invalid-email" || fbCode === "auth/missing-email") {
+        setError("Please enter a valid email address.");
+      } else if (fbCode === "auth/too-many-requests") {
+        setError("Too many attempts. Please wait a few minutes and try again.");
+      } else {
+        setError("Could not send the reset email. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -265,6 +293,12 @@ export default function SignInDialog({ open, onOpenChange }: SignInDialogProps) 
                   value={email} onChange={setEmail} placeholder="you@example.com" />
                 <Field label="Password" id="si-password" type="password" autoComplete="current-password"
                   value={password} onChange={setPassword} placeholder="••••••••" />
+                <div className="flex justify-end -mt-1">
+                  <button type="button" onClick={() => { setStep("reset-password"); setError(null); }}
+                    className="text-xs font-medium text-slate-500 hover:text-slate-800 hover:underline">
+                    Forgot password?
+                  </button>
+                </div>
                 {error && <ErrorMsg>{error}</ErrorMsg>}
                 <SubmitBtn loading={loading}>Sign in</SubmitBtn>
               </form>
@@ -304,6 +338,51 @@ export default function SignInDialog({ open, onOpenChange }: SignInDialogProps) 
                   Sign in
                 </button>
               </p>
+            </div>
+          </>
+        )}
+
+        {/* ── Forgot password: email → reset link ── */}
+        {step === "reset-password" && (
+          <>
+            <DialogHeader>
+              <DialogTitle>Reset your password</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 pt-1">
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Enter your account email and we&apos;ll send you a link to choose a new password.
+              </p>
+              <form onSubmit={handleResetPassword} className="space-y-3">
+                <Field label="Email" id="reset-email" type="email" autoComplete="email"
+                  value={email} onChange={setEmail} placeholder="you@example.com" />
+                {error && <ErrorMsg>{error}</ErrorMsg>}
+                <SubmitBtn loading={loading}>Send reset link</SubmitBtn>
+              </form>
+              <p className="text-center text-xs text-slate-500">
+                <button type="button" onClick={() => { setStep("signin"); setError(null); }}
+                  className="font-semibold text-slate-800 hover:underline">
+                  ← Back to sign in
+                </button>
+              </p>
+            </div>
+          </>
+        )}
+
+        {step === "reset-sent" && (
+          <>
+            <DialogHeader>
+              <DialogTitle>Check your inbox</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 pt-1">
+              <p className="text-sm text-slate-500 leading-relaxed">
+                If an account exists for{" "}
+                <span className="font-semibold text-slate-800">{email.trim()}</span>, you&apos;ll
+                receive a link to reset your password in a few minutes. Remember to check your spam folder.
+              </p>
+              <button type="button" onClick={() => { setStep("signin"); setPassword(""); setError(null); }}
+                className="w-full rounded-xl bg-slate-900 py-2.5 text-sm font-semibold text-white hover:bg-slate-700 transition-colors">
+                Back to sign in
+              </button>
             </div>
           </>
         )}

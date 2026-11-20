@@ -13,5 +13,11 @@ export default defineConfig({
     setupFiles: ["./tests/setup.ts"],
     globals: true,
     include: ["tests/**/*.test.{ts,tsx}"],
+    coverage: {
+      provider: "v8",
+      include: ["app/**", "components/**", "lib/**"],
+      exclude: ["components/ui/**", "lib/firebase.ts"],
+      reporter: ["text", "html"],
+    },
   },
 });

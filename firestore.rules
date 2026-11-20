@@ -1,0 +1,55 @@
+rules_version = '2';
+
+// Only the website's own client-side accesses are allowed here.
+// Everything else (generalparameters, config, emailVerifications, messages…)
+// is reached exclusively by Cloud Functions through the Admin SDK, which
+// bypasses these rules.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', '') == 'Administrator';
+    }
+
+    // Fields a user may write on their own profile (see lib/user.ts).
+    function profileFields() {
+      return ['uid', 'email', 'displayName', 'photoURL', 'role', 'lastSeenAt', 'updatedAt', 'createdAt'];
+    }
+
+    match /users/{userId} {
+      function isOwner() {
+        return signedIn() && request.auth.uid == userId;
+      }
+
+      allow read: if isOwner() || isAdmin();
+
+      // A new profile always starts as a plain user.
+      allow create: if isOwner()
+        && request.resource.data.keys().hasOnly(profileFields())
+        && request.resource.data.uid == userId
+        && request.resource.data.role == 'User';
+
+      // Owners may refresh their profile but never change their role or
+      // anything written by the Stripe functions (subscriptions, customer IDs).
+      allow update: if isOwner()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(profileFields())
+        && request.resource.data.uid == userId
+        && request.resource.data.get('role', 'User') == resource.data.get('role', 'User');
+
+      // Administrators edit subscription details (package, domain) from /admin.
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['subscriptions']);
+
+      allow delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

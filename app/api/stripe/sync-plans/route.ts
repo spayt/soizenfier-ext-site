@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { readFunctionResponse } from "@/lib/functionResponse";
 
 export async function POST(req: Request) {
   const stripeFunctionUrl =
@@ -35,7 +36,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const data = await response.json();
+  const data = await readFunctionResponse(response);
   if (!response.ok) {
     return NextResponse.json(
       { error: data?.error ?? "Sync failed." },
